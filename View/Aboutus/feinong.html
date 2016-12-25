@@ -1,0 +1,187 @@
+<include file="./Tpl/default/Public/header.html" />
+<div class="main_boc">
+    <div style="background: #f3f3f3!important;">
+        <div class="contentbody indexcc">
+
+            <!--<div class="sliderbox">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-1.jpg) no-repeat center;"><a href=""><i class="shadow"></i></a></li>
+                        <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-2.gif) no-repeat center;"><a href=""><i class="shadow"></i></a></li>
+                        <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-3.jpg) no-repeat center;"><a href=""><i class="shadow"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>-->
+            <div class="daohang dhfixed">
+                <a href="http://zhibo.9dcj.com/"  target="_blank">热门推荐</a>
+                <a href="http://zhibo.9dcj.com/list/1"   target="_blank">股市频道</a>
+                <a href="http://zhibo.9dcj.com/list/2"   target="_blank">期货频道</a>
+                <a href="http://zhibo.9dcj.com/list/3" class='headcur'  target="_blank">贵金属频道</a>
+            </div>
+            <div class="list-con clear">
+                <div class="livehot clear">
+                    <div class="livehottag"></div>
+                    <h2>最新直播</h2>
+                    <div class="zb-fl tran"><img src="__PUBLIC__/images/1.gif" width="359" height="290"><i class="img-icons"></i></div>
+                    <ul class="list-con-ul clearfix">
+                        <foreach name="hotLive" item="item">
+                            <li data="{$item.roomid}" onClick="change_pan(this)">
+                                <div class="list-div">
+                                    <div class="list-item tran clearfix">
+                                        <if condition="$item['liveurl']">
+                                            <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"><i class="zb-icons"></i></a>
+                                            <else />
+                                            <a href="/jianjie/{$item['roomid']}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"><i class="zb-icons"></i></a>
+                                        </if>
+                                        <div class="conrightword">
+                                            <div class="conrightwordtop">{$item[roomtitle]}</div>
+                                            <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                            <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                            <div class="conrightwordclick"></div>
+                                            <div class="conrightwordbtm">
+                                                <div class="conrightwordjj"><a href="http://zhibo.9dcj.com/jianjie/{$item['roomid']}"target="_blank">简介</a></div>
+                                                <!--<p> {$item.status}</p>-->
+                                                <div class="conrightwordin">
+                                                    <if condition="$item.status eq '1'">
+                                                        <if condition="$item['liveurl']">
+                                                            <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                            <else />
+                                                            <a href="http://www.9dcj.com/{$item['roomid']}" target="_blank">点击进入</a>
+                                                        </if>
+                                                        <else/>
+                                                        <a>审核中</a>
+                                                    </if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+
+
+
+                <div class="gfhd mt">
+                    <div class="jctj_top clearfix">
+                        <div class="jctj_top_left">
+                            <i class="aa"></i>
+                            <h3>免责声明</h3>
+                        </div>
+
+                    </div>
+                    <div class="gfhd-1">
+                        <p class="mzsm">直播室播主所发表言论均代表其个人对市场所持观点，网友应充分考虑市场的高风险性，因此操作风险自担。9度财经提供此互动平台不代表认可其观点。 9度财经所有播主不提供代客理财或qq咨询等非法业务。有私下进行收费咨询或推销其他产品服务，属于非法个人行为与9度无关，请各位网友务必不要上当受骗！如发现上述违规行为可向9度客服举报。</p>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+<script>
+    function changing(){
+        document.getElementById('checkpic').src="http://www.9dcj.com/ajax/code.php?"+Math.random();
+    } ;
+    $(document).ready(function(){
+        if($.cookie('mycookie')){
+            $("#login_a").html("用户名:"+$.cookie('mycookie'));
+        }
+
+
+
+
+        $("#checkcode").click(function(){
+            $('#signup-username').val();
+            $('#signup-mobile').val();
+            $('#signup-captcha').val();
+
+            $.post("/ajax/zhuce.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                }
+            },'json');
+        });
+
+        $("#zhuce").click(function(){
+            $('#phone').val();
+            $('#quc_captcha').val();
+            $.post("/ajax/zhuces.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val(),smscode:$('#signup-smscode').val(),password:$('#signup-password').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                    if($.cookie('mycookie')){
+                        $("#login_a").html("用户名:"+$.cookie('mycookie'));
+                    }
+                }
+            },'json');
+        });
+
+        $("#loginsubmits").click(function(){
+            $.post("/ajax/login.php",{phone:$('#signin-usernames').val(),password:$('#signin-passwords').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+
+                }else{
+                    alert(data.message);
+                    $('.cd-close-form').click();
+                    if($.cookie('mycookie')){
+                        $("#login_a").html("用户名:"+$.cookie('mycookie'));
+                    }
+                    // $('#phone').val("");
+                    //$('#quc_captcha').val("");
+                }
+            },'json');
+        });
+
+
+
+
+    });
+
+</script><div style="display:none">
+    <script src="https://s4.cnzz.com/z_stat.php?id=1260105846&web_id=1260105846" language="JavaScript"></script></div><script>
+    //做一个ajax方法来请求data.php不断的获取数据
+    // $("#onre1").click(function(){
+    // jsonajax(1);
+    // });
+    function change_pan(obj)
+    {
+        var id=$(obj).attr("data");
+        jsonajax(id);
+
+    }
+
+    function jsonajax($num2){
+        $.getJSON("http://www.9dcj.com/ajax/datas.php?num="+$num2+"&jsoncallback=?",
+                function(json){
+                    console.log(json);
+                });
+    };
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+        /*$(document).scroll(function(){
+         var top=$(document).scrollTop();
+         if(top>80){
+         $(".daohang").addClass("dhfixed");
+         }else{
+         $(".daohang").removeClass("dhfixed");
+         }
+         })*/
+    });
+</script>
+</body>
+</html>

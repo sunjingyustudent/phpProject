@@ -1,0 +1,467 @@
+<include file="Public:header" />
+<div class="main_boc">
+	<div class="wrap clearfix">
+		<div class="main_fl">
+			<h2>财经头条</h2>
+			<ul class="list-item">
+				<volist name="list" id="vo" >
+					<li>
+						<a class="article-img" href="{:U('News/content',array('id'=>$vo['id']))}" target="_blank">
+
+							<php>$smeta=json_decode($vo['smeta'],true);</php>
+							<if condition="!empty($smeta['thumb'])">
+								<img src="{:($smeta['thumb'])}">
+							</if>
+						</a>
+						<div class="list-itemfr">
+							<h3><a href="{:U('News/content',array('id'=>$vo['id']))}" target="_blank">{$vo.post_title}</a></h3>
+							<p>　　{$vo.post_excerpt}</p>
+
+							<div class="list-info">
+								<div class="list-info-fl"><span class="article-source"> {$vo.post_source}</span><span class="article-date">{$vo.post_date}</span></div>
+								<div class="list-info-fr">
+									<!-- <div class="slide-like ">108</div> -->
+									<!-- <a href="http://9dcj.9dushuju.com/content-11-249-1.html" target="_blank" class="slide-comment">41</a> -->
+									<div class="slide-share" style="height: 20px;width:40px; overflow: hidden;">
+										<div id="ckepop" style=" height:20px;overflow: hidden;"><div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1472032522354" style="
+    height: 20px;
+    overflow: hidden;
+"><a href="{:U('News/content',array('id'=>$vo['id']))}" class="bds_more" data-cmd="more" style="
+    float: left; 
+    font-size: 12px; 
+     padding-left: 0px; 
+     line-height: 20px;
+color:#fff;	 
+     height: 16px; 
+     background-image: url(); 
+     background-repeat: no-repeat; 
+    cursor: pointer;
+     margin: 0px; ">转发到</a><div><a href="{:U('News/content',array('id'=>$vo['id']))}" class="bds_more" data-cmd="more" style="
+    float: left; 
+    font-size: 12px; 
+     padding-left: 0px; 
+     line-height: 20px;
+color:#fff;	 
+     height: 16px; 
+     background-image: url(); 
+     background-repeat: no-repeat; 
+    cursor: pointer;
+     margin: 0px; "></a></div>
+										</div>
+											<hr>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</volist>
+
+
+
+			</ul>
+			<div class="show-more">更多</div>
+		</div>
+		<div class="main_fr">
+			<h3>热门推荐</h3>
+			<div class="play_right_main mb">
+				<ul>
+					<volist name="recommend" id="revo"  key="n">
+					<li>
+						<a href="{:U('News/content',array('id'=>$revo['id']))}" target="_blank">
+							<div class="ranking clearfix">
+								<div class="ranking_a">
+									<php>$smeta=json_decode($revo['smeta'],true);</php>
+									<if condition="!empty($smeta['thumb'])">
+										 <img src="{:($smeta['thumb'])}">
+									</if>
+									<span class="hot">{$n}</span>
+								</div>
+								<div class="ranking_b">
+									<em class="em ellipsis">{$revo.post_title}</em>
+									<p class="tb-cn">{$revo.post_excerpt}
+										                                 </p>
+								</div>
+							</div>
+						</a>
+					</li>
+					</volist>
+
+
+
+				</ul>
+			</div>
+		</div>
+
+</div>
+
+<include file="Public:footer"/>
+	<script>
+		/*
+		 *  Javascript文件：waterfall.js
+		 */
+		$(".show-more").click(function(){
+			jsonajax();
+			console.log('hello');
+		})
+
+
+
+
+
+
+
+
+		//这里就要进行计算滚动条当前所在的位置了。如果滚动条离最底部还有100px的时候就要进行调用ajax加载数据
+		// $(window).scroll(function(){
+		//此方法是在滚动条滚动时发生的函数
+		// 当滚动到最底部以上100像素时，加载新内容
+		// var $doc_height,$s_top,$now_height;
+		//$doc_height = $(document).height();        //这里是document的整个高度
+		//$s_top = $(this).scrollTop();            //当前滚动条离最顶上多少高度
+		//$now_height = $(this).height();            //这里的this 也是就是window对象
+		//if(($doc_height - $s_top - $now_height) < 100) jsonajax();
+		// });
+
+
+		//做一个ajax方法来请求data.php不断的获取数据
+		var $num6 = Number($(".list-item li").size());
+		// console.log("start"+$num6);
+		var $catid = "11";
+		//console.log("11");
+		function jsonajax(){
+			$.getJSON("http://www.9dcj.com/ajax/listdata.php?catid=11&num="+$num6+"&jsoncallback=?",
+					function(json){
+
+						var neirou,$row,iheight,temp_h;
+						for(var i=0,l=json.length;i<5;i++){
+							neirou = json[i];    //当前层数据
+
+							$row = $(".list-item"); //此时$row是li对象了
+							var time=GetDateStr(neirou.inputtime);
+							if(neirou.thumb)
+							{
+								var neithumb=neirou.thumb;
+							}else{
+								var randpic=fRandomBy(1,31);
+								// console.log(randpic);
+								var neithumb="http://www.9dcj.com/statics/images/sj/"+randpic+".jpg"
+							}
+							var copyfromarr = ["金融界", "七禾网", "新浪财经", "东方财富网", "腾讯财经", "网易财经"];
+							var randomarr=fRandomBy(0,5);
+
+							//console.log($num6);
+							$item = $('<li><a class="article-img" href="'+neirou.url+'" ><img width="180" height="120" src="'+neithumb+'" /></a><div class="list-itemfr"><h3><a href="'+neirou.url+'" >'+neirou.title+'</a></h3><p>'+neirou.description+'</p><div class="list-info"><div class="list-info-fl"><span class="article-source">'+copyfromarr[randomarr]+'</span><span class="article-date">'+time+'</span></div><div class="list-info-fr"><div class="slide-share" style="height: 20px;width:40px; overflow: hidden;"> <div id="ckepop" style=" height:20px;overflow: hidden;"><div class="bdsharebuttonbox bdshare-button-style0-16"  data-bd-bind="1464580045608" style="height: 20px;overflow: hidden;"><a href="#" class="bds_more" data-cmd="more" style="float: left; font-size: 12px; padding-left: 0px; line-height: 20px;color:#fff;   height: 16px; background-image: url(); background-repeat: no-repeat;cursor: pointer;margin: 0px; ">转发到<div></a></div></div><hr/></div></div></div></div></div></li>').hide();
+
+							$row.append($item);
+							$item.fadeIn();
+						}
+						$num6=Number($(".list-item li").size());
+						// console.log("end"+$num6);
+
+					});
+		}
+		function getLocalTime(nS) {
+			return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+		}
+		function GetDateStr(AddDayCount) {
+			var dd = new Date(parseInt(AddDayCount)* 1000);
+			// dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+			var y = dd.getFullYear();
+			var m = dd.getMonth()+1;//获取当前月份的日期
+			var d = dd.getDate();
+			var h= dd.getHours();//获取小时数(0-23)
+			var mi= dd.getMinutes();//获取分钟数(0-59)
+			if (m >= 1 && m <= 9)
+			{
+				m = "0" + m;
+			}
+			if (d >= 0 && d <= 9) {
+				d = "0" + d;
+			}
+			if (h >= 0 && h <= 9) {
+				h = "0" + h;
+			}
+
+			return y+"-"+m+"-"+d+" "+h+":"+mi;
+		}
+
+		function fRandomBy(under, over){
+			switch(arguments.length){
+				case 1: return parseInt(Math.random()*under+1);
+				case 2: return parseInt(Math.random()*(over-under+1) + under);
+				default: return 0;
+			}
+		}
+	</script>
+<!--search-->
+<div class="search-more">
+	<div class="search-wrapper">
+		<div class="search-itemset">
+			<dl class="filter-box clearfix">
+				<dt>综合排序</dt>
+				<dd>
+					<ul>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">最多点击</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">最新发布</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">最多收藏</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">最多分享</a></li>
+					</ul>
+				</dd>
+			</dl>
+			<dl class="filter-box clearfix">
+				<dt>全部分类</dt>
+				<dd>
+					<ul>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">期货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">期货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">期货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">期货</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">现货</a></li>
+					</ul>
+				</dd>
+			</dl>
+			<dl class="filter-box clearfix">
+				<dt>全部时长</dt>
+				<dd>
+					<ul>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">10分钟以下</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">10-30分钟</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">30-60分钟</a></li>
+						<li><a href="http://9dcj.9dushuju.com/list-11-1.html">60分钟以上</a></li>
+					</ul>
+				</dd>
+			</dl>
+			<div class="btn-box-record"><input value="搜索" class="c-search-btns" type="submit"></div>
+		</div>
+		<!--<div class="jctj">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+
+                    <h3>热门视频</h3>
+
+                </div>
+
+            </div>
+            <div class="jctj_bottom">
+                <ul class="clearfix">
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="last">
+                            <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="last">
+                            <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="last">
+                            <a href="">
+                            <div class="jctj_bottom_a">
+                                <img src="images/sy/1.jpg">
+                                <span>改按时就嗲姐弟俩索拉卡...</span>
+                                <div class="list-right-top-b"><b class="icos"><img src="images/sy/2.png"></b></div>
+                            </div>
+                            <div class="jctj_bottom_b clearfix">
+                                <div class="name">红色金融</div>
+                                <div class="llcs">3891</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+		<div class="section-recent_sub">
+			<h2>大家正在搜</h2>
+			<ul>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#行情走势#行情总结#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#今日行情#走势解读#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#最新行情#最新研报#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#解盘分析#最新提醒#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#盘中解读#专家提示#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#行情预测#专家分析#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#盘前提示#专家解盘#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#走势解析#操作建议#</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html">大家都在搜#盘后总结#即时价格#</a></li>
+			</ul>
+		</div>
+		<div class="section-hotwords_more">
+			<h2>热门搜词</h2>
+			<ul class="hot-search">
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">今日最新提示</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">今日最新行情解读</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">盘中走势分析</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">盘后行情汇总</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">行情走势图分析</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">价格运行走势</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">早评（午评、晚评）提示</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">财经数据咨询</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">大宗商品知识</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">非农数据解析</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">非农操作技巧</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">趋势线战法</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">实战技巧</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">非农操作策略</a></li>
+				<li><a href="http://9dcj.9dushuju.com/list-11-1.html" class="">K线形态技术战法</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".inp-text").bind("focus",function(){
+		$(this).animate({width:"160px"},"slow")
+		$(".search-more").css("display","block");
+		$(".main_boc").css("display","none");
+	})
+	$(".inp-text").bind("blur",function(){
+		$(this).animate({width:"100px"},"slow")
+		$(".search-more").css("display","none");
+		$(".main_boc").css("display","block");
+	})
+</script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["qzone","tsina","weixin","tqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+</body></html>

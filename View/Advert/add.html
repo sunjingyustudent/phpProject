@@ -1,0 +1,75 @@
+<include file="Public:header" />
+
+    <!--左边导航部分-->
+   
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody">
+			<div class="consume_nr">
+        	<div class="shark_tit earnings_top clearfix">
+               <p class="consume_tit"><i class="consume_tit_iconbo"></i>广告栏位</p>
+          </div>
+            
+      <div>
+        <!-- <form> -->
+          <div>
+              <div class="choose_name">
+                  <div class="name_cur clearfix">
+                      <label class="control-label">广告名称：</label>
+                      <div class="write_name">
+                          <input name="saname" type="text" class="form_control" id="saname">
+                      </div>
+                  </div>
+                  <div class="name_new clearfix">
+                      <label class="control-label">广告路径：</label>
+                      <div class="write_name">
+                          <input name="saurl" type="text" class="form_control" id="saurl">* 路径格式如:http://www.abc.com
+                      </div>
+                  </div>
+                  <div class="largeBtn clearfix">
+                      <label class="control-label"></label>
+                      <button id="modify_username_submit" type="submit" class="primary_button01 btn btn-primary js-ajax-submit" onclick="addad()"><span>确认</span></button>
+                  </div>
+                  <div class="name_txt">
+                      <h4>说明：</h4>
+                      <div class="txt">
+                          <p>1.每人最多能添加广告1-3条</p>
+                      </div>
+                  </div>
+              </div>
+            </div> 
+        <!-- </form> -->
+        <script>
+        function addad(){
+        $.ajax({
+            url:"{:U('Advert/adddo')}",
+            type:"post",
+            data:{"saname":$("#saname").val(),"saurl":$("#saurl").val()},
+            success:function(data){
+                if(data==1){
+                    alert("添加成功！");
+                    location.href="{:U('Advert/index')}";
+                }
+                if(data==2){
+                    alert("添加失败");
+                }
+            },
+            error:function(data){
+                alert("当前系统繁忙，请稍后再试！")
+            }
+        });
+        
+    }
+
+        </script>
+      </div>
+        <p class="page"></p>
+    </div>
+</div>
+</div>
+
+
+    </div>
+</div>
+    </div>

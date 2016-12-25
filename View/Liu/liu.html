@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{
+            width:800px;
+            margin: 0 auto;
+            padding: 100px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <volist name="list" id="vo">
+        <div class="videos">
+            <a href="{:U('Liu/videodetail',array('streamname'=>$vo['streamname']))}">
+                <img src="{$vo.thumb}" alt="{$vo.title}" height="140" width="240">
+                <div class="bottom_videos">
+                    <span>房间id：</span><span>{$vo.roomid}</span>
+                    <span>直播流：{$vo.streamname}</span>
+                    <span>房间标题：{$vo.roomtitle}</span>
+                    <span>房间描述：{$vo.rdescription}</span>
+                </div>
+
+            </a>
+
+        </div>
+    </volist>
+</div>
+</body>
+</html>

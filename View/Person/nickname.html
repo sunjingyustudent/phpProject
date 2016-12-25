@@ -1,0 +1,57 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+    
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody" style="overflow: inherit;">
+
+
+        <div class="user_myprofile">
+            <ul class="togglebtn clearfix" id="js_tab_ul">
+
+                <li><a href="{:U('Person:index')}"  id="js_info">基本资料<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:changeIcon')}"  id="js_avatar">修改头像<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:updatepwd')}" id="js_pwd">修改密码<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/nickname')}" id="js_mod_username" class="current">修改昵称<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/cpbindphone')}" id="js_phone">绑定手机<div class="arrow01"></div></a></li>
+                <li id="emailbut" ><a href="{:U('Person:updateperson')}" id="js_mod_info">完善资料<div class="arrow01"></div></a></li>
+				<li ><a href="{:U('Person/changeemail')}" id="js_mod_email" class="emil">修改邮箱<div class="arrow01"></div></a></li>
+            </ul>
+
+            <div class="myprofile_main basics clearfix data_cont" id="js_info_div">
+<form action="{:U('Person/updatenickname')}" method="post">
+<div>
+              <div class="choose_name">
+                  <div class="name_cur clearfix">
+                      <label class="control-label">当前昵称：</label>
+                      <div class="txt" id="old_user">{$usernick}</div>
+                  </div>
+                  <div class="name_new clearfix">
+                      <label class="control-label">新昵称：</label>
+                      <div class="write_name">
+                          <input name="username" type="text" class="form_control" id="username" value="{$list[balance]}">
+                      </div>
+                  </div>
+                  <div class="largeBtn clearfix">
+                      <label class="control-label"></label>
+                      <button id="modify_username_submit" type="submit" class="primary_button01 btn btn-primary js-ajax-submit"><span>确认修改</span></button>
+                  </div>
+                  <div class="name_txt">
+                      <h4>说明：</h4>
+                      <div class="txt">
+                          <p>1.修改昵称后，请用新昵称和原来的密码登录，旧的昵称将无法登录。</p>
+                          <p>2.新昵称需符合注册规范，可使用数字，字母，汉字，不超过5-30个字符。</p>
+                          <p>3.如遇服务器更新或其它问题导致昵称修改失败，请<a href="" target="_blank">联系客服</a>。</p>
+                      </div>
+                  </div>
+              </div>
+				</div> </form>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />

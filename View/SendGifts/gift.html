@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+        function connect() {
+            // 创建websocket
+            ws = new WebSocket("ws://120.26.128.212:7272");
+            // 当socket连接打开时，输入用户名
+           ws.onopen = onopen;
+            // 当有消息时根据消息类型显示不同信息
+            ws.onmessage = onmessage;
+            ws.onclose = function() {
+                console.log("连接关闭，定时重连");
+                connect();
+            };
+            ws.onerror = function() {
+                console.log("出现错误");
+            };
+        }
+
+        function onopen()
+        {
+
+            ws.send('{"type":"login","accesstoken":"wht1-token-450041672289483b6a7d556d45987f51","roomid":"132","w":"sdf"}');
+
+        }
+
+        function onmessage(e){
+            var data = eval("("+e.data+")");
+            switch(data['type']){
+
+                case 'login':
+                    // alert(e.data);
+                    break;
+                case 'gifts':
+                    // console.log(e.data);
+                    // alert(e.data);
+                    break;
+                case 'sendredpacket':
+                    // console.log(e.data);
+                    // alert(e.data);
+                    break;
+                case 'getredpacket':
+                    alert(e.data);
+                    break; 
+                case 'chat':
+                    chat(data["nickname"],data["content"]);
+                    break;
+              /*  default:
+                    // console.log(e.data);
+                    // alert(e.data);
+                    break;*/
+
+            }
+        }
+
+
+
+    </script>
+    <style type="text/css">
+        .gift_box{
+            width: 700px;
+            border: 2px #1a1a1a solid;
+            box-shadow: 45px 45px 45px #ccc;
+            margin: 100px auto;
+        }
+        .fahongbao{
+            width: 700px;
+            height: 500px;
+            margin: 100px auto;
+            position: relative;
+            background-color: #ccc;
+        }
+       .redpackage{
+           position: relative;
+          left:-9557px;
+           top:-9954px;
+
+       }
+        .hongbao{
+            display: block;
+            width: 100px;
+            height:100px;
+            border-radius: 50px;
+            background-color: #1a1a1a;
+            font-size: 12px;
+            text-align: center;
+            line-height: 100px;
+            color: #fff;
+        }
+        .left{
+            width: 50%;
+            float: left;
+        }
+        .right{
+            width: 50%;
+            height:900px;
+            float: left;
+            background-color: #ccc;
+            overflow: scroll;
+        }
+        .grab{
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin-left: 100px;
+        }
+        .grab img{
+            width: 100px;
+            height:100px;
+        }
+    </style>
+
+</head>
+<body onload="connect();">
+<div class="left">
+<div class="gift_box" id="gift_box" >
+
+        <img src="__PUBLIC__/images/gifts/kanduo.png" width="100" height="100" alt="看多,1">
+        <img src="__PUBLIC__/images/gifts/flower.png" width="100" height="100" alt="鲜花,3">
+        <img src="__PUBLIC__/images/gifts/zan.png" width="100" height="100" alt="点赞,2">
+        <img src="__PUBLIC__/images/gifts/kankong.png" width="100" height="100" alt="看空,1">
+        <img src="__PUBLIC__/images/gifts/shensuanzi.png" width="100" height="100" alt="神算子,66">
+        <img src="__PUBLIC__/images/gifts/jinhuotong.png" width="100" height="100" alt="金话筒,88">
+        <img src="__PUBLIC__/images/gifts/xiangbin.png" width="100" height="100" alt="香槟,880">
+        <img src="__PUBLIC__/images/gifts/82lafei.png" width="100" height="100" alt="82年拉菲,1800">
+        <img src="__PUBLIC__/images/gifts/money.png" width="100" height="100" alt="财气冲天,166">
+        <img src="__PUBLIC__/images/gifts/moneyperson.png" width="100" height="100" alt="财神庇佑,180">
+        <img src="__PUBLIC__/images/gifts/zhangsheng.png" width="100" height="100" alt="掌声,1">
+
+
+
+</div>
+<div id="fahongbao" class="fahongbao">
+    <span class="hongbao" id="hongbao">发红包</span>
+    <div id="redpackage" width="100px" class="redpackage">
+        <span>红包金额：</span><input type="text" id="money" value=""/>
+        <span>红包个数：</span><input type="text" id="count" value=""/>
+        <button id="sendredpackage">发送红包</button>
+    </div>
+</div>
+<!-- 抢红包 开始-->
+<div class="grab">
+    <img src="__PUBLIC__/images/grab.png" id="getredpacket">
+</div>
+<!-- 抢红包结束 -->
+
+
+</div>
+
+<div class="right" id="right">
+
+</div>
+<input type="text" id="chatmsg" value=""/>
+<button id="sendmsg">发送</button>
+
+</body>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">
+    var hongbao=document.getElementById("hongbao");
+    var redpackage=document.getElementById("redpackage");
+    hongbao.onclick=function(){
+        redpackage.style.cssText="postion:relative;top:0px;left:0px";
+    }
+
+
+
+    sendredpackage.onclick=function(){
+        redpackage.style.cssText="postion:relative;top:-1000px;left:-1000px";
+        var money=document.getElementById("money").value;//红包总金额
+        var count=document.getElementById("count").value;//红包个数：
+
+        ws.send('{"type":"sendredpacket","amount":"'+money+'","webcastid":"1","num":"'+count+'"}');
+
+    }
+
+    // 抢红包
+    var getredpacket = document.getElementById('getredpacket');
+    var list = [];
+    var iplist = [];
+    getredpacket.onclick = function(){
+        if (iplist.length!=0 && iplist.indexOf(returnCitySN["cip"]) > -1) {
+            alert("请不要重复抢红包！");
+            return;
+        }
+        iplist[iplist.length] = returnCitySN["cip"];
+        alert("1");
+        
+        var money=10;//红包总金额,,,需要验证金额格式
+        var count=5;//红包个数：需要验证格式 >10    < 金额*100
+        var minmoney = 0.01;
+
+        //判断红包是否抢完
+        if (list.length >= count) {
+            alert("红包抢完啦");
+            return;
+        }
+
+        //判断最后一个包
+        if (list.length == (count-1)) {
+            var money_this = money;
+            for (var i = 0; i < (count-1) ;i++)
+            {
+                if (i<list.length)
+                {
+                    money_this -= list[i];
+                }
+            }
+            money_this = Math.round(money_this*100)/100;
+            //下面有注视
+            alert('{"type":"getredpacket","amount":"'+money_this+'","webcastid":"1","num":"'+count+'"}');
+            list[list.length]=money_this;
+            return;
+        }
+
+        //第1-倒数第二个包
+        if (list.length >=0 && list.length<(count-1))
+        {
+            var money0 = money;
+            for (var i = 0; i < count ;i++)
+            {
+                if (i<list.length)
+                {
+                    money0 -= list[i];
+                    continue;
+                }
+                else
+                {
+                    money0 = money0*60/100;
+                }
+                break;
+            }
+            var money_this = Math.round(Math.random()*(money0*100-(count-list.length-1)))/100;
+            if (money_this == 0) money_this=minmoney;
+            //下面这行 num是第几个红包   amount 是抢到的金额
+            alert('{"type":"getredpacket","amount":"'+money_this+'","webcastid":"1","num":"'+(list.length+1)+'"}');
+            list[list.length]=money_this;
+            return;
+        }
+        alert("error");
+    }
+</script>
+<script type="text/javascript">
+    var gift_box=document.getElementById("gift_box");
+    var imgs=gift_box.getElementsByTagName("img");
+    for(var i=0;i<imgs.length;i++){
+        imgs[i].onclick=function(){
+
+       var giftbox=this.getAttribute("alt");
+
+            strs=giftbox.split(",");
+            var giftprice=strs[1];
+
+            var giftname=strs[0];
+
+
+           ws.send('{"type":"gifts","touserid":"2","webcastkey":"1","webcastid":"1","giftid":"1","giftprice":"'+giftprice+'","giftname":"'+giftname+'"}');
+          alert("我给主播送了一个价值"+giftprice+"元的"+giftname);
+        }
+    }
+
+
+</script>
+
+<script type="text/javascript">
+    var right=document.getElementById("right");
+
+    function chat(nick,content){
+        var divcontent = document.createElement('div');
+        divcontent.style.cssText="color:#000";
+        divcontent.innerHTML =nick+"说："+content;
+        right.appendChild(divcontent);
+    }
+
+</script>
+
+<script type="text/javascript">
+    var sendmsg=document.getElementById("sendmsg");
+
+
+    sendmsg.onclick=function(){
+        var chatmsg=document.getElementById("chatmsg").value;//获取聊天信息
+
+        ws.send('{"type":"chat","content":"'+chatmsg+'","webadress":"2","webcastid":"1"}');
+    }
+
+</script>
+</html>

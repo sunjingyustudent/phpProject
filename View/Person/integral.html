@@ -1,0 +1,109 @@
+<include file="./Tpl/default/Public/header.html" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/appweb.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css">
+
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/js/jquery.SuperSlide.2.1.js"></script>
+<script src="__PUBLIC__/js/jquery.tabso_yeso.js"></script>
+<script src="__PUBLIC__/js/jquery.flexslider-min.js"></script>
+<script src="__PUBLIC__/js/main.js"></script>
+
+<script src="__PUBLIC__/js/share.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/js/share_style0_16.css">
+
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/common.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/user_css.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/login.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/user_css.css">
+    <!--左边导航部分-->
+    <div id="wrap" class="clearfix">
+        <div class="live_wrap clearfix">
+            <div class="u_header">
+                <h1 class="fl">个人中心</h1>
+                <a href="http://www.9dcj.com" class="glyphicon01 glyphicon01_back fr"  target="_blank">返回首页</a>
+            </div>
+            <div class="u_main clearfix">
+
+                <div class="u_nav">
+                    <ul>
+                        <li><a href="{:U('Person/index')}" ><i class="u_nav_icon1"></i>我的资料</a></li>
+                        <li><a href="{:U('Subscribe/subscribe')}" class="current"><i class="u_nav_icon2"></i>订阅与历史</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon3"></i>消费记录</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon4"></i>积分记录</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon4"></i>系统消息</a></li>
+                        <li><a href="/member/anchor/recruit"><i class="u_nav_icon5"></i>主播认证</a></li>
+                        <li class="js_u_nav">
+                            <a href="javascript:;"><i class="u_nav_icon6"></i>主播相关 <b></b> </a>
+                            <dl >
+                                <dd><a href="/room/my/gift_profit" >房间管理</a></dd>
+                                <dd><a href="/room/my/gift_profit" >直播收益</a></dd>
+                                <dd><a href="/room/my/show" >直播记录</a></dd>
+                                <dd><a href="/room/my/room_stat" >直播数据统计</a></dd>
+                                <dd><a  href="/room/my" >直播设置</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+
+                <script type="text/javascript">
+                    $(function(){
+                        $(".js_u_nav a").click(function(){
+                            if(!$(this).siblings('dl').is(":animated")){
+
+                                if( !$(this).find('b').attr('class') ){
+                                    $(this).find('b').addClass('cur');
+                                }else{
+                                    $(this).find('b').removeClass('cur');
+                                }
+                                $(this).siblings('dl').slideToggle();
+                            }
+                        });
+                    })
+                </script>
+    <!--右侧部分-->
+    <div class="u_mainbody">
+			<div class="consume_nr">
+        	<div class="shark_tit earnings_top clearfix">
+                            <p class="consume_tit"><i class="consume_tit_icon"></i>积分记录</p>
+            </div>
+			<div class="summary clearfix">
+				<div class="item valid">
+					<span class="desc">可用的积分</span>
+					<span class="point">89</span>
+				</div>
+				<div class="item expired-soon">
+					<span class="desc">将要过期的积分</span>
+					<span class="point" style="color: rgb(177, 0, 15);">89</span>
+					<span class="date">(将于2016.12.31过期)</span>
+				</div>
+				<div class="item exchange">
+					<a href="" target="_blank">兑换超值商品与优惠劵</a>
+				</div>
+			</div>
+			<table cellspacing="0" cellpadding="0" class="aui_room_table">
+				<thead>
+					<tr>
+						<th width="20.5%">来源/用途</th>
+						<th width="28.5%">积分变化</th>
+						<th width="26.5%">日期</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+			<tbody>
+				   <tr><td colspan="4" style="text-align: center">暂无数据</td></tr>                                
+			</tbody>
+		</table>
+        <p class="page"></p>
+    </div>
+</div>
+</div>
+
+
+    </div>
+</div>
+    </div>

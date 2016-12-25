@@ -1,0 +1,106 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+<include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody">
+			<div class="consume_nr">
+        	<div class="shark_tit earnings_top clearfix">
+              <p class="consume_tit"><i class="consume_tit_iconbo"></i>主播申请</p>
+            
+          </div>
+          <a class="addad" onclick="sq()">机构申请</a>
+          <a class="addad" onclick="sq1()">主播申请</a>
+          <script>
+          function sq(){
+    
+            $.ajax({
+                    url:"{:U('LiveHall/organization')}",
+                    type:"post",
+                    success:function(data){
+                        if (data == '-1') {
+                            alert('请先登录');
+                        }else if(data=='-2'){
+                            alert('您已经申请过个人直播不能进行机构主播申请');
+                            // return false;
+                        }else if(data=="-3"){
+                            alert("您已提交申请,到个人中心查看审核结果");
+                        } else {
+                            location.href="{:U('LiveHall/organization')}"
+                        }
+                    },
+                    error:function(data){
+                        alert("当前系统繁忙，请稍后再试！")
+                    }
+                });
+        }
+        function sq1(){
+            
+            $.ajax({
+                    url:"{:U('LiveHall/person')}",
+                    type:"post",
+                    success:function(data){
+                        if (data == '-1') {
+                            alert('请先登录');
+                        }else if(data=='-2'){
+                            alert('您已提交申请,到个人中心查看审核结果');
+                            // return false;
+                        }else if(data=="-3"){
+                            alert("您已经申请过机构直播不能进行个人主播申请");
+                        } else {
+                            location.href="{:U('LiveHall/person')}"
+                        }
+                    },
+                    error:function(data){
+                        alert("当前系统繁忙，请稍后再试！")
+                    }
+                });
+        }
+
+          </script>
+            <div>
+            <table width="" border="1" cellpadding="10" cellspacing="10">
+            <tr>
+              <th scope="col">名称</th>
+              <th scope="col">状态</th>
+            </tr>
+            
+            <tr>
+              <td>{$data['name']}</td>
+              <td>
+                <if condition="$data['status'] eq 1">
+                审核通过
+                <elseif condition="$data['status'] eq 2" />
+                审核未通过
+                  <if condition="$data['type'] eq 1">
+                    <a href="http://zhibo.9dcj.com/index.php/Index/organizationedit/userid/{$list['userid']}">修改</a>
+                    <else />
+                    <a href="http://zhibo.9dcj.com/index.php/Index/personedit/userid/{$list['userid']}">修改</a>
+                  </if>
+				  <br/>
+				  <if condition="empty($data['remark']) eq true">
+     
+                    <else />
+                    <span>原因：<br/>{$data['remark']}</span>
+                  </if>
+				  
+                <else />
+                正在审核中,请耐心等待
+                </if>
+              </td>
+            </tr>
+          </table>
+            </div>
+        <p class="page"></p>
+    </div>
+</div>
+</div>
+
+
+    </div>
+</div>
+    </div>
+	<include file="./Tpl/default/Public/footer.html" />
+	</body>
+	</html>

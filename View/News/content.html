@@ -1,0 +1,74 @@
+<include file="./Tpl/default/Public/header.html" />
+<div class="main_boc">
+    <div class="wrap clearfix">
+        <div class="main_fl">
+            <h2><a href="http://www.9dcj.com">首页</a>&gt;<a href="http://toutiao.9dcj.com/">财经头条</a></h2>
+            <div class="play">
+                <h3 class="play-title text">{$content.post_title}</h3>
+                <span class="artcle-date"><i></i>时间：{$content.post_date}  来源： {$content.post_source}<!--  作者：9ducj--></span>
+                <div id="ckepop" class="shaw"><div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1470818905969"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a></div>
+                    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":
+
+                    {"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement
+                    ('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></div>
+                <div class="play-jj">
+                    <p> {$content.post_excerpt}  </p>
+                </div>
+
+            </div>
+            <div class="news_cont">
+               {$content.post_content}
+            </div>
+            <div style="width:100%; line-height:24px; color: #999;"><span style="font-weight:bold;">【免责声明】</span>本文仅代表作者本人观点，与9度网无关。9度网站不对所包含内容的准确性、可靠性或完整性提供任何明示或暗示的保证，对文中陈述、观点判断保持中立。请读者仅作参考，并请自行承担全部责任。</div>
+            <div class="page clearfix">
+                 <php>
+                    if($front){
+                </php>
+                <a href="{:U('News/content',array('id'=>$front['id']))}" class="pagefl">上一篇：<span>{$front.post_title}</span></a>
+                <php>}</php>
+                <php>
+                    if($after){
+                </php>
+                  <a href="{:U('News/content',array('id'=>$after['id']))}" class="pagefl">下一篇：<span>{$after.post_title}</span></a>
+
+            <php>}</php>
+               
+            </div>
+
+            <div id="SOHUCS" sid="content_11-251-1" ></div>
+        </div>
+
+        <div class="main_fr">
+            <h3>热门推荐</h3>
+            <div class="play_right_main mb">
+                <ul>
+                    <volist name="recommend" id="revo"  key="n">
+                        <li>
+                            <a href="http://www.9dcj.com/content/{$revo['id']}" target="_blank">
+                                <div class="ranking clearfix">
+                                    <div class="ranking_a">
+                                        <php>$smeta=json_decode($revo['smeta'],true);</php>
+                                        <if condition="!empty($smeta['thumb'])">
+                                            <img src="{:($smeta['thumb'])}">
+                                        </if>
+                                        <span class="hot">{$n}</span>
+                                    </div>
+                                    <div class="ranking_b">
+                                        <em class="em ellipsis">{$revo.post_title}</em>
+                                        <p class="tb-cn">{$revo.post_excerpt}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+
+
+        </div></div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+</body>
+</html>

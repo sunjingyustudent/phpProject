@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/renzheng/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/renzheng/css/base.css">
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/zepto.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/iscroll-zoom.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/script.js"></script>
+</head>
+<body>
+<div class="main clearfix">
+	<div class="main-left">
+		<div class="main-left-tit">
+			<em>维权中心</em>
+		</div>
+		<div class="main-left-cen">
+			<div class="main-left-cen-a">
+				<span>填写举报内容</span>
+				<em><img src="__PUBLIC__/renzheng/images/bg.png"></em>
+				官方审核
+				<em><img src="__PUBLIC__/renzheng/images/bg.png"></em>
+				<b>完成</b>
+			</div>
+			<div class="main-left-cen-b">
+				<div class="box clearfix">
+				<div class="shm clearfix">
+					<div class="piv"><img src="__PUBLIC__/renzheng/images/err.jpg"></div>
+					<div class="shr">
+						<p>1.请提供充分的证据以确保举报成功，请珍惜您的会员权利，帮助店小二更好管理网站；</p>
+						<p>2.举报仅针对会员本身；</p>
+						<p>3.举报盗用图片、钓鱼网站举报、中奖信息网站举报；</p>
+						<p>4.针对会员欺诈行为，您可以在此举报，，非上述情况：请联系客服。</p>
+						
+					</div>
+				</div>
+					<form action="{:U('Live/candel',array('roomid'=>$roomid))}" method="post">
+					<div class="enroll clearfix">
+						<div class="tit">举报人联系电话：</div>
+						<div class="ipt"><input class="reg_ipt" type="text" name="usertel" /></div>
+					</div>
+					<div class="enroll clearfix">
+						<div class="tit">举报原因：</div>
+						<div class="ipt"><textarea name="reason" class="jbtext"></textarea></div>
+					</div>
+					<div class="sub">
+						<button class="subs">提    交</button>
+						
+					</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="main-right">
+		<h1>免责声明</h1>
+		<div class="main-right-new">
+			<ul>
+				<li>1、直播室播主所发言论均代表七个人对市场所持观点，网友应充分考虑市场的高风险性，因此操作风险自担。</li>
+				<li>2、9度直播提供此互动平台不代表认可其观点。</li>
+				<li>3、9度直播所有播主不提供待客理财或QQ咨询等非法业务。</li>
+				<li>4、有私下进行收费咨询或推销其他产品服务，属于非法个人行为与9度无关，请各位网友务必不要上当受骗！如发现上述违规行为可向9度客服举报。</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<include file="./Tpl/default/Public/header.html" />
+<div class="main_boc">
+    <div class="ban">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2; background: url(http://www.9dcj.com/Public/images/9ducj/ban-1.jpg) 50% 0px no-repeat;" class="flex-active-slide"><a href=""><i class="shadow"></i></a></li>
+                <!--  <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-2.jpg) 50% 0 no-repeat;"></li>
+                  <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-1.jpg) 50% 0 no-repeat;"></li>
+                  <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-2.jpg) 50% 0 no-repeat;"></li>
+                  <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-1.jpg) 50% 0 no-repeat;"></li>-->
+            </ul>
+            <ol class="flex-control-nav flex-control-paging"></ol><ul class="flex-direction-nav"><li><a class="flex-prev flex-disabled" href="http://www.9dcj.com/list-25-1.html#" tabindex="-1"></a></li><li><a class="flex-next flex-disabled" href="http://www.9dcj.com/list-25-1.html#" tabindex="-1"></a></li></ul></div>
+    </div>
+
+    <div class="daohang viplay">
+        <a href="/sxtvideo/6" target="_blank">精彩视频</a>
+        <a href="/sxtvideo/7" target="_blank">数据专区</a>
+        <a href="/sxtvideo/8" target="_blank">实战教学</a>
+        <a href="/sxtvideo/9" target="_blank">基础教学</a>
+
+    </div>
+    <div class="listsxt">
+        <div class="lists_box">
+            <div class="ypo clearfix">
+                <div class="jctj_top clearfix">
+                    <div class="jctj_top_left">
+                        <i></i>
+                        <if condition="$type eq 6">
+                            <h3>精彩视频</h3>
+                            <elseif condition="$type eq 7" />
+                            <h3>数据专区</h3>
+                            <elseif condition="$type eq 8" />
+                            <h3>实战教学</h3>
+                            <else />
+                            <h3>基础教学</h3>
+                        </if>
+                    </div>
+                </div>
+            </div>
+            <div class="lists clearfix">
+                <ul class="play pvml clearfix">
+                    <volist name="Dataspacial" id="vo" >
+                    <li>
+                        <a href="/video/{$vo['nid']}" target="_blank">
+                            <div class="lists-right-top">
+                                <img src="{$vo.thumb}" width="240" height="140" alt="{$vo.title}">
+                                <i class="icon-viedo-exc"></i>
+                                <div class="lists-right-top-a clearfix">
+                                    <div class="times">{$vo['createtime']|msubstr=5,5}</div>
+                                    <!-- <div class="mores"><span>61</span></div> -->
+                                </div>
+
+                                <div class="lists-right-top-b">
+                                    <div class="wz">
+                                        {$vo.description|msubstr=0,30}</div>
+                                    <div class="bf">
+                                        立即播放
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lists-right-bottom">
+                                <p>{$vo.title}</p>
+                                <div class="two one clearfix">
+                                    <div class="name">               {$vo.sort}</div>
+                                    <div class="llcs">{$vo.source}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    </volist>
+                </ul>
+
+            </div>
+            <div class="PageBox">
+                <div class="Page">
+                    {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+<script src="./财经教学专区 - 9度直播-看财经大咖上9度直播_files/z_stat.php" language="JavaScript"></script><script src="./财经教学专区 - 9度直播-看财经大咖上9度直播_files/core.php" charset="utf-8" type="text/javascript"></script><script type="text/javascript">
+    $(document).ready(function(){
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+        $(document).scroll(function(){
+            var top=$(document).scrollTop();
+            if(top>410){
+                $(".daohang").addClass("dhfixed");
+            }else{
+                $(".daohang").removeClass("dhfixed");
+            }
+        })
+    });
+</script>
+</body>
+</html>

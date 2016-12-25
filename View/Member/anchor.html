@@ -1,0 +1,118 @@
+<include file="Public:header" />
+
+    <!--左边导航部分-->
+
+<include file="Public:personal" />
+ 
+    <!--右侧部分-->
+    <div class="u_mainbody">
+
+			<div class="consume_nr">
+        	<div class="shark_tit earnings_top clearfix">
+                            <p class="consume_tit"><i class="consume_tit_iconbo"></i>主播认证<span class="head_tips">（必须完成高级实名认证，并且完善主播资料后才算完成九度认证）</span></p>
+            </div>
+			<div class="h5_head">
+	              <span>高级实名认证</span>
+	        </div>
+			<ul class="auth_type clearfix">
+	            	<li>
+	            		<p class="p_1">简单认证</p>
+	            		<p class="p_2"></p>
+	            		<p class="p_3">只需提交姓名和身份证信息，可提高账号安全等级</p>
+	            	</li>
+	            	<li class="active">
+	            		<p class="p_1">高级认证</p>
+	            		<p class="p_2"></p>
+	            		<p class="p_3">需要提交姓名、身份证和银行卡信息，仅适用于九度主播用户</p>
+	            		<a href="" target="_blank" class="go_real_auth">开始高级实名认证</a>
+	            	</li>
+	        </ul>
+			<div class="h5_head">
+	              <span>填写实名认证</span>
+	        </div>
+			<form action="{:U('Member/addAccred')}" method="post" enctype="multipart/form-data" class="zhub">
+                <table>
+                    <tr>
+                        <td><span style="color:red;">*</span>真实姓名</td>
+                        <td><input type="text" name="name" id="name" class="wid" /></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:red;">*</span>身份证号</td>
+                        <td><input type="text" name="usercode" id="usercode" class="wid" /></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:red;">*</span>房间公告</td>
+                        <td><input type="text" name="roomnotice" id="roomnotice" class="wid"/></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:red;">*</span>擅长交易的品种</td>
+                        <td><input type="text" name="trproducts" id="trproducts"  class="wid"/></td>
+                    </tr>
+                    <!-- <tr>
+                        <td><span style="color:red;">*</span>身份证正面照</td>
+                        <td><input type="file" name="code[]" id="codeper" class="wid"/></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:red;">*</span>身份证反面照</td>
+                        <td><input type="file" name="code[]" id="codeinv" class="wid"/></td>
+                    </tr> -->
+                    <tr>
+                        <td><span style="color:red;">*</span>手持身份证照</td>
+                        <td><input type="file" name="cord" id="cordt" class="wid"/></td>
+                    </tr>
+                    <tr>
+        				<td></td>
+                        <td>
+                            <input type="submit" id="ok" name="ok" value="提交" class="update"/>
+                            <input type="button" id="backto" name="ok" value="返回" class="update"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        <p class="page"></p>
+    </div>
+
+    
+</div>
+</div>
+</div>
+<!--<include file="Public:footer" />-->
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $("form").submit(function(){
+            if($("#name").val()==""||$("#name").val()==null){
+                alert("真实姓名不能为空!");
+                return false;
+            }
+            if($("#usercode").val()==""||$("#usercode").val()==null){
+                alert("身份证号不能为空!");
+                return false;
+            }
+            if($("#roomnotice").val()==""||$("#roomnotice").val()==null){
+                alert("房间公告不能为空!");
+                return false;
+            }
+            if($("#trproducts").val()==null||$("#trproducts").val()==""){
+                alert("擅长交易品种不能为空！");
+                return false;
+            }
+            // if($("#codeper").val()==""||$("#codeper").val()==null){
+            //     alert("正面身份证照不能为空!");
+            //     return false;
+            // }
+            // if($("#codeinv").val()==""||$("#codeinv").val()==null){
+            //     alert("反面身份证照不能为空!");
+            //     return false;
+            // }
+            if($("#cordt").val()==""||$("#cordt").val()==null){
+                alert("手持身份证照不能为空!");
+                return false;
+            }
+
+
+            return true;
+        });
+    });
+</script>

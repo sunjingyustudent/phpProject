@@ -1,0 +1,98 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/appweb.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css">
+
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/js/jquery.SuperSlide.2.1.js"></script>
+<script src="__PUBLIC__/js/jquery.tabso_yeso.js"></script>
+<script src="__PUBLIC__/js/jquery.flexslider-min.js"></script>
+<script src="__PUBLIC__/js/main.js"></script>
+
+<script src="__PUBLIC__/js/share.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/js/share_style0_16.css">
+
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/common.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/user_css.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/login.css?v=v48760" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/user_css.css">
+    <!--左边导航部分-->
+    <div id="wrap" class="clearfix">
+        <div class="live_wrap clearfix">
+            <div class="u_header">
+                <h1 class="fl">个人中心</h1>
+                <a href="/" class="glyphicon01 glyphicon01_back fr"  target="_blank">返回首页</a>
+            </div>
+            <div class="u_main clearfix">
+
+                <div class="u_nav">
+                    <ul>
+                        <li><a href="{:U('Person/index')}" ><i class="u_nav_icon1"></i>我的资料</a></li>
+                        <li><a href="{:U('Subscribe/subscribe')}" class="current"><i class="u_nav_icon2"></i>订阅与历史</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon3"></i>消费记录</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon4"></i>积分记录</a></li>
+                        <li><a href="/member/cp/get_gift_consume" ><i class="u_nav_icon4"></i>系统消息</a></li>
+                        <li><a href="/member/anchor/recruit"><i class="u_nav_icon5"></i>主播认证</a></li>
+                        <li class="js_u_nav">
+                            <a href="javascript:;"><i class="u_nav_icon6"></i>主播相关 <b></b> </a>
+                            <dl >
+                                <dd><a href="/room/my/gift_profit" >房间管理</a></dd>
+                                <dd><a href="/room/my/gift_profit" >直播收益</a></dd>
+                                <dd><a href="/room/my/show" >直播记录</a></dd>
+                                <dd><a href="/room/my/room_stat" >直播数据统计</a></dd>
+                                <dd><a  href="/room/my" >直播设置</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+
+                <script type="text/javascript">
+                    $(function(){
+                        $(".js_u_nav a").click(function(){
+                            if(!$(this).siblings('dl').is(":animated")){
+
+                                if( !$(this).find('b').attr('class') ){
+                                    $(this).find('b').addClass('cur');
+                                }else{
+                                    $(this).find('b').removeClass('cur');
+                                }
+                                $(this).siblings('dl').slideToggle();
+                            }
+                        });
+                    })
+                </script>
+    <!--右侧部分-->
+    <div class="u_mainbody">
+			<div class="consume_nr">
+        	<div class="shark_tit earnings_top clearfix">
+                            <p class="consume_tit"><i class="consume_tit_iconbo"></i>主播认证<span class="head_tips">（必须完成高级实名认证，并且完善主播资料后才算完成九度认证）</span></p>
+            </div>
+			<div class="h5_head">
+	              <span>高级实名认证</span>
+	        </div>
+			<ul class="auth_type">
+	            	<li>
+	            		<p class="p_1">简单认证</p>
+	            		<p class="p_2"></p>
+	            		<p class="p_3">只需提交姓名和身份证信息，可提高账号安全等级</p>
+	            	</li>
+	            	<li class="active">
+	            		<p class="p_1">高级认证</p>
+	            		<p class="p_2"></p>
+	            		<p class="p_3">需要提交姓名、身份证和银行卡信息，仅适用于九度主播用户</p>
+	            		<a href="" target="_blank" class="go_real_auth">开始高级实名认证</a>
+	            	</li>
+	        </ul>
+        <p class="page"></p>
+    </div>
+</div>
+</div>
+
+
+    </div>
+</div>
+    </div>

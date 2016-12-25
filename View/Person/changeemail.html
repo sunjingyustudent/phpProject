@@ -1,0 +1,77 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+    
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody" style="overflow: inherit;">
+	
+
+
+        <div class="user_myprofile">
+            <ul class="togglebtn clearfix" id="js_tab_ul">
+
+                <li><a href="{:U('Person:index')}"  id="js_info">基本资料<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:changeIcon')}"  id="js_avatar">修改头像<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:updatepwd')}" id="js_pwd">修改密码<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/nickname')}" id="js_mod_username">修改昵称<div class="arrow01"></div></a></li>
+                <li style="display:none" id="identbut"><a id="js_ident" href="/member/cp/changeIdent" >实名认证<div class="arrow01"></div></a></li>
+                <li>
+                    <a href="{:U('Person/cpbindphone')}" id="js_phone">绑定手机<div class="arrow01"></div></a>
+                    <a style="display:none" href="/member/cp/changePhone" id="js_phone_alert">修改手机<div class="arrow01"></div></a>
+                </li>
+
+                <li id="emailbut" ><a href="{:U('Person:updateperson')}" id="js_mod_info">完善资料<div class="arrow01"></div></a></li>
+				<li ><a href="{:U('Person/changeemail')}" id="js_mod_email" class="current emil">修改邮箱<div class="arrow01"></div></a></li>
+            </ul>
+
+
+
+
+
+            <div class="myprofile_main basics clearfix data_cont" id="js_info_div">
+			<div>
+					<form action="" method="post" onsubmit="return submit_email(this);" class="myprofile">
+
+                              <div class="control_group mb30 clearfix">
+                <label class="control-label">新邮箱地址：</label>
+                <div class="control">
+                  <div class="input_prepend">
+                    <input type="text" class="form_control" size="16" id="new_email_input" name="new_email">
+                  </div>
+                </div>
+              </div>
+              <div class="largeBtn">
+                <label class="control-label"></label>
+                <button id="email_submit" class="primary_button01" type="submit"><span>发送验证邮件</span></button>
+              </div>
+            </form>
+				</div>
+
+    <!--<form action="{:U('Person/updatepwdpost')}" method="post">
+            <table>
+                <tr>
+                    <td>请输入旧密码：</td>
+                    <td><input type="password" name="oldpwd"/></td>
+                </tr>
+                <tr>
+                    <td>请输入新密码：</td>
+                    <td><input type="password" name="newpwd"/></td>
+                </tr>
+                <tr>
+                    <td>请再次输入新密码：</td>
+                    <td><input type="password" name="renewpwd"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit"/></td>
+                    <td><a  href="{:U('Person/index')}" class="updateUname clearfix"><i ></i>返回</a></td>
+                </tr>
+            </table>
+    </form>-->
+	</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />

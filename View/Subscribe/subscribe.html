@@ -1,0 +1,56 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+   
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody">
+        <div class="attention clearfix">
+            <ul class="clearfix">
+                <foreach name="userrooms" item="item">
+                    <li class="item_534740">
+                        <div class="a_box clearfix">
+                            <div class="v_pic fl">
+                                <a href="#" target="_blank">
+                                    <img class="lazy" width="163" height="92" data-original="https://rpic.douyucdn.cn/z1608/26/16/534740_160826164845.jpg" src="https://rpic.douyucdn.cn/z1608/26/16/534740_160826164845.jpg" style="display: inline;">
+                                    <!--<div class="shadow"><i class="iconPlay"></i></div>-->
+                                    <i class="icon_live">正在直播</i>
+
+                                </a></div>
+                            <div class="v_info fl">
+                                <h1><a href="" target="_blank" title="{$item[roomtitle]}">
+                                    {$item[roomtitle]}</a></h1>
+                                <!--<p><span class="username">{$item[roomcode]}</span></p>-->
+                                <p><span>{$item[roomcode]}</span></p>
+                                <p>
+                                    <!--<span class="glyphicon01 glyphicon01_playtime"> 正在直播</span>-->
+                                    <!--<span class="glyphicon01 glyphicon01_hot">共同关注的人数：4500</span>-->
+                                    <span class="glyphicon01">共同关注的人数：4500</span></p>
+                                <p class="sort_focus">
+                                    <a class="glyphicon01 glyphicon01_sort fl">
+                                                <if  condition= "$item[phone] eq 1"  >
+                                                    股市
+                                                <elseif  condition= "$item[phone] eq 2"  >
+                                                    期货
+                                                <else />
+                                                    贵金属
+                                                </if >
+                                    </a>
+                                    <a href="{:U('Subscribe/concel',array('roomid'=>$item['roomid']))}" class="focus fr">取消关注</a></p>
+                            </div>
+                    </li>
+                </foreach>
+
+            </ul>
+        </div>
+        <p class="page"></p>
+    </div>
+</div>
+
+
+
+    </div>
+</div>
+    </div>
+<include file="./Tpl/default/Public/footer.html" />

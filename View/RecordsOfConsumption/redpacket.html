@@ -1,0 +1,1309 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+
+        <include file="Public:personal" />
+ 
+    <!--右侧部分-->
+    <div class="u_mainbody">
+	<div class="shark_tit earnings_top clearfix">
+                            <p class="consume_tit"><i class="consume_tit_icon"></i>消费记录</p>
+                        </div>
+        <div class="attention clearfix">
+		<div class="consume">
+            <a href="{:U('RecordsOfConsumption/index')}" target="_blank">用户充值记录</a>
+            <a href="{:U('RecordsOfConsumption/gift')}" target="_blank">礼物交易记录</a>
+            <a href="{:U('RecordsOfConsumption/redpacket')}" target="_blank">红包交易记录</a>
+
+
+            <a href="{:U('RecordsOfConsumption/redpacket')}" target="_blank" class="curr">发红包</a>
+            <a href="{:U('RecordsOfConsumption/red')}" target="_blank">抢红包</a>
+
+</div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <!--<th>发送红包记录ID</th>-->
+                    <th>发送时间</th>
+                    <th>红包名称</th>
+                    <th>红包金额</th>
+                    <th>红包个数</th>
+                    <!--<th>开始时间</th>-->
+                    <!--<th>结束时间</th>-->
+                    <!--<th>直播ID</th>-->
+                    <!--<th>发放状态</th>-->
+                    <!--<th>操作</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="lists" item="vo">
+                    <tr>
+                        <!--<td>{$vo.redpacketid}</td>-->
+                        <td>
+                            {$vo.createtime|strtotime|date="Y-m-d", ###}
+                        </td>
+                        <td>{$vo.redpname}</td>
+                        <td>{$vo.total}</td>
+                        <td>{$vo.acount}</td>
+                        <!--<td>{$vo.starttime}</td>-->
+                        <!--<td>{$vo.endtime}</td>-->
+                        <!--<td>{$vo.webcastid}</td>-->
+                        <!--<td>{$vo.status}</td>-->
+
+                        <!-- <td>
+                             <a href="{:U('Loginfo/rechargerecord_detail',array('rechargeid'=>$vo['rechargeid']))}" >查看详情</a>
+
+                         </td>-->
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+        </div>
+        <p class="page"></p>
+    </div>
+</div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+
+<script type="text/javascript" language="javascript">
+    $('.skill_list').on({
+        // 礼物的各种状态：鼠标悬停、鼠标点击
+        mouseover : function () {
+            $(this).addClass('lw_item_onhover');
+            var index=$(this).index();
+            // var l=-(112+index*40)+"px";
+            var l=-122+"px";
+            // var l1=(112+index*40)+"px";
+            var h= $(this).find(".sl_item_hover").get(0).offsetHeight;
+            var t=-(h+6)+"px";
+            var arr1T=(h-2)+"px";
+            var arr2T=(h-3)+"px";
+            $(this).find(".sl_item_hover").css({"left":l,"top":t});
+            $(this).find(".arrow1").css({"top":arr1T});
+            $(this).find(".arrow2").css({"top":arr2T});
+        },
+        mouseout : function () {
+            $(this).removeClass('lw_item_onhover');
+        }
+    },".item");
+
+    $(".userinfo .utx").on({
+        mouseover:function(){
+            $(this).find(".updatePortait").css({"display":"block"});
+        },
+        mouseout : function () {
+            $(this).find(".updatePortait").css({"display":"none"});
+        }
+    });
+    bindHover();
+
+
+
+    function bindHover(){
+        var oNickName=$(".udetail_info .uname h2").get(0);
+        if($(oNickName).length<=0){
+            return false;
+        }
+        var obar=document.getElementById("bar");
+
+        obar.onmouseover=function(e){
+            var l=(232-$("#grade_tip").width())/2+"px";
+            $("#grade_tip").css({"left":l});
+            $("#grade_tip").show();
+        }
+        obar.onmouseout=function(e){
+            $("#grade_tip").hide();
+        }
+    }
+
+    function processFn(fn, obj) {
+        return function(e) {
+            fn.call(obj, e)
+        }
+    }
+
+
+    function createTip(tipcontent){
+        //<div class="user-tip"><i class="arrow1"></i>您已达到最高等级</div>
+        var oToolTip=document.createElement("div");
+        // oToolTip.className="tip01";
+        oToolTip.className="user-tip";
+        oToolTip.id="tooltip";
+        oToolTip.innerHTML='<i class="arrow"></i>'+tipcontent;
+        $(".uname h2").get(0).appendChild(oToolTip);
+    }
+
+
+    function removeTip(){
+        if($("#tooltip").length>0){
+            $("#tooltip").remove();
+        }
+    }
+
+    function myclose() {
+        $(".cert_layer").hide();
+    }
+    var modifyUsernameDialog = false;
+    var phoneData = '';
+    var tab_chg = {
+        get_hash: function()
+        {
+            var u_hash = window.location.hash;
+            if(u_hash.length <= 2)
+                return '';
+            return u_hash.substr(1);
+        },
+        open_tab: function(tab_id)
+        {
+
+            $("#js_tab_ul a").removeClass("current");
+            $(".data_cont").hide();
+
+            $("#js_" + tab_id).addClass("current");
+            if(tab_id == "phone_alert"){
+                $("#js_" + tab_id).show();
+                $(".boundPhone span").text("新的");
+                if(!phoneData.isPhoneNumChangeOverDate){
+                    $(".noHalfYear").show();
+                    $("#noHalfYear_date").text(phoneData.nextPhoneNumChangeDateline);
+                }else if(phoneData.isPhoneNumChangeOverDate && !phoneData.isEmailCheck){
+                    $(".onEmailVerify").show();
+                }else{
+                    $(".startVerify").show();
+                }
+
+
+            }
+            $("#js_" + tab_id + "_div").show();
+        },
+        init: function(){
+            var u_hash = this.get_hash();
+            if(u_hash && $("#js_" + u_hash).length>0){
+                this.open_tab(u_hash);
+            }else{
+                this.open_tab('info');
+            }
+
+        }
+    };
+    var emailCode = "";
+    var inputCode = 0;
+    function hasSection(arr,n){
+        for(var i=0;i<arr.length;i++){
+            if(arr[i].type==n){
+                return true;
+            }
+        }
+        return false
+    };
+
+
+
+    function skillshow(level){
+        $("#skill_level").show();
+        if(level>0){
+            var unlockedarr=new Array();
+            $(".skillul").each(function(){
+                var keyul=$(this).index(".skillul");
+                unlockedarr[keyul]=0;
+                $(this).find(".skilltit").each(function(){
+                    $(this).show();
+                    if($(this).data("min")<=level){
+                        unlockedarr[keyul]=unlockedarr[keyul]+1;
+                        $(this).addClass("unlocked_l");
+                    }else{
+
+                        return false;
+                    }
+                });
+            });
+
+
+
+            $(".skill_em").each(function(){
+                if($(this).data("min")<=level){
+                    $(this).show();
+                    if($(this).data("skill")=='dmtx' && level<10)
+                    {
+
+                        $(this).html(level>=8?8:5);
+                    }else{
+                        var emnum=Math.floor(level/10)*10;
+                        $(this).html(emnum>=50?50:emnum);
+                    }
+                }
+            });
+            $(".skilllock").each(function(){
+                if($(this).data("min")<=level){
+                    $(this).hide();
+                    $(this).next().show();
+                }
+            });
+
+            $(".skilllevel").each(function(){
+                if($(this).data("min")<=level){
+                    $(this).html('已解锁'+unlockedarr[$(this).index(".skilllevel")]+'\/'+$(this).data("leve"));
+                    $(this).parent().removeClass("locked");
+                    $(this).parent().addClass("unlocked");
+                }
+            });
+        }
+
+    }
+
+    $(function(){
+//    $.dialog({
+//        content:"<div class='clearfix'><div style='float:left;'><img src='/common/douyu/images/loading2.gif' /></div><div style='float: left;height:32px;line-height: 32px;'>&nbsp;&nbsp;正在修改中...</div></div>"
+//    })
+
+        $(".ylo").hover(function(){
+            $(".sq_smrz").fadeIn(300);
+        },function(){
+            $(".sq_smrz").fadeOut(300);
+        });
+
+        //tab_chg.init();
+
+
+        /*$("#js_tab_ul a").click(function(){
+         var u_hash = $(this).attr("href");
+         tab_chg.open_tab(u_hash.substr(1));
+         });*/
+        /*$("#mod_avatar").click(function(){
+         tab_chg.open_tab('avatar');
+         });
+         $("#mod_email").click(function(){
+         tab_chg.open_tab('mod_email');
+         });
+         $("#mod_username").click(function(){
+         tab_chg.open_tab('mod_username');
+         });*/
+        /* $('[href=#mod_username]').click(function(){
+         tab_chg.open_tab('mod_username');
+         })*/
+        /*$("#js_phone_go").click(function(){
+         tab_chg.open_tab('phone');
+         });
+         $("#js_ident_go").click(function(){
+         tab_chg.open_tab('ident');
+         });
+         $("#js_ident_go2").click(function(){
+         tab_chg.open_tab('ident');
+         });*/
+        /**手机号邮箱修改**/
+        /*$("#phone_alert").click(function(){
+         tab_chg.open_tab('phone_alert');
+         }); */
+
+
+        $("#but_4").click(function(){
+            $(".cert_layer").show();
+        });
+        $(".cert_layer .r_close").click(function(){
+            $(this).parents(".cert_layer").hide();
+        });
+
+        /** 修改手机时验证手机号码是否是当前手机号 **/
+            //优化修改手机号校验逻辑
+        $(".phoneInp").on("input propertychange",function(){
+            var $this=$(this),
+                    $oldPhone=$(".phone_msg span"),
+                    __phone=$this.val(),
+                    __phone=$.trim(__phone),
+                    phoneCount=__phone.length,
+                    oldPhoneCount=0;
+            if($oldPhone.size()>0){
+                oldPhoneCount=$oldPhone.text().length;
+            }
+            //手机发生变动需要重新验证
+            inputCode=0;
+            $this.next().removeClass('inputHintMsg2');
+
+            if(oldPhoneCount&&oldPhoneCount===phoneCount){
+                var promise = postPhone($(this).val(),"/member/cp/checkUserPhone","mgs_span");
+                if(promise){
+                    promise.then(function(){
+                        $(".emailInp").trigger("keyup");
+                    })
+                }
+            }
+            $(".emailInp").trigger("keyup");
+        });
+        /** 邮箱验证码验证 **/
+        $(".emailInp").keyup(function(){
+            var __val=$(this).val();
+            __val=$.trim(__val);
+            if(inputCode != 0 && __val.length == 6){
+                $("#inputSubmit").css("background-color","#ff8f2b").removeAttr("disabled");
+            }else{
+                $("#inputSubmit").css("background-color","#A1A1A1").attr("disabled","disabled");
+            }
+        });
+        /** 发送邮箱验证码**/
+        $(".emailInp_newSend").bind("click",function(){//重新发送
+            postEmail(this,"/member/cp/getEmailCAPTCHA");
+        });
+        $(".emailInp_send").bind("click",function(){
+            postEmail(this,"/member/cp/getEmailCAPTCHA");
+        });
+
+
+
+        /** 发送手机号异步请求 **/
+        var postPhone = function(data,url,CLASS){
+            return $.ajax({
+                url : url,
+                data : {"phonenum":data},
+                type : "post",
+                dataType : "json",
+                success : function(data){
+                    $("."+CLASS).removeClass("inputHintMsg").removeClass("inputHintMsg2");
+                    inputCode = data.status;
+                    if(data.status == 0){
+                        $("."+CLASS).addClass("inputHintMsg").text(data.msg);
+                    }else{
+                        $("."+CLASS).addClass("inputHintMsg2").text("");
+                    }
+                },
+                error : function(){
+                    alert("系统繁忙，请核定内容后再提交");
+                }
+            });
+        };
+        /** 发送邮箱验证码 **/
+        var postEmail = function(type,url){
+            $.ajax({
+                url : url,
+                data : {params:""},
+                type : "post",
+                dataType : "json",
+                success : function(data){
+                    if(data.status === 1){//1表示验证码发送成功
+                        $(type).hide();
+                        $(".emailInp_setTime").show();
+                        $(".emril_msg_span").html("已发送验证码至绑定邮箱<span class='email_data'> </span>");
+                        settime();
+                    }else{
+                        $.dialog.tips_black(data.info);
+                        return false;
+                    }
+                },
+                error : function(){
+                    alert("系统繁忙，请核定内容后再提交");
+                }
+            });
+        };
+        /** 60秒倒计时 **/
+        var countdown=60;
+        function settime() {
+            if(countdown >= 0 && countdown<=60){
+                $(".emailInp_setTime").html("<span>已发送(" + countdown + ")</span>");
+                countdown--;
+            }else{
+                $(".emailInp_newSend").show();
+                $(".emailInp_setTime").hide();
+                countdown = 60;
+                return false;
+            };
+            setTimeout(function() {
+                settime();
+            },1000);
+        };
+        //下一步点击事件
+        $("#inputSubmit").click(function(){
+            emailCode = $(".emailInp").val();
+            $.ajax({
+                url : "/member/cp/checkEmailCAPTCHA",
+                data : {"code":$.trim($(".emailInp").val()),"phone":$.trim($(".phoneInp").val())},
+                type : "post",
+                dataType : "json",
+                success : function(data){
+                    if(data.status != 1){//1表示成功
+                        $.dialog.tips_black(data.info);
+                        return false;
+                    }
+                    window.location.href = "/member/cp/cpBindPhone?change=1&emailcap=" + $.trim($(".emailInp").val());
+                    //$("#js_phone_alert_div").hide();
+                    //$("#js_phone_div").show();
+                },
+                error : function(){
+                    alert("系统繁忙，请核定内容后再提交");
+                }
+            });
+        });
+        //立即进入邮箱
+        $(".nextEmail").click(function(){
+            var _num = $(".email_data").text().split("@")[1].split(".")[0];
+            for(var i=0;i<emailArr.length;i++){
+                if(_num == emailArr[i].type){
+                    window.open(emailArr[i].url);
+                }
+            }
+        });
+
+        // 关闭email提示框
+        $('#emailtip').click(function(){
+            $(this).css("display","none");
+        });
+
+        // 修改昵称
+        $("#username").blur( function(){
+            if(!modify_username.checkNickname("#username")) {
+                return false;
+            }
+        });
+        //qq修改确认操作  qqchange  qq_confirm
+
+        $("#setqq,#cqqbut").click(function(){
+            $(".qqSet1").hide();
+            $(".qq .qq_alert").show();
+        });
+
+
+
+        $(".qq_alert").click(function(e){
+            if(e.target.nodeName=="INPUT"){
+                return;
+            }
+            /*else if(e.target.nodeName=="A"&&($(e.target).hasClass("qqSet"))){
+             $(".qq .qqSet,.qq_cont").hide();
+             $(".qq .qq_alert").show();
+             }*/
+            else if(e.target.id!="qq_cancel"){
+                var nname = $.trim($("#qq").val());
+                if(qq!=nname){
+                    if(!nname.match(/^(\d){5,}$/)){
+                        $.dialog.tips_black('请填写正确的QQ号码');
+                        return false;
+                    }
+                    $.post("/member/cp/submit",
+                            {qq:nname},
+                            function(json){
+                                switch (json.result)
+                                {
+                                    case 0:
+                                        $.dialog.tips_black('修改成功');
+                                        qq=nname;
+                                        $(".qq .qq_alert,#setqq,#qqtit").hide();
+                                        $(".qqSet1,.qq_cont,#cqqbut").show();
+                                        $(".qq_cont").html(nname);
+                                        $("#qqchange").removeClass("unWriteQQ");
+                                        $("#qqchange").addClass("hasWriteQQ");
+                                        break;
+                                    default:
+                                        $.dialog.tips_black(json.error);
+
+                                }
+                            },
+                            "json"
+                    );
+                }else{
+                    $("#qq_cancel").click();
+                    /*$(".qq .qq_alert").hide();
+
+                     if($(".qq_cont").html() != null && $(".qq_cont").html() != ""){
+
+                     $(".qq .qqSet2,.qq_cont").show();
+                     return false;
+                     };
+
+                     $(".qq .qqSet1").show()*/
+                }
+            }
+
+        });
+        $("#qq_cancel").on("click",function(){
+            $(".qq .qq_alert").hide();
+            $(".qqSet1").show();
+            if($(".qq_cont").html() != null && $(".qq_cont").html() != ""){
+                $("#qqtit").hide();
+                $("#cqqbut").show();
+                return false;
+            };
+            $("#setqq").show()
+        });
+
+
+        $.ajax({
+            type: "get",
+            url: "/member/cp/cp_rpc_ajax",
+            data:{},
+            dataType:"json",
+            success:function(ret){
+                ret.info.ident_status=parseInt(ret.info.ident_status);
+                ret.info.ident_type=parseInt(ret.info.ident_type);
+                if(ret.info.ident_status<=1 || ret.info.ident_type<2){
+                    $("#identbut").show();//实名认证菜单
+                }else{
+                    $("#identbut").remove();
+                }
+
+                if(ret.info.phonestatus==0){//修改手机绑定手机菜单
+                    $("#js_phone").show();
+                }else{
+                    $("#js_phone_alert").show();
+                }
+
+
+                var reg=/^\d+\@qq\.com$/i;
+
+                ret.info.emailstatus=parseInt(ret.info.emailstatus);
+                /*if(!ret.info.emailstatus || !reg.test(ret.info.email) ){//修改邮箱按钮
+                 $("#emailbut").show();
+                 }*/
+
+
+
+
+                var idetclass=ret.info.ident_status==1 && ret.info.ident_type==2?'ylo2':'ylo';
+                $("#idettit").addClass("idetclass");
+                if(ret.info.ident_status!=2 || ret.info.ident_type!=2)
+                {
+                    $("#idettit").html('<a id="js_ident_go2" href="#ident"></a>');
+                }
+
+
+
+                var tystr='';
+
+
+                if(ret.tyserver=='undefined' ||!ret.tyserver)
+                {
+                    tystr = "未开通";
+                }else{
+                    if(ret.tyserver.up_days==0){
+                        tystr += "上传加速 已到期 | ";
+                    }
+                    else if (ret.tyserver.up_days<0){
+                        tystr += "上传加速 未开通 | ";
+                    }else{
+                        tystr += '上传加速<i class="tel-sz-icon"></i>'+ret.tyserver.up_days+'天 | ';
+                    }
+
+                    if(ret.tyserver.down_days==0){
+                        tystr += "下载加速 已到期";
+                    }
+                    else if (ret.tyserver.down_days<0){
+                        tystr += "下载加速 未开通";
+                    }else{
+                        tystr+= '下载加速<i class="tel-sz-icon"></i>'+ret.tyserver.down_days+'天';
+                    }
+                }
+                $("#jiashutit").html('【'+tystr +'】')
+                var jisstr=	ret.tyserver=='undefined' ||!ret.tyserver	|| ret.tyserver.enabletry?"免费试用":"查看详情" ;
+                $("#jiashubut").html(jisstr+'<em>&gt;&gt;</em>')
+
+
+                var phoneclass=ret.info.phonestatus==1?'mobile_haschecked':'mobile_uncheckd';
+                $("#mobilediv").addClass(phoneclass);
+                if(ret.info.phonestatus==1){
+                    $('.mobilecheck').show();
+                    $('.phonenum').html(ret.info.mobile_phone);
+                    $('.mobileun').remove();
+                    if(ret.info.isNeedConfirmPhone == true) {
+                        $('.confirmPhoneAlert').show();
+                    }
+                }else{
+                    $('.mobilecheck').remove();
+                    $('.mobileun').show();
+                }
+
+
+
+                $(".emailnum").html(ret.info.email);
+                var emailstr='';
+                var but_str='修改邮箱';
+
+                if(!ret.info.emailstatus){
+                    $("#emailun").show();
+                    $("#emailcheck").hide();
+                    if(ret.is_emailused){
+                        emailstr='<a class="checkEmail" ><i></i>已被占用</a>';
+                    }else{
+                        var str=ret.is_send? '重新发送' : '立即验证';
+                        if(!ret.info.email){
+                            but_str='绑定邮箱';
+                        }else{
+                            emailstr='<a class="checkEmail" onclick="resend_email();" id="resend_email" ><i></i>'+str+'</a>';
+                        }
+
+                    }
+                    emailstr+='<a class="updateEmail" href="'+"/member/cp/changeEmail"+'" id="mod_email"><i></i>'+but_str+'</a>';
+                    $("#emailspan").after(emailstr);
+                }else{
+
+                    emailstr+='<a class="updateEmail" href="'+"/member/cp/changeEmail"+'" id="mod_email"><i></i>修改邮箱</a>';
+                    $("#emailcheckspan").html(emailstr);
+
+                    $("#emailun").hide();
+                    $("#emailcheck").show();
+                }
+
+
+
+
+                $("#qqchange").addClass(!ret.info.qq?'unWriteQQ':'hasWriteQQ');
+                if(!ret.info.qq){
+                    $("#setqq").show();
+                }else{
+                    $("#qqtit").hide();
+                    $(".qq_cont").html(ret.info.qq);
+                    $(".qq_cont,#cqqbut").show();
+                }
+                if(ret.info.is_own_room>0){
+                    $("#indetown").show();
+                    $("#indetun").hide();
+                }else{
+                    $("#indetown").hide();
+                }
+
+
+
+                if(ret.info.ident_status>0)
+                {
+                    $("#indetun").hide();
+                    if(ret.info.ident_status==1){
+                        $("#indetdiv").addClass('authentication clearfix');
+                        $("#indetdiv").addClass(ret.info.ident_type==2?'authenticating':'agencyAuthenticated');
+                        var str='<div class="ro_l"><a><i></i>将于'+timetodate_all(parseInt(ret.info.last_request.create_time)+259200)+'前完成</a></div><a class="ro_r">审核中</a>';
+                        $("#indetdiv").html(str);
+                    }
+
+                    if(ret.info.ident_type==2  && ret.info.ident_status==2){
+                        $("#indetdiv").addClass('authentication clearfix hasAuthenticated');
+                        var str='<div class="ro_l"><a><i></i>'+ ret.info.ident+'已通过实名认证</a></div>';
+                        if(ret.info.is_own_room<=0){
+                            str+='<a class="ro_r" href="'+"/room/apply"+'">申请直播间</a>';
+                        }
+                        $("#indetdiv").html(str);
+                    }
+                    if(ret.info.ident_type==3  && ret.info.ident_status==2){
+                        $("#indetdiv").addClass('authentication  agency2 clearfix ');
+                        var str='<div class="ro_l"><a><i></i><span class="text_compa" title="'+ret.info.ident+'已通过企业认证">'+ ret.info.ident+'已通过企业认证</span></a></div>';
+
+                        if(ret.info.is_own_room<=0){
+                            str+='<a class="ro_r" href="'+"/room/apply"+'">申请直播间</a>';
+                        }
+                        $("#indetdiv").html(str);
+                    }
+                }else{
+                    $("#indetun").show();
+                }
+
+                if(ret.info.ident_type<2){
+                    $("#indetun").show();
+                }
+
+
+
+
+
+                $("#follownum").html('关注：'+ret.follow_num);
+
+                $("#balance").html('鱼丸 '+number_format(ret.balance));
+                $("#balance_gold").html('鱼翅 '+number_format(ret.gold/100));
+                var next_num=bar_l=0;
+                if(ret.exp_score< ret.exp_info.end_exp){
+                    //var last_zdl=Math.floor(parseInt(ret.exp_info.next.score*100)-parseInt(ret.exp_score*100))/100;
+                    var last_zdl=ret.exp_info.last_zdl;
+                    var str='<p><span>还需<strong style="color: #ff921a;">'+(last_zdl)+'</strong>经验到达下一级</span></p><i class="arrow"></i>';
+                    $("#grade_tip").html(str);
+                    //bar_l=Math.floor((parseInt(ret.exp_score*100)-parseInt(ret.exp_info.current.score*100))/(parseInt(ret.exp_info.next.score*100)-parseInt(ret.exp_info.current.score*100))*1000)/10;
+                    bar_l=ret.exp_info.bar_l;
+                    $("#leverscore").html(bar_l+'%');
+
+                }else{
+
+                    bar_l=100;
+                    $("#grade_tip").html('<p><span>您已达到最高等级</span></p><i class="arrow"></i>');
+                    $("#leverscore").html('100%');
+                }
+
+
+                $("#leverline").css('width',bar_l+'%');
+                $("#leveimg").html('<img src="https://staticlive.douyucdn.cn/common/douyu/images/user_level/'+ret.exp_info.current.pic+'" title="用户等级:'+ret.exp_info.current.lv+'" />');
+                skillshow(ret.exp_info.current.lv);
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+        /**
+         * @abstract 修改昵称，重新发送邮件
+         * @author   askuy
+         * @date     2015-07-08
+         */
+
+        $('#modify_username_resend_email').click(function(){
+            if(!modify_username.checkNickname("#username")) {
+                return false;
+            }
+            $.post("/member/cp/resend_email",{'username':$('#username').val()}, function(data) {
+                console.log(data)
+                if(data.error<0) {
+                    $.dialog.tips_black(data.result);
+                }else if(1==data.error){
+                    $.dialog.tips_black(data.result);
+                    // 邮件发送成功，弹窗
+                }else if(2==data.error) {
+                    $.dialog.tips_black(data.result);
+
+                }else {
+                    $.dialog.tips_black('未知错误');
+                }
+            },'json');
+        });
+
+        //邮箱跳转
+        var emailArr=[
+            {type:"qq",txt:"QQ",url:"http://mail.qq.com/"},
+            {type:"aliyun",txt:"阿里云",url:"http://mail.aliyun.com/"},
+            {type:"gmail",txt:"Gmail",url:"http://mail.google.com/"},
+            {type:"163",txt:"网易163",url:"http://mail.163.com/"},
+            {type:"126",txt:"网易126",url:"http://mail.126.com/"},
+            {type:"outlook",txt:"outlook",url:"http://www.outlook.com/"},
+            {type:"sohu",txt:"搜狐",url:"http://mail.sohu.com/"},
+            {type:"sina",txt:"新浪",url:"http://mail.sina.com.cn/"},
+            {type:"tom",txt:"tom",url:"http://web.mail.tom.com/"},
+            {type:"yeah",txt:"yeah",url:"http://www.yeah.net/"},
+            {type:"21cn",txt:"21CN",url:"http://mail.21cn.com/"},
+            {type:"vip.163",txt:"网易VIP163",url:"http://vip.163.com/"},
+            {type:"189",txt:"189",url:"http://webmail30.189.cn/"},
+            {type:"139",txt:"139",url:"http://mail.10086.cn/ "},
+            {type:"2980",txt:"2980",url:"http://www.2980.com/"},
+            {type:"188",txt:"188",url:"http://www.188.com/"},
+            {type:"263",txt:"263企业",url:"http://www.263.net/"},
+            {type:"wo",txt:"沃",url:"http://mail.wo.com.cn/"},
+            {type:"foxmail",txt:"foxmail",url:"http://mail.qq.com/cgi-bin/loginpage?t=fox_loginpage"}
+        ]
+
+
+        var getEmail = $(".pop_useredit .cont .txt span").html();
+        if(getEmail && getEmail.length>0){
+            var getStarNum=getEmail.indexOf("@")+1 ;
+            var theRequest = getEmail.substr(getStarNum);
+            var typeEmail=getEmail.substr(getStarNum, getEndNum);
+            var getEndNum=theRequest.lastIndexOf(".");
+        }
+
+        if(!hasSection(emailArr,typeEmail)){
+            $(".pop_useredit .userbtn").css("visibility","hidden");
+            $(".pop_useredit .userbtn a").html("");
+        }
+        else{
+            for(var i=0;i<emailArr.length;i++){
+                if(typeEmail==emailArr[i].type){
+                    typeEmail=emailArr[i].txt;
+                    $(".pop_useredit .userbtn a").attr("href",emailArr[i].url);
+                    $(".pop_useredit .userbtn a").html("立即登录"+typeEmail+"邮箱");
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+    });
+
+
+    /**
+     * @abstract 修改昵称
+     * @author   askuy
+     * @date     2015-07-01
+     */
+    var modify_username = {
+        //中文占三个字符，英文占一个字符
+        getLength : function(str) {
+            var realLength = 0, len = str.length, charCode = -1;
+            for (var i = 0; i < len; i++) {
+                charCode = str.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128) realLength += 1;
+                else realLength += 3;
+            }
+            return realLength;
+        },
+
+        // 验证邮箱名
+        checkNickname : function(node) {
+            var obj = $(node);
+            var val = $.trim(obj.val());
+            var re    =/[^\a-zA-Z\u4E00-\u9FA50-9]/g;
+            var value = $.trim(val.replace(re,''));
+
+            if(re.test(value)){
+                this.tips_error('只能输入中文、英文、数字');
+                return false;
+            }
+
+            obj.val(val);
+            if (val == '') {
+                this.tips_error('用户昵称不能为空');
+                return false;
+            }
+
+            if (val.indexOf('_') === 0) {
+                this.tips_error('用户昵称不能以下划线开头');
+                return false;
+            }
+
+//        var name_len = val.length;
+//        if (name_len < 3 || name_len > 10) {
+//            this.tips_error('昵称长度为3~10个中英文数字或组合');
+//            return false;
+//        }
+
+            var name_len = this.getLength(val);
+            if (name_len < 5){
+                this.tips_error('您的昵称过短');
+                return false;
+            }
+            if(name_len > 30) {
+                this.tips_error('您的昵称过长');
+                return false;
+            }
+
+            if(val==$("#old_user").html()){
+                this.tips_error('不能与之前的昵称相同');
+                return false;
+            }
+
+            if(this.getLength(val)== 0){
+                this.tips_hide();
+                return false;
+            }
+            this.tips_success();
+            return true;
+        },
+
+
+        // 错误提示框
+        tips_error : function(str) {
+            $(".prompt_no").html(str);
+            $(".prompt_no").css("display","block");
+            $(".prompt_ok").css("display","none");
+        },
+        // 正确提示框
+        tips_success:function() {
+            $(".prompt_no").css("display","none");
+        },
+        // 关闭所有提示框
+        tips_hide : function() {
+            $(".prompt_no").css("display","none");
+            $(".prompt_ok").css("display","none");
+        }
+
+    }
+
+
+    // 昵称修改提交
+    function submit_modify_username(node) {
+        if(!modify_username.checkNickname("#username")) {
+            return false;
+        }
+        $('#modify_username_submit span').html('提交中…');
+        $('#modify_username_submit').attr('disabled',true);
+        var obj = $(node);
+
+        $.post("/member/cp/modify_username",obj.serialize(), function(data) {
+            if(2==data.error){
+                $.dialog({
+                    title: '修改昵称-邮箱验证',
+                    content: document.getElementById('modify_username_verify_email'),
+                    width:658,
+                    id: 'dialog_modify_username_verify_email',
+                    lock:true,
+                    cancel :false
+                });
+            }else {
+                modify_username.tips_hide();
+                alert_msg(data.result);
+            }
+            $('#modify_username_submit span').html('提交');
+            $('#modify_username_submit').attr('disabled',false);
+        },'json');
+        return false;
+    }
+
+    function getByteLen(val) {
+        var len = val.length;
+        if(val.match(/[^\x00-\xff]/ig) != null)
+        {
+            var alen = val.match(/[^\x00-\xff]/ig).length;
+            len = len + alen*2
+        }
+
+        return len;
+    }
+
+
+    /**
+     * 修改密码
+     */
+    function pwd_submit(obj)
+    {
+        var postaData = {
+            // 旧密码
+            'oldpassword' : $.trim($('#oldpassword').val()),
+            // 新密码
+            'password' : $.trim($('#password').val()),
+            // 重复新密码
+            'password2' : $.trim($('#password2').val())
+        }
+
+        if (postaData['oldpassword']=='')
+        {
+            $.dialog.tips_black('密码还没有填写');
+            return false;
+        }
+
+        if (postaData['password']=='')
+        {
+            $.dialog.tips_black('新密码还没有填写');
+            return false;
+        }
+
+        if (postaData['password2']=='')
+        {
+            $.dialog.tips_black('确认密码还没有填写');
+            return false;
+        }
+
+        if(!postaData['password'] || postaData['password'].length < 5 || postaData['password'].length > 25)
+        {
+            $.dialog.tips_black('密码长度仅限5~25个字符');
+            return false;
+        }
+
+        if(postaData['password'] != postaData['password2'])
+        {
+            $.dialog.tips_black('确认密码输入不一致');
+            return false;
+        }
+
+        $('#passwd_submit span').html('提交中…');
+        $('#passwd_submit').attr('disabled',true);
+
+        $.post("/member/cp/submit/password",
+                postaData,
+                function(json){
+                    switch (json.result)
+                    {
+                        case 0:
+                            alert_msg('密码修改成功',function() {
+                                location.href="/member/login?ref_url=/member/cp"
+                            }, 4);
+                            obj.reset();
+                            break;
+                        default:
+                            $.dialog.tips_black(json.error);
+
+                    }
+                    $('#passwd_submit span').html('提交');
+                    $('#passwd_submit').attr('disabled',false);
+
+                },
+                "json"
+        );
+    }
+
+    //银行卡
+    $('#userbankcard').bind('input propertychange', function() {
+        if($("#userbankcard").val() != ''){
+            //将button变为enable
+            $("#but_3").attr("disabled", false);
+            $("#but_3").attr("class","sm_btn");
+        }else{
+            $("#but_3").attr("disabled", true);
+            $("#but_3").attr("class","sm_btn sm_gray_btn");
+        }
+    });
+
+
+    function parsejson(s) {
+        return window['eval']('(' + s + ')');
+    }
+
+    var send_status = 0;
+    function resend_email()
+    {
+        if(send_status == 1)
+        {
+            $.dialog.tips_black('请勿频繁发送验证邮件');
+            return false;
+        }
+        send_status = 1;
+        $.getJSON("/member/verify_email/send", function(json){
+            if(json.error == 0)
+            {
+                $.dialog.tips_black('邮件已发送，请注意查收！' + "\r\n" + '如收不到邮件，请将postmaster@xmail.douyu.tv添加到白名单。','','succeed');
+                $('#resend_email').html('重新发送');
+            }
+            else
+            {
+                $.dialog.tips_black(json.msg);
+            }
+        });
+    }
+
+    var verify_status = 0;
+    function submit_email(obj)
+    {
+        var reg_email = $('#new_email_input').val();
+        reg_email = $.trim(reg_email);
+        if(reg_email == '')
+        {
+            $.dialog.tips_black('邮箱还未填写');
+            return false;
+        }
+
+        if(is_email(reg_email) == false)
+        {
+            $.dialog.tips_black('邮箱格式不正确');
+            return false;
+        }
+
+        var reg=/^\d+\@qq\.com$/i;
+        if(!reg.test(reg_email)){
+            $.dialog.tips_black('只能使用QQ纯数字邮箱');
+            return false;
+        }
+
+        if(verify_status == 1) return true;
+        $("#email_submit span").html('发送中……');
+        $("#email_submit").attr('disabled', true);
+        $.post($(obj).attr('action'), $(obj).serialize(),
+                function(json){
+                    alert_msg(json.msg);
+                    if (json.error == 0)
+                    {
+                        //window.location.reload();
+                    }
+                    verify_status = 0;
+                    $("#email_submit span").html('发送验证邮件');
+                    $("#email_submit").attr('disabled', false);
+                },
+                "json"
+        );
+
+        return false;
+    }
+
+    //验证码倒计时
+    function countDown(obj,second,textvalue){
+        if(second>=0){
+            $(".js_sendvoice").attr('disabled', true);
+            //obj.disabled = true;
+            obj.value = textvalue+'('+second+')';
+            second--;
+            setTimeout(function(){countDown(obj,second,textvalue);},1000);
+        }else{
+            $(".js_sendvoice").attr('disabled', false);
+            //obj.disabled = false;
+            obj.value = '重新获取';
+        }
+    }
+
+
+    function phoneNumValidate(areaCode, subPhone){
+        var regx = /^((13|15|18)[0-9]{9}|(176|177|178)[0-9]{8})$/;
+        if (areaCode == '0086' && !regx.test(subPhone)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //发送语音短信
+    function countDownVoidYz(obj,second)
+    {
+        emailCode = $(".emailInp").val();
+
+        //验证前端手机号
+        var reg_bindphone = $.trim($('#bindphonenum').val());
+        if(reg_bindphone == '')
+        {
+            $.dialog.tips_black('手机号还未填写');
+            return false;
+        }else
+        {
+            var isPhone = (/^\d{6,}$/.test(reg_bindphone) ? true : false);
+            if(!isPhone){
+                $.dialog.tips_black('请输入正确的手机号');
+                return false;
+            }
+        }
+        var areaCode = '';
+        if(!$('#countryNum').is(':hidden')){
+            areaCode = $.trim($('#countryNum').html());
+        }else{
+            areaCode = $.trim($('#countryNumInput').val());
+        }
+        if(areaCode == ''){
+            $.dialog.tips_black('请输入地区区号');
+            return false;
+        }
+        //验证前端校验码
+        var phonenum_captcha = $('#phonenum_captcha').val();
+        if(phonenum_captcha == '')
+        {
+            $.dialog.tips_black('请输入校验码');
+            return false;
+        }else
+        {
+            //必须4位 + 数字格式
+            var isPhonenum_captcha = (/^[0-9]{4}$/.test(phonenum_captcha) ? true : false);
+            if(!isPhonenum_captcha){
+                //$.dialog.tips_black('校验码格式不正确');
+                //return false;
+            }
+        }
+
+        if (phoneNumValidate(areaCode, reg_bindphone) == false) {
+            $.dialog.tips_black('请勿使用网络手机进行绑定');
+            return false;
+        }
+
+        //ajax验证前端校验码
+        $.post("/curl/smscp/sendphonevoid",
+                {bindphonenum:reg_bindphone,phonenum_captcha:phonenum_captcha,areaCode:areaCode, email_captcha :emailCode},
+                function(json){
+                    switch (json.result)
+                    {
+                        case 0:
+                            //发送成功
+                            //$.dialog.tips_black("短信验证码发送成功,请注意查收!");
+                            $("#bindphone_msg").html("语音验证码已拨通至您的手机");
+                            //倒计时:xx秒后重新获取
+                            countDown(obj,second,"语音验证");
+                            break;
+                        default:
+                            //默认错误:重新输入验证码
+                            //var _img = $("#reg_captcha").data('src') + '?_t=' + Math.random(1);
+                            //$("#reg_captcha").attr('src', _img);
+                            $.dialog.tips_black(json.error);
+                    }
+                },
+                "json"
+        );
+    }
+
+    $(".phonebind_submit").click(function(){
+        submit_bindphonenum(this);
+    });
+
+    //发送短信提交
+    function submit_bindphonenum(obj)
+    {
+        emailCode = $(".emailInp").val();
+        //验证前端手机号
+        var reg_bindphone = $.trim($('#bindphonenum').val());
+        if(reg_bindphone == '')
+        {
+            $.dialog.tips_black('手机号还未填写');
+            return false;
+        }else
+        {
+            var isPhone = (/^\d{6,}$/.test(reg_bindphone) ? true : false);
+            if(!isPhone){
+                $.dialog.tips_black('请输入正确的手机号');
+                return false;
+            }
+        }
+
+        //验证前端校验码
+        var phonenum_captcha = $.trim($('#phonenum_captcha').val());
+        if(phonenum_captcha == '')
+        {
+            $.dialog.tips_black('请输入校验码');
+            return false;
+        }else
+        {
+            //必须4位 + 数字格式
+            var isPhonenum_captcha = (/^[0-9]{4}$/.test(phonenum_captcha) ? true : false);
+            if(!isPhonenum_captcha){
+                //$.dialog.tips_black('校验码格式不正确');
+                //return false;
+            }
+        }
+
+        //短信验证码
+        var yzphonenum = $.trim($('#yzphonenum').val());
+        if(yzphonenum == '')
+        {
+            $.dialog.tips_black('请输入语音验证码');
+            return false;
+        }else
+        {
+            //必须6位 + 数字格式
+            var isyzphonenum = (/^[0-9]{6}$/.test(yzphonenum) ? true : false);
+            if(!isyzphonenum){
+                //$.dialog.tips_black('短信验证码格式不正确');
+                //return false;
+            }
+        }
+
+        var areaCode = '';
+        if(!$('#countryNum').is(':hidden')){
+            areaCode = $.trim($('#countryNum').html());
+        }else{
+            areaCode = $.trim($('#countryNumInput').val());
+        }
+
+        if (phoneNumValidate(areaCode, reg_bindphone) == false) {
+            $.dialog.tips_black('请勿使用网络手机进行绑定');
+            return false;
+        }
+
+        $('#phonebind_submit span').html('提交中…');
+        $('#phonebind_submit').attr('disabled',true);
+        //ajax
+        $.ajax({
+            url : "/curl/smscp/bindphone",
+            data : {bindphonenum:reg_bindphone,phonenum_captcha:phonenum_captcha,yzphonenum:yzphonenum,email_captcha:emailCode},
+            type : "post",
+            dataType : "json",
+            success : function(json){
+                switch (json.result)
+                {
+                    case 0:
+                        //成功
+                        //window.location.href = "/member";  .find(" span").text(json.phone)
+                        $("#js_phone_div").hide();
+                        $(".boundOver .msg_2").find("span").text(json.phone);
+                        $(".boundOver").show();
+                        break;
+                    default:
+                        //默认错误:重新输入验证码
+                        var _img = $("#reg_captcha").data('src') + '?_t=' + Math.random(1);
+                        $("#reg_captcha").attr('src', _img);
+                        $.dialog.tips_black(json.error);
+                }
+                $('#phonebind_submit span').html('确认绑定');
+                $('#phonebind_submit').attr('disabled',false);
+            },
+            error : function(){
+
+                alert("系统繁忙，请核定内容后再提交");
+            }
+
+        });
+
+
+    }
+</script>
+</div>
+</div>
+</div>

@@ -1,0 +1,468 @@
+<include file="./Tpl/default/Public/header.html" />	
+<style>
+
+/**/
+.main-box {
+    width: 1200px;
+    margin: 30px auto;
+    min-height: 600px;
+}
+.search-more {
+    position: fixed;
+    background: #fff;
+    width: 238px;
+    z-index: 200;
+    top: 70px;
+	padding:10px 0;
+	border:1px solid #d1d1d1;
+	border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+	box-shadow:0 3px 8px 2px rgba(1,1,1,.25);
+	display:none;
+}
+.search-tips-icon {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid #fff;
+    border-color: transparent transparent #fff;
+}
+.search-title {
+    overflow: hidden;
+    padding: 0 14px;
+    line-height: 23px;
+    background: #f4f4f4;
+    color: #9b9b9b;
+    cursor: default;
+}
+.search-title i {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+    vertical-align: middle;
+    background: url(images/search_icon.png) no-repeat 0 -29px;
+}
+.search-list li {
+    line-height: 30px;
+    height: 30px;
+    color: #666;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0 15px;
+}
+.search-list li.hotest-item{
+	color:#fc4e53;
+}
+.search-list li.hotest-item i, .search-list li:hover i {
+    background: #fc4e53;
+	color:#fff;
+}
+.search-list i {
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    display: inline-block;
+    background: #d8d8d8;
+    color: #666;
+    border-radius: 8px;
+    margin-right: 8px;
+	font-style:normal;
+}
+/*search*/
+.main-search-title {
+    overflow: hidden;
+    padding: 28px 20px 14px;
+    line-height: 1;
+    border-bottom:1px solid #d6d6d6;
+    font-size: 0;
+}
+.main-search-title h2{
+	color: #3e3e3e;
+    font-size: 18px;
+	float:left;
+}
+.main-search-title .sea-more {
+    background: url(http://www.9dcj.com/Public/images/9ducj/sy/row-top-more.png) right no-repeat;
+    padding-right: 14px;
+	float:right;
+	font-size:12px;
+}
+.sea-list{
+	margin-left:-26px;
+	position:relative;
+	zoom:1
+}
+.sea-list li{
+	width:110px;
+	float:left;
+	margin:20px 0 0 26px;
+}
+.imgbox {
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+}
+.imgbox img {
+    width: 110px;
+    height: 110px;
+    vertical-align: middle;
+}
+.sea-list h3 {
+    overflow: hidden;
+    padding: 10px 0;
+    line-height: 1;
+    color: #535353;
+	font-size:12px;
+}
+.keyword {
+    color: #f70;
+}
+.sea-list p {
+    font-weight: 100;
+    color: #bbc3ce;
+    line-height: 1;
+	font-size:12px;
+}
+.sea-list p span {
+    margin-left: 2px;
+}
+.icon_live {
+    display: block;
+    padding: 2px 6px;
+    background: #fc4e53;
+    color: #fff;
+    position: absolute;
+    top: 0;
+	right:0;
+	font-size:12px;
+	font-style:normal;
+}
+.main-context{ 
+	margin-bottom:20px;
+}
+.sear-zb{
+	margin-right:-20px;
+	position:relative;
+	zoom:1
+}
+</style>
+<div class="headtop"></div>
+<div class="main-box">
+	<!--<div class="main-context">
+		<div class="main-search-title clearfix">
+			<h2>相关主播</h2>
+			<a class="sea-more" href="">更多</a>
+		</div>
+		<ul class="sea-list clearfix">
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/0.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/big.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/head_normal_middle.png"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/0.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/big.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/head_normal_middle.png"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/0.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/big.jpg"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+			<li>
+			<a href="">
+				<div class="imgbox"><img src="images/head_normal_middle.png"></div>
+				<h3>riot<span class="keyword">赛</span>事二</h3>
+				<p>464837<span>人关注</span></p>
+			</a>
+			</li>
+		</ul>
+	</div>-->
+	<div class="main-context">
+		<div class="jctj">
+    		<div class="main-search-title clearfix">
+            <i class="aa"></i>
+			<h2>相关直播</h2>
+			<!-- <a class="sea-more" href="">更多</a> -->
+		</div>
+        <div class="jctj_bottom">
+        	<ul class="sear-zb clearfix">
+        		<foreach name="web" item="list">
+            	<li>
+					<a href="">
+						
+                    	<div class="jctj_bottom_a">
+                        	<img src="{$list.headimage}}">
+                        	<if condition="$list.status eq 1">
+							<i class="icon_live">正在直播</i>
+						</if>
+                            <div class="list-right-top-b"><b class="icos"><img src="__PUBLIC__/images/2.png"></b></div>
+                        </div>
+                        <div class="jctj_bottom_b clearfix">
+                        	<div class="name">{$list.roomtitle}</div>
+                            <!--<div class="llcs">3891</div>-->
+                        </div>
+					</a>
+                </li>
+    			</foreach>
+            </ul>
+        </div>
+    </div>
+	</div>
+	<div class="main-context">
+		<div class="jctj">
+    		<div class="main-search-title clearfix">
+			<h2>相关视频</h2>
+			<!-- <a class="sea-more" href="">更多</a> -->
+		</div>
+        <div class="jctj_bottom">
+        	<ul class="clearfix">
+        		<foreach name="data" item="vo">
+            	<li>
+					<a href="">
+                    	<div class="jctj_bottom_a">
+                        	<img src="{$vo.thumb}">
+							
+                            <div class="list-right-top-b"><b class="icos"><img src="__PUBLIC__/images/2.png"></b></div>
+                        </div>
+                        <div class="jctj_bottom_b clearfix">
+                        	<div class="name">{$vo.title}</div>
+                            <!--<div class="llcs">3891</div>-->
+                        </div>
+					</a>
+                </li>
+            </foreach>
+            </ul>
+        </div>
+    </div>
+	</div>
+</div>
+<div class="footer">
+  <div class="outlink-bg">
+    <div class="outlink">
+    <p><a href="http://webscan.360.cn/index/checkwebsite/url/www.9dcj.com" target="_blank"><img border="0" src="http://www.9dcj.com/Public/images/zwj.png"/></a><a key="57919a61efbfb033fb17eab6" logo_size="124x47" logo_type="business" href="http://www.anquan.org"><script src="js/aq_auth.js"></script></a>
+
+</p>
+      <p> <a href="http://www.9dcj.com/html/mzsm/" target="_blank">免责声明</a>|<a href="http://www.9dcj.com/html/map/" target="_blank">网站地图</a></p>
+      <p><!--广播电视节目制作经营许可证：（沪）字第1810号 | -->市场有风险，投资需谨慎 </p>
+      <p>Copyright©9度 上海灏月传媒科技有限公司 All Rights Reserved 版权所有 沪ICP备15014993号</p>
+      
+      
+    </div>
+  </div>
+</div>
+
+<!--login-->
+
+
+<div class="cd-user-modal"> 
+		<div class="cd-user-modal-container">
+			<ul class="cd-switcher">
+				<li><a href="#0">登录</a></li>
+				<li><a href="#0">注册</a></li>
+			</ul>
+
+			<div id="cd-login"> <!-- 登录 -->
+				<div class="third-list clearfix">
+                <a href="" class="third-icon third-icon-qq" target="_blank" title="QQ帐号登录"></a>
+                <a href="" class="third-icon third-icon-wx" target="_blank" title="微信帐号登录"></a>
+                <a href="" class="third-icon third-icon-wb third-icon-last" target="_blank" title="微博帐号登录"></a>
+            	</div>
+				<p class="third-text">第三方帐号直接登录</p>
+				<p class="loginbox-or-line"></p>
+				<form class="cd-form">
+					<p class="loginbox-form-title">帐号登录</p>
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signin-username">用户名</label>
+						<input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="输入用户名">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signin-password">密码</label>
+						<input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="remember-me" checked>
+						<label for="remember-me">记住登录状态</label>
+						<a class="anchor_line forget-pwd" href="" target="_blank">忘记密码?</a>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="登 录">
+					</p>
+				</form>
+			</div>
+
+			<div id="cd-signup"> <!-- 注册 -->
+				<form class="cd-form">
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">输入昵称</label>
+						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="输入昵称">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">输入密码</label>
+						<input class="full-width has-padding has-border" id="signup-email" type="password" placeholder="输入密码">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">确认密码</label>
+						<input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="确认密码">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="accept-terms" checked="checked">
+						<label for="accept-terms">我已阅读并同意 <a href="#0">用户协议</a></label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="注册">
+					</p>
+				</form>
+				<p class="loginbox-or-line"></p>
+				<div class="third-list clearfix">
+                <a href="" class="third-icon third-icon-qq" target="_blank" title="QQ帐号登录"></a>
+                <a href="" class="third-icon third-icon-wx" target="_blank" title="微信帐号登录"></a>
+                <a href="" class="third-icon third-icon-wb third-icon-last" target="_blank" title="微博帐号登录"></a>
+            	</div>
+				<p class="third-text pb">第三方帐号直接登录</p>
+			</div>
+
+			<a href="javascript:void(0)" class="cd-close-form">关闭</a>
+		</div>
+	</div>
+	
+
+<script type="text/javascript">
+	$(".inp-text").bind("focus",function(){
+		//$(this).animate({width:"160px"},"slow")
+		$(".search-more").css("display","block");
+	})
+	$(".inp-text").bind("blur",function(){
+		//$(this).animate({width:"100px"},"slow")
+		$(".search-more").css("display","none");
+	})
+</script>
+<script type="text/javascript">jQuery(".picFocus").slide({ mainCell:".bd ul",effect:"fold",trigger:"click"});</script>
+<!--<script type="text/javascript" src="js/main.js"></script>-->
+<script>
+var $form_modal = $('.cd-user-modal'),
+		$form_login = $form_modal.find('#cd-login'),
+		$form_signup = $form_modal.find('#cd-signup'),
+		$form_modal_tab = $('.cd-switcher'),
+		$tab_login = $form_modal_tab.children('li').eq(0).children('a'),
+		$tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
+		$main_nav = $('.main_nav');
+		
+function cli(){
+ 		/*$("#cd-login").css("display","block");*/
+		if( $("#lon").is($main_nav) ) {
+			// on mobile open the submenu
+			$(this).children('#cd-login').toggleClass('is-visible');
+		} else {
+			// on mobile close submenu
+			$main_nav.children('ul').removeClass('is-visible');
+			//show modal layer
+			$form_modal.addClass('is-visible');	
+			//show the selected form
+			( $(event.target).is('.cd-signup') ) ? signup_selected() : login_selected();
+		}
+		}
+function reg(){
+ 		/*$("#cd-signup").css("display","block");*/
+		if( $("#res").is($main_nav) ) {
+			// on mobile open the submenu
+			$(this).children('#cd-login').toggleClass('is-visible');
+		} else {
+			// on mobile close submenu
+			$main_nav.children('ul').removeClass('is-visible');
+			//show modal layer
+			$form_modal.addClass('is-visible');	
+			//show the selected form
+			( $(event.target).is('.cd-signup') ) ? signup_selected() : login_selected();
+		}
+		}
+		
+	//关闭弹出窗口
+	$('.cd-user-modal').on('click', function(event){
+		if( $(event.target).is($form_modal) || $(event.target).is('.cd-close-form') ) {
+			$form_modal.removeClass('is-visible');
+		}	
+	});
+	//使用Esc键关闭弹出窗口
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$form_modal.removeClass('is-visible');
+	    }
+    });
+
+	//切换表单
+	$form_modal_tab.on('click', function(event) {
+		event.preventDefault();
+		( $(event.target).is( $tab_login ) ) ? login_selected() : signup_selected();
+	});
+function login_selected(){
+		$form_login.addClass('is-selected');
+		$form_signup.removeClass('is-selected');
+		$form_forgot_password.removeClass('is-selected');
+		$tab_login.addClass('selected');
+		$tab_signup.removeClass('selected');
+	}
+	
+function signup_selected(){
+		$form_login.removeClass('is-selected');
+		$form_signup.addClass('is-selected');
+		$form_forgot_password.removeClass('is-selected');
+		$tab_login.removeClass('selected');
+		$tab_signup.addClass('selected');
+	}
+</script>
+</body>
+</html>

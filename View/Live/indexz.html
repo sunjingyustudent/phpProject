@@ -1,0 +1,1172 @@
+
+
+<!-- 头部开始/S -->
+<include file="Public:header1" />
+<!-- 头部开始/E -->
+
+
+
+
+<!-- 中间/S -->
+
+<div class="main-play">
+    <img src="__PUBLIC__/images/gpbg.jpg" class="page-bg">
+    <div>
+        <div class="teacher-info">
+            <div class="teacher-info-box">
+                <div class="info-box"> <a  target="_blank"> <img src="__PUBLIC__/images/10001.jpg" class="teacher-img" alt="用户头像"> </a>
+                    <h1>{$roominfo.roomtitle}</h1>
+                    <div class="live-info">
+                        <div class="info-item item-layer"> <span class="teacher-label fl">主讲:</span>
+                            <div class="teacher-name-box"> <a class="teacher-name"  target="_blank">{$roominfo.speaker}</a>
+                                <div class="info-layer">
+                                    <div class="icon-top-bg"> <i class="top-icon"></i> </div>
+                                    <a href="#" target="_blank"> <img src="./images/10001.jpg" alt="用户头像"> </a>
+                                </div>
+                            </div>
+                            <span class="teacher-level fl">Lv{$users.gradeid}</span>
+                        </div>
+                        <p class="info-item">人气: <span id="zaixian" class="watch-num"></span> </p>
+
+                        <foreach name="showarea" item="vo" >
+                            <a href="{$vo.saurl}" target="_blank" class="ggadd"> <span> </span>    {$vo.saname}   <span></span>  </a>
+                        </foreach>
+
+
+                    </div>
+
+                    <div class="share-info">
+
+                        <div class="share-box">
+                            <div class="share"> <i class="share-icon"></i>
+                                <div class="share-bd"> <em class="zbsnamefx"></em><span>分享</span>
+                                    <div class="layer-share-box">
+                                        <div class="top-icon-box"> <i class="top-icon"></i> </div>
+                                        <div class="share-platform">
+                                            <h4 class="titleshare">分享到：</h4>
+                                            <div class="bdsharebuttonbox bdshare-button-style1-24"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="share"> <i class="share-icon"></i>-->
+                            <!--<div class="share-bd"> <em class="zbsnamefx jbico"></em><span><a href="{:U('Live/report',array('roomid'=>$roominfo['roomid']))}" target="_blank">举报</a></span>-->
+                            <!--&lt;!&ndash;<div class="layer-share-box">-->
+                            <!--<div class="top-icon-box"> <i class="top-icon"></i> </div>-->
+                            <!--<div class="share-platform">-->
+                            <!--<h4 class="titleshare">分享到：</h4>-->
+                            <!--<div class="bdsharebuttonbox bdshare-button-style1-24"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>-->
+                            <!--</div>-->
+
+                            <!--</div>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--</div>-->
+                          <!--  <div class="live-h5"> <i class="live-h5-icon"></i>
+                                <div class="live-h5-bd"><em class="zbsnameiphone"></em> <span>手机看直播</span>
+                                    <div class="layer-h5-box">
+                                        <div class="top-icon-box"> <i class="top-icon"></i> </div>
+                                        <h4>扫描下载APP</h4>
+                                        <div class="erweima-box"> <img src="__PUBLIC__/images/androidcode.png" alt="下载二维码"> </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="focus-info">
+                            <p class="focus-box"> <span class="gznum">{$focuscount} </span> <i class="focus-icon"></i> </p>
+
+                            <button class="focus-btn btn-attention attention-add attention-114311603" id="btn1">
+                                <if condition="$focus gt 0"><span>已关注</span>
+                                    <else /><span>关注</span>
+                                </if>
+                            </button>
+                            <script>
+                                $(function(){
+                                    $('#btn1').click(function(){
+
+                                        var mark = $('#btn1 span').html();
+                                        if (mark == '关注') {
+                                            $.ajax({
+                                                url:"{:U('Live/concern')}",
+                                                type:'post',
+                                                async:true,
+                                                data:{"roomid":roomid},
+                                                dataType:'json',
+                                                success:function(data){
+                                                    if (data) {
+                                                        $('#btn1 span').html('已关注');
+                                                        $('.gznum').html(parseInt("{$focuscount}")+1);
+                                                        // alert(focuscoun);
+                                                        alert('关注成功')
+                                                    }else{
+                                                        alert('请登录');
+                                                    }
+                                                }
+                                            })
+                                        } else {
+                                            $.ajax({
+                                                url:"{:U('Live/concel')}",
+                                                type:'post',
+                                                async:true,
+                                                data:{"roomid":roomid},
+                                                dataType:'json',
+                                                success:function(data){
+                                                    if (data) {
+                                                        $('#btn1 span').html('关注');
+                                                        $('.gznum').html(parseInt("{$focuscount}")-1);
+                                                        alert('已取消关注');
+                                                    }else{
+                                                        alert('取关失败');
+                                                    }
+                                                }
+                                            })
+                                        }
+                                    })
+                                })
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="spboxtop">
+            <div class="roll_news JQ-content-box" id="weibo_list1">
+                <div class="lts_gdxw1">实时行情</div>
+                <ul style="margin-top: 0px;">
+                    <li class="a20"> <font>上证指数：</font><span class="118_B"></span><span class="118_P"></span><font>深证指数：</font><span class="121_B"></span><span class="121_P"></span><font>沪深300：</font><span class="120_B"></span><span id="120_P"></span> </li>
+                    <li class="a21"> <font>上证指数：</font><span class="118_B"></span><span class="118_P"></span><font>深证指数：</font><span class="121_B"></span><span class="121_P"></span><font>沪深300：</font><span class="120_B"></span><span id="120_P"></span> </li>
+                    <li class="a22"> <font>上证指数：</font><span class="118_B"></span><span class="118_P"></span><font>深证指数：</font><span class="121_B"></span><span class="121_P"></span><font>沪深300：</font><span class="120_B"></span><span id="120_P"></span> </li>
+                </ul>
+            </div>
+
+            <!--直播代码 /S-->
+            <if condition="$roominfo.videotype eq '1'">
+                <!--加载七牛直播流-->
+                <div class="spboxconimg" id="CuPlayer">
+                    <!--<script type="text/javascript" src="__PUBLIC__/js/sewise.player.min.js?server=live&type=rtmp&streamurl=rtmp://pili-live-rtmp.ybzx168.com/9dcj1/JDCF1472184281&autostart=true&buffer=5&lang=zh_CN&logo=http://onvod.sewise.com/libs/swfplayer/skin/images/logo.png&poster=http://www.mght99.com/Adminuploader/mghtad.gif&title=LiveVideo&skin=liveWhite"></script>-->
+                    <!--极酷阳光播放器/代码开始-->
+                    <script type="text/javascript" src="__PUBLIC__/js/player/js/swfobject.js"></script>
+                    <b><img src="__PUBLIC__js/player/images/loading.gif"  /> 网页视频播放器加载中，请稍后...</b>
+                    <script type="text/javascript">
+                        var so = new SWFObject("__PUBLIC__/js/player/player.swf","myCuPlayer","100%","100%","9","#000000");
+                        so.addParam("allowfullscreen","true");
+                        so.addParam("allowscriptaccess","always");
+                        so.addParam("wmode","opaque");
+                        so.addParam("quality","high");
+                        so.addParam("salign","lt");
+                        //播放器设置文件-----------------------------
+                        so.addVariable("JcScpFile","__PUBLIC__/js/player/CuSunV2setLive.xml"); //配置文件
+                        //视频文件及略缩图--------------------------
+                        /* 以下这行仅为rtmp直播时写法示例，直播信号是关的，请对应换成你自己的直播流使用 */
+                        so.addVariable("JcScpServer","rtmp://pili-live-rtmp.ybzx168.com/9dcj1"); //流媒体服务器
+                        so.addVariable("JcScpVideoPath","{$roominfo.streamname}"); //直播流名称
+                        so.addVariable("JcScpLiveMode","1");//设置直播模式
+                        so.addVariable("JcScpAutoPlay","yes"); //是否自动播放
+                        so.addVariable("JcScpImg","__PUBLIC__/js/player/images/startpic.jpg"); //视频缩略图
+                        //-----------------------------------------
+                        so.addVariable("JcScpSharetitle","极酷阳光播放器(CuSunPlayerV3.5)版使用官方演示实例"); //视频标题
+                        so.write("CuPlayer");
+                    </script>
+                    <script language=javascript src="__PUBLIC__/js/player/js/action.js" type=text/javascript></script>
+                    <!--极酷阳光播放器/代码结束-->
+                </div>
+                <else/>
+                <!--加载七家直播室的流-->
+                <div class="spboxconimg"  id="videocont">
+                    <script type="text/javascript">
+                        showGs();
+                    </script>
+                </div>
+            </if>
+
+            <!--直播代码 /E-->
+            <div class="spboxltcon">
+                <ul id="tab" class="zbtitle">
+                    <li id="tab1" value="1" class="zblive zblive2">边看边聊</li>
+                    <li id="tab1" value="2" class="zblive2">节目单</li>
+                </ul>
+                <div id="container">
+                    <div class="silbq">
+                        <div class="naife" id="divbox">
+                            <div class="nai_f" >
+                                <p id="fasong"></p>
+                                <p>送给&nbsp;&nbsp;<span id="jieshou"></span></p>
+                            </div>
+                            <div class="lw">
+                                <img src='__PUBLIC__/images/indexz/gift1.gif'  class="pokemon__img" id="giftcode"/>X<span id="fscount"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="content1">
+
+                        <div id="msgbox1" class="conte" style="display:block;">
+                            <div class="infolist">
+
+                            </div>
+                        </div>
+
+                        <div id="msgbox2" class="conte">
+                            <div class="weeked clearfix">
+                                <span >星期一</span>
+                                <span>星期二</span>
+                                <span>星期三</span>
+                                <span>星期四</span>
+                                <span>星期五</span>
+                                <span>星期六</span>
+                            </div>
+                            <div class="tadss clearfix">
+                                <foreach name="weekayyay" item="vo">
+                                    <a href="javascript:;"> <span>{$vo}</span></a>
+                                </foreach>
+                            </div>
+
+
+                            <!-- 绑定节目单-->
+                            <!--周一节目单-->
+                            <div>
+
+
+                                <div class="day" style="display:block;">
+
+
+                                    <volist name="programlist1" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                                <!--周二节目单-->
+                                <div class="day"  >
+
+                                    <volist name="programlist2" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span><span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                                <!--周三节目单-->
+                                <div class="day">
+                                    <volist name="programlist3" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span><span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                                <!--周四节目单-->
+                                <div class="day">
+                                    <volist name="programlist4" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span><span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                                <!--周五节目单-->
+                                <div class="day">
+                                    <volist name="programlist5" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span><span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                                <!--周六节目单-->
+                                <div class="day">
+                                    <volist name="programlist6" id="vo">
+                                        <ul>
+                                            <li> <span>{$vo.progtime}</span><span class="fonts">{$vo.progname}</span></li>
+                                            <li> <span>主持人：</span><span>{$vo.anchor}</span><span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                        </ul>
+                                    </volist>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="fhb">
+                        <div class=" hbyuan" style="background-image: url(__PUBLIC__/images/indexz/yuanbg.png)">
+                            <img src="__PUBLIC__/images/10001.jpg" class="user-img" alt="用户头像">
+                            <h2 class="titles" id="fasongrenyuan"></h2>
+                            <div class="a" style="margin-top:20px;"><img src="__PUBLIC__/images/indexz/chai.png" width="40%" id="chai"></div>
+                            <a class="clox">x</a>
+                        </div>
+                    </div>
+
+                    <div class="fhbs">
+                        <div class=" hbyuan" style="background-image: url(__PUBLIC__/images/indexz/yuanbg.png)">
+                            <img src="__PUBLIC__/images/10001.jpg" class="user-img" alt="用户头像">
+                            <h2 class="titles"></h2>
+                            <p class="txts" style="padding:10px 0; font-size:36px;" id="moneys"></p>
+                            <div class="b" style="color:#fff;">已存入余额</div>
+                            <a class="cloxs">x</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spbox">
+            <div class="spboxbtm">
+                <div style="float:left;" class="giftlist">
+
+
+
+                    <div class="hbclose"><img src="__PUBLIC__/images/indexz/close.png"/></div>
+                   <!-- <div class="hb">
+                        <img id="hbimg" src="__PUBLIC__/images/indexz/hb.png"/><br/>
+                        红包
+                        <div id="ct4" class="hbcon">
+                            <div class="hbmoney">金额：<input type="text" class="moneyinput"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" id="money"/></div>
+                            <div class="hbnum">个数：<input type="text" class="moneyinput" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" id="count"/></div>
+                            <p class="gbts">（金额和个数只能输入整数）</p>
+                            <div class="hbsure" id="hbsure">塞钱进红包</div>
+                        </div>
+
+                    </div>-->
+                    <div class="cz">
+                        <a href="{:U('Person/recharge')}" target="_blank"><img src="__PUBLIC__/images/indexz/cz.png"/><br/>充值</a>
+                    </div>
+                    <div class="zs">
+                        <select class="xznum" id="xznum">
+                            <option value ="1">1</option>
+                            <option value ="10">10</option>
+                            <option value ="30">30</option>
+                            <option value="66">66</option>
+                            <option value="188">188</option>
+                            <option value="520">520</option>
+                            <option value="1314">1314</option>
+                        </select>
+                        <!--<div class="text-gift">送给</div>-->
+                        <!--<div class="text-gift">
+                              <select name="rtype" id="teacher" class="three">
+                                <option value="1">主持人</option>
+                                <option value="2">分析师</option>
+                          </select>
+                         </div>-->
+                        <span class="zsbtn" id="sendgift">赠送</span>
+                    </div>
+                    <!--	<div id="d2" class="lwadd">+</div>-->
+                    <div id="d3">
+                        <div  id="d1" class="lwtop">
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift1.png" width="80%" alt="财气冲天,166,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift1.gif" width="100%" alt="财气冲天,166,1"></div><div class="lwmc">财气冲天</div><div class="lwjg">166钻石</div></div></div>
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift6.png" width="80%" alt="掌声,1,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift6.gif" width="100%" alt="掌声,1,1"></div><div class="lwmc">掌声</div><div class="lwjg">1钻石</div></div></div>
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift5.png" width="80%" alt="鲜花,3,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift5.gif" width="100%" alt="鲜花,3,1"></div><div class="lwmc">鲜花</div><div class="lwjg">3钻石</div></div></div>
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift4.png" width="80%" alt="神算子,66,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift4.gif" width="100%" alt="神算子,66,1"></div><div class="lwmc">神算子</div><div class="lwjg">66钻石</div></div></div>
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift3.png" width="80%" alt="点赞,2,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift3.gif" width="100%" alt="点赞,2,1"></div><div class="lwmc">点赞</div><div class="lwjg">2钻石</div></div></div>
+                            <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift2.png" width="80%" alt="财神庇佑,180,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift2.gif" width="100%" alt="财神庇佑,180,1"></div><div class="lwmc">财神庇佑</div><div class="lwjg">180钻石</div></div></div>
+                        </div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift1.png" width="80%" alt="财气冲天,166,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift1.gif" width="100%" alt="财气冲天,166,1"></div><div class="lwmc">财气冲天</div><div class="lwjg">166钻石</div></div></div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift6.png" width="80%" alt="掌声,1,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift6.gif" width="100%" alt="掌声,1,1"></div><div class="lwmc">掌声</div><div class="lwjg">1钻石</div></div></div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift5.png" width="80%" alt="鲜花,3,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift5.gif" width="100%" alt="鲜花,3,1"></div><div class="lwmc">鲜花</div><div class="lwjg">3钻石</div></div></div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift4.png" width="80%" alt="神算子,66,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift4.gif" width="100%" alt="神算子,66,1"></div><div class="lwmc">神算子</div><div class="lwjg">66钻石</div></div></div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift3.png" width="80%" alt="点赞,2,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift3.gif" width="100%" alt="点赞,2,1"></div><div class="lwmc">点赞</div><div class="lwjg">2钻石</div></div></div>
+                        <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift2.png" width="80%" alt="财神庇佑,180,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift2.gif" width="100%" alt="财神庇佑,180,1"></div><div class="lwmc">财神庇佑</div><div class="lwjg">180钻石</div></div></div>
+                    </div>
+
+                    <div  class="spboxbtmtitle">礼</br>物</div>
+                </div>
+                <div class="lt">
+                    <textarea type="text" class="textcon" id="send_input"  name="send_input"  placeholder="快跟ta互动吧"></textarea>
+                    <input type="button" value="" class="send" onclick="addliaotian()"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer/S -->
+        <div class="footer">
+            <div class="outlink-bg">
+                <div class="outlink">
+
+                    <p> <a href="http://www.9dcj.com/html/mzsm" target="_blank">免责声明</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <a href="http://www.9dcj.com/sitemap" target="_blank">网站地图</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <a href="http://www.9dcj.com/livetutorial" target="_blank">直播教程</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <a href="http://www.9dcj.com/aboutus" target="_blank">关于我们</a>
+                    </p>
+                    <p>	<a target="_blank" href="/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="http://www.9dcj.com/Public/images/9ducj/ghs.png" style="float:left;"/>沪公网安备 31011402001474号</a>市场有风险，投资需谨慎</p>
+                    <p>Copyright?9度 上海灏月传媒科技有限公司 All Rights Reserved 版权所有 沪ICP备15014993号</p>
+                    <p class="botimg"><a href="http://webscan.360.cn/index/checkwebsite/url/www.9dcj.com" target="_blank"><img border="0" src="__PUBLIC__/images/zwj.png"/></a><a key="57919a61efbfb033fb17eab6" logo_size="124x47" logo_type="business" href="http://www.anquan.org"><script src="//static.anquan.org/static/outer/js/aq_auth.js"></script></a></p>
+                </div>
+            </div>
+        </div>
+        <!-- footer/E -->
+    </div>
+</div>
+<script language=javascript src="/Public/js/jquery.cookie.js" type=text/javascript></script>
+<!-- 中间/E -->
+<!-- 二维码 -->
+<div class="ewm"> <!--<img src="/Public/images/androidcode.png" alt="下载二维码">-->
+</div>
+<!-- 二维码 -->
+<if condition="$roominfo.roomid eq '1'">
+        <!--赢在东方直播室-->
+        <script> 
+			$(document).ready(function() {
+			url = new Array(10); 
+			url[0] = 'http://yzdf99.com/regimg0811/1.jpg'
+			url[1] = 'http://yzdf99.com/regimg0811/2.jpg'
+			url[2] = 'http://yzdf99.com/regimg0811/3.jpg'
+			url[3] = 'http://yzdf99.com/regimg0811/4.jpg'
+			url[4] = 'http://yzdf99.com/regimg0811/5.jpg'
+			url[5] = 'http://yzdf99.com/regimg0811/6.jpg'
+			url[6] = 'http://yzdf99.com/regimg0811/7.jpg'
+			url[7] = 'http://yzdf99.com/regimg0811/8.jpg'
+			url[8] = 'http://yzdf99.com/regimg0811/9.jpg'
+			url[9] = 'http://yzdf99.com/regimg0811/10.jpg'
+
+			urlx = Math.floor(Math.random() * url.length); 
+			var c = $.cookie('ewmyzdf'); 
+			if (c!=null && c!="") {	
+				$(".ewm").html("<img src='"+ c +"'  height='140' />"); 
+			}
+			else {
+
+			$(".ewm").html("<img src='"+url[urlx]+"'  height='140' />"); 
+				$.cookie('ewmyzdf',url[urlx],{expires:365}); 
+			}
+				
+			});
+
+</script> 
+        <elseif  condition="$roominfo.roomid eq '2'"/>
+        <!--零距离直播室-->
+		<script> 
+        $(document).ready(function() {
+		url = new Array(15); 
+		url[0] = 'http://lingjuli99.com/regimgljl/1.jpg'
+		url[1] = 'http://lingjuli99.com/regimgljl/2.jpg'
+		url[2] = 'http://lingjuli99.com/regimgljl/3.jpg'
+		url[3] = 'http://lingjuli99.com/regimgljl/4.jpg'
+		url[4] = 'http://lingjuli99.com/regimgljl/5.jpg'
+		url[5] = 'http://lingjuli99.com/regimgljl/6.jpg'
+		url[6] = 'http://lingjuli99.com/regimgljl/7.jpg'
+		url[7] = 'http://lingjuli99.com/regimgljl/8.jpg'
+		url[8] = 'http://lingjuli99.com/regimgljl/9.jpg'
+		url[9] = 'http://lingjuli99.com/regimgljl/10.jpg'
+		url[10] = 'http://lingjuli99.com/regimgljl/11.jpg'
+		url[11] = 'http://lingjuli99.com/regimgljl/12.jpg'
+		url[12] = 'http://lingjuli99.com/regimgljl/1.jpg'
+		url[13] = 'http://lingjuli99.com/regimgljl/2.jpg'
+		url[14] = 'http://lingjuli99.com/regimgljl/3.jpg'
+
+
+
+		urlx = Math.floor(Math.random() * url.length); 
+
+		var c = $.cookie('ewmljl'); 
+		if (c!=null && c!="") {
+			$(".ewm").html("<img src='"+ c +"'  height='114' />");
+			
+			}
+		else {	
+			$(".ewm").html("<img src='"+url[urlx]+"'  height='114' />"); 
+			$.cookie('ewmljl',url[urlx],{expires:365}); 
+		}
+			
+		});
+
+</script> 
+        <elseif  condition="$roominfo.roomid eq '3'"/>
+        <!--九度期货直播室-->
+        <script> 
+ $(document).ready(function() {
+url = new Array(9); 
+url[0] = 'http://live.gpzbs.com/regimg168/wx/1.jpg'
+url[1] = 'http://live.gpzbs.com/regimg168/wx/2.jpg'
+url[2] = 'http://live.gpzbs.com/regimg168/wx/3.jpg'
+url[3] = 'http://live.gpzbs.com/regimg168/wx/4.jpg'
+url[4] = 'http://live.gpzbs.com/regimg168/wx/5.jpg'
+url[5] = 'http://live.gpzbs.com/regimg168/wx/6.jpg'
+url[6] = 'http://live.gpzbs.com/regimg168/wx/7.jpg'
+url[7] = 'http://live.gpzbs.com/regimg168/wx/8.jpg'
+url[8] = 'http://live.gpzbs.com/regimg168/wx/9.jpg'
+
+
+urlx = Math.floor(Math.random() * url.length); 
+var c = $.cookie('ewmgpzbs'); 
+if (c!=null && c!="") {
+	$(".ewm").html("<img src='"+ c +"'  width='106' />");
+
+	}
+else {	
+	$(".ewm").html("<img src='"+ url[urlx] +"'  width='106' />");  
+
+	$.cookie('ewmgpzbs',url[urlx],{expires:365});  
+}
+});
+</script>
+        <elseif  condition="$roominfo.roomid eq '4'"/>
+        <!--金融街直播室-->
+        <script> 
+$(document).ready(function() {
+url = new Array(7); 
+url[0] = 'http://jrj.jrj918.com/jrjregimg/ewm/1.jpg'
+url[1] = 'http://jrj.jrj918.com/jrjregimg/ewm/2.jpg'
+url[2] = 'http://jrj.jrj918.com/jrjregimg/ewm/3.jpg'
+url[3] = 'http://jrj.jrj918.com/jrjregimg/ewm/4.jpg'
+url[4] = 'http://jrj.jrj918.com/jrjregimg/ewm/5.jpg'
+url[5] = 'http://jrj.jrj918.com/jrjregimg/ewm/6.jpg'
+url[6] = 'http://jrj.jrj918.com/jrjregimg/ewm/7.jpg'
+
+urlx = Math.floor(Math.random() * url.length); 
+var c = $.cookie('ewmjrj'); 
+if (c!=null && c!="") {
+	$(".ewm").html("<img src='"+ c +"' width='100%'   />");
+	
+	}
+else {	
+	$(".ewm").html("<img src='"+ url[urlx] +"' width='100%'   />");
+	
+	$.cookie('ewmjrj',url[urlx],{expires:365}); 
+}
+});
+
+
+
+
+</script>
+        <elseif  condition="$roominfo.roomid eq '5'"/>
+        <!--摩根直播室-->
+		<script> 
+			$(document).ready(function() {
+			url = new Array(13); 
+			url[0] = 'http://www.mght99.com/regimgmght/1.jpg'
+			url[1] = 'http://www.mght99.com/regimgmght/2.jpg'
+			url[2] = 'http://www.mght99.com/regimgmght/3.jpg'
+			url[3] = 'http://www.mght99.com/regimgmght/4.jpg'
+			url[4] = 'http://www.mght99.com/regimgmght/5.jpg'
+			url[5] = 'http://www.mght99.com/regimgmght/6.jpg'
+			url[6] = 'http://www.mght99.com/regimgmght/7.jpg'
+			url[7] = 'http://www.mght99.com/regimgmght/8.jpg'
+			url[8] = 'http://www.mght99.com/regimgmght/9.jpg'
+			url[9] = 'http://www.mght99.com/regimgmght/10.jpg'
+			url[10] = 'http://www.mght99.com/regimgmght/11.jpg'
+			url[11] = 'http://www.mght99.com/regimgmght/12.jpg'
+			url[12] = 'http://www.mght99.com/regimgmght/13.jpg'
+			urlx = Math.floor(Math.random() * url.length); 
+			var c = $.cookie('ewmmght'); 
+			if (c!=null && c!="") {
+				$(".ewm").html("<img src='"+ c +"'  height='115' />");
+				
+				}
+			else {	
+				$(".ewm").html("<img src='"+ url[urlx] +"'  height='115' />"); 
+				
+				$.cookie('ewmmght',url[urlx],{expires:365}); 
+			}
+			});
+	</script>
+        <elseif  condition="$roominfo.roomid eq '6'"/>
+        <!--红色金融直播室-->
+        <script> 
+	$(document).ready(function() {
+	url = new Array(9); 
+	url[0] = 'http://zhibo.hsjr168.com/regimgsjr-0823/1.jpg'
+	url[1] = 'http://zhibo.hsjr168.com/regimgsjr-0823/2.jpg'
+	url[2] = 'http://zhibo.hsjr168.com/regimgsjr-0823/3.jpg'
+	url[3] = 'http://zhibo.hsjr168.com/regimgsjr-0823/4.jpg'
+	url[4] = 'http://zhibo.hsjr168.com/regimgsjr-0823/5.jpg'
+	url[5] = 'http://zhibo.hsjr168.com/regimgsjr-0823/6.jpg'
+	url[6] = 'http://zhibo.hsjr168.com/regimgsjr-0823/7.jpg'
+					
+	urlx = Math.floor(Math.random() * url.length); 
+	var c = $.cookie('ewmhsjr'); 
+	if (c!=null && c!="") {       
+	$(".ewm").html("<img src='"+ c +"' width='100%'   />");
+					
+	                   } else {	
+	                         
+					
+	$(".ewm").html("<img src='"+ url[urlx] +"' width='100%'   />");
+	$.cookie('ewmhsjr',url[urlx],{expires:365}); 
+                             }
+					});	
+			</script>
+
+        <elseif  condition="$roominfo.roomid eq '7'"/>
+        <!--八股直播室-->
+         <script> 
+$(document).ready(function() {
+url = new Array(8); 
+url[0] = 'http://bagu.jrj918.com/bgewm/1.jpg'
+url[1] = 'http://bagu.jrj918.com/bgewm/2.jpg'
+url[2] = 'http://bagu.jrj918.com/bgewm/3.jpg'
+url[3] = 'http://bagu.jrj918.com/bgewm/4.jpg'
+url[4] = 'http://bagu.jrj918.com/bgewm/5.jpg'
+url[5] = 'http://bagu.jrj918.com/bgewm/6.jpg'
+url[6] = 'http://bagu.jrj918.com/bgewm/7.jpg'
+url[7] = 'http://bagu.jrj918.com/bgewm/8.jpg'
+
+urlx = Math.floor(Math.random() * url.length); 
+var c = $.cookie('ewmbg'); 
+if (c!=null && c!="") {
+	$(".ewm").html("<img src='"+ c +"'  width='100%' />");
+	
+	}
+else {	
+	$(".ewm").html("<img src='"+ url[urlx] +"'  width='100%' />");  
+	
+	$.cookie('ewmbg',url[urlx],{expires:365}); 
+}
+});
+</script>
+        <else/>
+
+    </if>
+
+<!-- 选择礼物 -->
+<div class="gift-dialog">
+    <div class="dialog">
+        <div class="dialog-hd">
+            <div class="titss">提示</div><a href="javascript:;" class="close iconfont iconfont-close"></a></div>
+        <div class="dialog-bd">
+            <div class="message">赠送失败，请选择礼物</div>
+            <div class="btns"><a href="javascript:;" class="btn-cancel">取消</a></div>
+        </div>
+    </div>
+    <div class="mask"></div>
+</div>
+<!-- 选择礼物 -->
+<!--Y_ManageMenu-->
+<div id="Y_ManageMenu">
+    <div class="NormalMenu"> <a class="Normal_SayTo" href="javascript:void(0)" id="duita">对TA说</a> </div>
+
+</div>
+<!--/Y_ManageMenu-->
+
+
+
+
+
+<script>
+
+    var ss="";
+    var yy="";
+    function  touser(userid,nickname){
+
+
+
+
+        /* alert(userid);*/
+
+        /*alert(userid);*/
+        $('.ltcon').each(function(){
+            $(this).click(function(){
+                $("#Y_ManageMenu").css({
+                    display: 'block',
+                    top: $(this).offset().top+ 30,
+                    left: $(this).offset().left
+                });
+            })
+        })
+
+        $(document).bind('mouseup',
+                function (e) {
+                    $('#Y_ManageMenu').css('display', 'none');
+                    $(document).unbind('mouseup');
+                });
+
+
+        ss=userid;//获取对他说用户id
+        yy=nickname;//获取对他说用户昵称
+
+        /*  alert(yy);*/
+    }
+
+
+
+    var duita=document.getElementById("duita");
+    duita.onclick=function(){
+        fuzhi(ss,yy);
+        console.log(ss);
+    }
+
+</script>
+
+
+
+<script src="__PUBLIC__/js/indexz/rotate3di.js"></script>
+
+
+<!--获取红包-->
+<script type="text/javascript">
+    function getredpacket(result){
+        $(".fhb").hide();
+        getredpackets(result,fnickname);
+
+    }
+</script>
+
+
+
+
+<!--发送红包js-->
+<script type="text/javascript">
+
+    var hbsure=document.getElementById("hbsure");//获取红包发送按钮
+    hbsure.onclick=function(){
+
+        var money=document.getElementById("money").value;
+        var count=document.getElementById("count").value;
+        sendredpacket(money,1,count,fnickname);
+
+        document.getElementById("money").value="";
+        document.getElementById("count").value="";
+
+    }
+
+</script>
+
+
+
+<!--显示红包-->
+<script type="text/javascript">
+
+    function showred(fnickname,result){
+
+        $(".fhb").fadeIn(1000);
+        var fasongrenyuan=document.getElementById("fasongrenyuan");
+        fasongrenyuan.innerHTML=fnickname;
+
+        var chai=document.getElementById("chai");
+        chai.onclick=function(){
+
+            $(".a").rotate3Di(360,1000);
+            setTimeout('$(".fhb").hide()',1000);
+            $(".fhbs").css("z-index","10001");
+
+
+            ws.send('{"type":"getredpacket","redpacketid":"'+result+'"}');
+        }
+
+    }
+
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+    function　deletemsg(msgid){
+
+        var shenhemsgid=msgid;
+        ws.send('{"type":"delMsg","msgid":"'+shenhemsgid+'"}');
+    }
+</script>
+
+<!--发送审核消息-->
+<script type="text/javascript">
+    function shenhemsg(msgid){
+
+        var shenhemsgid=msgid;
+        ws.send('{"type":"shenhe","msgid":"'+shenhemsgid+'"}');
+    }
+
+</script>
+<!--发送礼物注释-->
+<script type="text/javascript">
+
+    var giftprice;//礼物价格
+    var giftname;//礼物图片
+    var giftid;//礼物ID
+    var count;//个数
+    //第一行礼物
+    var gift_box1=document.getElementById("d1");
+    var img1=gift_box1.getElementsByTagName("img");
+
+    for(var i=0;i<img1.length;i++){
+        img1[i].onclick=function(){
+
+            var giftbox=this.getAttribute("alt");
+            strs=giftbox.split(",");
+            giftprice=strs[1];
+
+            giftname=strs[0];
+            giftid=strs[2];
+
+        }
+    }
+
+    //第二行礼物
+    var gift_box2=document.getElementById("d3");
+    var imgs=gift_box2.getElementsByTagName("img");
+
+    for(var i=0;i<imgs.length;i++){
+
+        imgs[i].onclick=function(){
+
+
+            var giftbox=this.getAttribute("alt");
+            strs=giftbox.split(",");
+            giftprice=strs[1];
+
+            giftname=strs[0];
+            giftid=strs[2];
+
+
+        }
+
+    }
+
+
+    var tuserid = "{$users.userid}";
+    var tnickname = "{$users.nickname}";
+    var sendgift=document.getElementById("sendgift");
+    sendgift.onclick=function(){
+        /* alert("发礼物");*/
+        var xznum=document.getElementById("xznum").value;
+
+
+        /* var rtype=document.getElementById("teacher").value;*/
+
+        //ws.send('{"type":"chat","content":"234","webadress":"2","webcastid":"1"}');3
+        //1.是默认的直播流
+        gift(xznum,tuserid,1,webcastids,giftid,giftprice,giftname,tnickname,fnickname);
+
+        /* award(xznum,rtype,1,webcastids,giftid,giftprice,giftname,tnickname,fnickname);*/
+    }
+
+</script>
+<!--添加礼物特效-->
+<script type='text/javascript'>
+    /*   (function($){
+     $(window).load(function() {
+     */var imageurl;
+    function gifttx(count, gradeid, giftname, fusernickname) {
+
+        /* if (count == 10) {*/
+        //礼物特效,count==10的特效
+        var fasong = document.getElementById("fasong");
+        fasong.innerHTML = fusernickname;
+        var jieshou = document.getElementById("jieshou");
+        jieshou.innerHTML = "主播";
+        //发送个数
+        var fscount = document.getElementById("fscount");
+        fscount.innerHTML = count;
+
+        /*
+         alert(count);*/
+        switch(giftname){
+            case '财气冲天':imageurl="__PUBLIC__/images/indexz/gift1.gif";break;
+            case '掌声':imageurl="__PUBLIC__/images/indexz/gift6.gif";break;
+            case '鲜花':imageurl="__PUBLIC__/images/indexz/gift5.gif";break;
+            case '神算子':imageurl="__PUBLIC__/images/indexz/gift4.gif";break;
+            case '点赞':imageurl="__PUBLIC__/images/indexz/gift3.gif";break;
+            case '财神庇佑':imageurl="__PUBLIC__/images/indexz/gift2.gif";break;
+
+        }
+
+        $("#giftcode").attr("src",imageurl);
+        //设置图片特效
+        /* document.getElementById("giftcode").src=imageurl;*/
+        /* $("#giftcode").attr('"src","'+imageurl+'"');*/
+
+        /*document.getElementById("giftcode").src=imageurl;*/
+        //  var giftimgrul=__PUBLIC__/images/indexz/gift1.gif;
+        //  $("#giftcode").html("")  ;
+
+
+        if ($('.naife').offset().left > 0) {
+            $(".naife").removeAttr("style");
+        }
+        $(".naife").stop(true).animate({opacity: "1", left: "-=150"}, "slow",function(){$(this).css("display","block")});
+        setTimeout(function () {
+            $(".naife").stop(true).animate({opacity: "0", left: "+=150"}, 300,function(){$(this).css("display","none")});
+        }, 2000);
+
+        return false;
+
+        /*   }*/
+
+
+    }
+    /*       });
+     })(jQuery);*/
+</script>
+
+
+<!--查看红包-->
+<script type="text/javascript">
+
+    function hongbaodetail(money){
+
+        setTimeout('$(".fhbs").show()',1000);
+
+        var moneys=document.getElementById("moneys");
+
+        moneys.innerHTML=money;
+    }
+</script>
+<script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="__PUBLIC__/js/indexz/jquery.mousewheel.js"></script>
+<script src="__PUBLIC__/js/indexz/jquery.mCustomScrollbar.js"></script>
+
+
+<script type='text/javascript'>
+    (function($){
+        $(window).load(function settimemCustomScrollbar(){
+
+
+            $("#msgbox1").mCustomScrollbar();
+            $("#msgbox1").mCustomScrollbar("update");
+            $("#msgbox1").mCustomScrollbar("scrollTo","bottom");
+
+
+        });
+
+    })(jQuery);
+
+</script>
+<script type="text/javascript" charset="utf-8">
+    function startaa() {
+        lct = document.getElementById('mCSB_1_dragger_vertical');
+
+        $("#mCSB_1_dragger_vertical").css("bottom","0");
+        $("#mCSB_1_dragger_vertical").css('top', 'none');
+    }
+    window.onload=function()//用window的onload事件，窗体加载完毕的时候
+    {
+        startaa();
+    }
+    setInterval(function(){startaa()},200);
+</script>
+<!--绑定webcstid-->
+<script type="text/javascript">
+
+    function  bangdingwebcastid(webcastid){
+        webcastids=webcastid;
+
+
+        console.log("indexz webcastid");
+        console.log(webcastid);
+    }
+</script>
+
+
+
+<script>
+
+    $(document).ready(function(){
+        /* $("#tab>li").click(function(){
+         $(this).addClass('zblive').siblings().removeClass('zblive');
+         $("div[style]").removeAttr("style");
+         $("#msgbox"+this.value).attr("style","z-index: 1;");
+
+         });*/
+
+        $("#tab li").each(function(i){
+            $(this).click(function(){
+                $(this).addClass('zblive').siblings().removeClass('zblive');
+                $("#content1 .conte").eq(i).show().siblings().hide();
+            });
+        });
+        $(".tadss a").each(function(i){
+            $(this).click(function(){
+                $(this).addClass('over').siblings().removeClass('over');
+                $(".day").eq(i).show().siblings().hide();
+            })
+        })
+
+
+        $("#d2").click(function(){
+            if($("#d1").is(":hidden")){
+                $("#d1").show();
+                $("#d2").text("-");
+            }else{
+                $("#d1").hide();
+                $("#d2").text("+");
+            }
+        });
+
+        $("#hbimg").click(function(){
+            $(".hbcon").fadeIn(500);
+
+            $(".hbclose").fadeIn(500);
+        });
+
+        $(".hbsure").click(function(){
+            var kong=$(".moneyinput").val();
+            var kongs=$(".moneyinputs").val();
+
+            $(".hbcon").fadeOut(500);
+            $(".hbclose").fadeOut(500);
+            /*  $(".fhb").fadeIn(1000);*/
+            $(".fhb").css("z-index","10001");
+
+        });
+
+
+        $(".hbclose").click(function(){
+            $(".hbcon").fadeOut(500);
+            $(".hbclose").fadeOut(500);
+        });
+
+        $(".clox").click(function(){
+            $(".fhb").hide();
+        })
+
+
+        $(".cloxs").click(function(){
+
+            $(".fhbs").hide();
+        })
+        $(".iconfont-close").click(function(){
+
+            $(".gift-dialog").hide();
+        })
+        $(".btn-cancel").click(function(){
+
+            $(".gift-dialog").hide();
+        })
+
+//放在礼物上的样式
+        $(".spboxbtmcon").click(function(){
+            $(".spboxbtmcon").removeClass("spboxbtmconactive");
+            $(this).addClass("spboxbtmconactive");
+        });
+
+        /*   $(".a").click(function(){
+         $(".a").rotate3Di(360,1000);
+         setTimeout('$(".fhb").hide()',1000);
+         setTimeout('$(".fhbs").show()',1000);
+         })*/
+
+
+        $(".spboxbtmcon").hover(function() {
+            $(this).find(".lwxx").stop().animate({opacity: "show", top: "-75"}, "slow");
+        }, function() {
+            $(this).find(".lwxx").stop().animate({opacity: "hide", top: "-85"}, "fast");
+        });
+
+
+
+    });
+
+
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var timer1 = setInterval(function () {
+            $.getJSON('http://api.markets.wallstreetcn.com/v1/price?symbol=000001_399001_399006_399300_NASINDEX&callback=?', function (data) {
+                for (var i = 0; i < data.results.length; i++) {
+                    $('.' + data.results[i].id + "_B").text(data.results[i].price);
+                    $('.' + data.results[i].id + "_P").text(data.results[i].changePercent);
+                }
+            });
+        }, 1000 * 6);
+
+    });
+
+    function resize() {
+        var windowHeight = $(window).height();
+        var windowWidth = $(window).width();
+        var headerheight=$(".header").height();
+        var subnavheight=$(".teacher-info").height();
+        var spboxheight=$(".spbox").height();
+        var tabheight=$("#tab").height();
+        var footerheight=$(".lts_footer").height();
+        var height0 = footerheight+subnavheight+headerheight+spboxheight;
+        var height1 = height0+tabheight;
+
+
+        $('.spboxtop').height(windowHeight -height0);
+        $('.spboxconimg').width((windowHeight -height0)*4/3+100).height(windowHeight -height0);
+
+        $('.videos').height(windowHeight -height0);
+        $('.videos').width((windowHeight -height0)*4/3+1100);
+        $('.giftlist').width((windowHeight -height0)*4/3+100);
+        $('.spboxltcon').width(windowWidth*4/5-((windowHeight -height0)*4/3)-15-108);
+        $('#content1').width(windowWidth*4/5-((windowHeight -height0)*4/3)-15-108);
+        $('#container').width(windowWidth*4/5-((windowHeight -height0)*4/3)-15-108);
+        $('.textcon').width(windowWidth*4/5-((windowHeight -height0)*4/3)-15-108-140);
+        $('.lt').width(windowWidth*4/5-((windowHeight -height0)*4/3)-15-108);
+        $('#content1').height(windowHeight -height1);
+        $('#msgbox1').height(windowHeight -height1-20);
+
+
+        $('#container').height(windowHeight -height1);
+        //$('#msgbox1').height(windowHeight -height1-20);
+        //$('#msgbox2').height(windowHeight -height1-20);
+
+    }
+    resize();
+    $(window).resize(function () {
+        resize()
+    });
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(".lt").keydown(function(e){
+        var e = e || event,
+                keycode = e.which || e.keyCode;
+
+
+        var countmsg=$('#send_input').val();
+
+
+        if (keycode==13) {
+
+            if(countmsg==""||countmsg==null){
+                alert("聊天信息不能为空");
+            }else{
+                $(".send").click();
+            }
+
+        }
+
+    });
+</script>
+
+</body>
+
+
+<if condition="$roominfo.roomid eq '1'">
+    <!--赢在东方直播室-->
+    <script language="javascript" src="http://chat16.live800.com/live800/chatClient/monitor.js?jid=1604790164&companyID=611522&configID=139775&codeType=custom"></script>
+    <elseif  condition="$roominfo.roomid eq '2'"/>
+    <!--零距离直播室-->
+    <script language="javascript" src="http://chat16.live800.com/live800/chatClient/monitor.js?jid=9257322584&companyID=611524&configID=139777&codeType=custom"></script>
+    <elseif  condition="$roominfo.roomid eq '3'"/>
+    <!--九度期货直播室-->
+    <script language="javascript" src="http://chat8.live800.com/live800/chatClient/monitor.js?jid=1151760632&companyID=652482&configID=149946&codeType=custom"></script>
+    <elseif  condition="$roominfo.roomid eq '4'"/>
+    <!--金融街直播室-->
+    <script language="javascript" src="http://chat8.live800.com/live800/chatClient/monitor.js?jid=8761013504&companyID=652003&configID=149296&codeType=custom"></script>
+    <elseif  condition="$roominfo.roomid eq '5'"/>
+    <!--摩根直播室-->
+    <script language="javascript" src="http://chat16.live800.com/live800/chatClient/monitor.js?jid=3723979894&companyID=601495&configID=139689&codeType=custom"></script>
+    <elseif  condition="$roominfo.roomid eq '6'"/>
+    <!--红色金融直播室-->
+    <script language="javascript" src="http://chat8.live800.com/live800/chatClient/monitor.js?jid=3931804825&companyID=620437&configID=149099&codeType=custom"></script>
+
+    <elseif  condition="$roominfo.roomid eq '7'"/>
+    <!--八股直播室-->
+    <script language="javascript" src="http://chat56.live800.com/live800/chatClient/monitor.js?jid=9370211285&companyID=694172&configID=76235&codeType=custom"></script>
+    <else/>
+
+</if>
+
+</html>

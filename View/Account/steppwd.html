@@ -1,0 +1,42 @@
+<include file="Public:header" />
+ <div class="cd-form pwdbox">
+                <form class="form" action="{:U('Account/forgetpwdDo')}" method="post">
+                <div class="con-wrap">
+                    <p class="loginbox-form-title">设置新密码</p>
+                    <p class="fieldset">
+                    <label class="image-replace cd-password" for="signup-password">输入密码</label>
+                    <input class="full-width has-padding has-border" id="signup-password" type="password" name="pwd"  placeholder="输入密码">
+                </p>
+                   <p class="fieldset">
+                    <label class="image-replace cd-password" for="signup-password">确认密码</label>
+                    <input class="full-width has-padding has-border" id="signup-password" type="password" name="repwd"  placeholder="确认密码">
+                    <input type="hidden" name="userid" value="{$userid}">
+                </p>
+
+
+                    <p class="fieldset text-left">
+                        <input class="full-width3" type="submit" value="提交" id="loginGo">
+                    </p>
+                  </div>
+                </form>
+            </div>
+            <!-- <script type="text/javascript"> 
+var countdown=60; 
+function settime(obj) { 
+    if (countdown == 0) { 
+        obj.removeAttribute("disabled");    
+        obj.value="重新发送"; 
+        countdown = 60; 
+        return;
+    } else { 
+        obj.setAttribute("disabled", true); 
+        obj.value="(" + countdown + ")"; 
+        countdown--; 
+    } 
+setTimeout(function() { 
+    settime(obj) }
+    ,1000) 
+}
+  
+</script> -->
+<include file="Public:footer" />

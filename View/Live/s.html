@@ -1,0 +1,850 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" class="w1420">
+<head>
+
+    <script>
+        var public="__PUBLIC__";
+        var welpic = '/Adminuploader/gpzbs-tc.jpg';
+        var gsid = "{$roominfo.webcastkeyid}";
+        var nick = "{$userinfo1.nickname}";
+        var tctime = 3;
+        var roomid = "{$roominfo.roomid}";
+        var fuserid="{$userinfo1.userid}";
+
+        var fnickname="{$userinfo1.nickname}";
+        var webcastids="";
+
+        var usergrade="{$userinfo1.usergrade}";
+        var userroom="{$userinfo1.roomid}";
+
+        var li="{$isprograme}";
+
+        if(li==0){
+
+            alert("我要隐藏样式");
+            //不显示节目单，改变样式
+        }
+
+
+
+
+
+
+
+        WS_HOST = '120.26.128.212';
+        WS_PORT = 7272;
+        if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+        WEB_SOCKET_SWF_LOCATION = "__PUBLIC__/swf/WebSocketMain.swf";
+        WEB_SOCKET_DEBUG = true;
+        var ws, name, client_list={},timeid, reconnect=false,limitCount;
+    </script>
+
+    <script>
+        function scrollWindow(){
+            var scrollt = document.getElementById('content1"');
+            scrollt.scrollTop = scrollt.scrollHeight;
+            setTimeout('scrollWindow()', 200);
+        }
+        window.onload = function() {
+            /*alert("da");*/
+            scrollWindow(); }
+    </script>
+
+    <input type="hidden" id="roomid" value="{$list}"/>
+    <script type="text/javascript">
+        var roomid=document.getElementById("roomid").value;
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{$roominfo.roomtitle}</title>
+    <meta name="keywords" content="{$roominfo.roomkeywords}" />
+    <meta name="description" content="{$roominfo.roomdescription}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="canonical" href="#">
+    <link rel="stylesheet" href="__PUBLIC__/js/indexz/liveOnly.css">
+
+    <link rel="stylesheet" href="__PUBLIC__/js/indexz/jquery.mCustomScrollbar.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/js/indexz/share.js"></script>
+    <style type="text/css">
+        .myscroll_track {
+            display: none;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            background-color: #000;
+            right: 0;
+            overflow: hidden
+        }
+        .myscroll_bar {
+            position: absolute;
+            top: 0;
+            left: 1px;
+            cursor: pointer;
+            background-color: #ddd;
+            overflow: hidden;
+            width: 8px;
+            display: none
+        }
+    </style>
+
+
+    <link href="__PUBLIC__/Css/Chat/layout0808.css" rel="stylesheet" />
+    <script src="__PUBLIC__/js/main.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/js/controller.js?20160789" type="text/javascript"></script>
+    <script src="__PUBLIC__/js/moment.js"></script>
+    <script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+    <!--七家直播室js-->
+    <script src="__PUBLIC__/js/gs.js?20151026"></script>
+    <script type="text/javascript" src="http://static.gensee.com/webcast/static/sdk/js/gssdk.js"></script>
+
+
+
+</head>
+
+<body>
+<include file="Public:header" />
+<div class="main-play">
+    <div class="teacher-info">
+        <div class="teacher-info-box">
+            <div class="info-box"> <a href="#" target="_blank"> <img src="__PUBLIC__/images/10001.jpg" class="teacher-img" alt="用户头像"> </a>
+                <h1>{$livehall.livename}</h1>
+                <div class="live-info">
+                    <div class="info-item item-layer"> <span class="teacher-label fl">主讲:</span>
+                        <div class="teacher-name-box"> <a class="teacher-name" href="#" target="_blank">{$livehall.speaker}</a>
+                            <div class="info-layer">
+                                <div class="icon-top-bg"> <i class="top-icon"></i> </div>
+                                <a href="#" target="_blank"> <img src="./images/10001.jpg" alt="用户头像"> </a>
+                            </div>
+                        </div>
+                        <span class="teacher-level fl">Lv{$users.gradeid}</span>
+                    </div>
+                    <p class="info-item">人气: <span id="zaixian" class="watch-num"></span> </p>
+                </div>
+                <div class="share-info">
+                    <div class="focus-info">
+                        <p class="focus-box"> <span class="gznum">{$focuscount} </span> <i class="focus-icon"></i> </p>
+
+                        <button class="focus-btn btn-attention attention-add attention-114311603" id="btn1">
+                            <if condition="$focus gt 0"><span>已关注</span>
+                                <else /><span>关注</span>
+                            </if>
+                        </button>
+                        <script>
+                            $(function(){
+                                $('#btn1').click(function(){
+
+                                    var mark = $('#btn1 span').html();
+                                    if (mark == '关注') {
+                                        $.ajax({
+                                            url:"{:U('Live/concern')}",
+                                            type:'post',
+                                            async:true,
+                                            data:{"roomid":roomid},
+                                            dataType:'json',
+                                            success:function(data){
+                                                if (data) {
+                                                    $('#btn1 span').html('已关注');
+                                                    $('.gznum').html(parseInt("{$focuscount}")+1);
+                                                    // alert(focuscoun);
+                                                    alert('关注成功')
+                                                }else{
+                                                    alert('请登录');
+                                                }
+                                            }
+                                        })
+                                    } else {
+                                        $.ajax({
+                                            url:"{:U('Live/concel')}",
+                                            type:'post',
+                                            async:true,
+                                            data:{"roomid":roomid},
+                                            dataType:'json',
+                                            success:function(data){
+                                                if (data) {
+                                                    $('#btn1 span').html('关注');
+                                                    $('.gznum').html(parseInt("{$focuscount}")-1);
+                                                    alert('已取消关注');
+                                                }else{
+                                                    alert('取关失败');
+                                                }
+                                            }
+                                        })
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+                    <div class="share-box">
+                        <div class="share"> <i class="share-icon"></i>
+                            <div class="share-bd"> <em class="zbsnamefx"></em><span>分享</span>
+                                <div class="layer-share-box">
+                                    <div class="top-icon-box"> <i class="top-icon"></i> </div>
+                                    <div class="share-platform">
+                                        <h4 class="titleshare">分享到：</h4>
+                                        <div class="bdsharebuttonbox bdshare-button-style1-24"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="live-h5"> <i class="live-h5-icon"></i>
+                            <div class="live-h5-bd"><em class="zbsnameiphone"></em> <span>手机看直播</span>
+                                <div class="layer-h5-box">
+                                    <div class="top-icon-box"> <i class="top-icon"></i> </div>
+                                    <h4>扫描下载APP</h4>
+                                    <div class="erweima-box"> <img src="" alt="下载二维码"> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="spboxtop">
+        <!--直播代码 /S-->
+        <if condition="$roominfo.videotype eq '1'">
+            <!--加载七牛直播流-->
+            <div class="spboxconimg" style="width: 860px; height: 489.11px; ">
+                <!--<script type="text/javascript" src="__PUBLIC__/js/sewise.player.min.js?server=live&type=rtmp&streamurl=rtmp://pili-live-rtmp.ybzx168.com/9dcj1/JDCF1472184281&autostart=true&buffer=5&lang=zh_CN&logo=http://onvod.sewise.com/libs/swfplayer/skin/images/logo.png&poster=http://www.mght99.com/Adminuploader/mghtad.gif&title=LiveVideo&skin=liveWhite"></script>-->
+                <!--极酷阳光播放器/代码开始-->
+                <script type="text/javascript" src="__PUBLIC__/js/player/js/swfobject.js"></script>
+                <div class="videos" id="CuPlayer"><b><img src="__PUBLIC__js/player/images/loading.gif"  /> 网页视频播放器加载中，请稍后...</b></div>
+                <script type="text/javascript">
+                    var so = new SWFObject("__PUBLIC__/js/player/player.swf","myCuPlayer","860","489","9","#000000");
+                    so.addParam("allowfullscreen","true");
+                    so.addParam("allowscriptaccess","always");
+                    so.addParam("wmode","opaque");
+                    so.addParam("quality","high");
+                    so.addParam("salign","lt");
+                    //播放器设置文件-----------------------------
+                    so.addVariable("JcScpFile","__PUBLIC__/js/player/CuSunV2setLive.xml"); //配置文件
+                    //视频文件及略缩图--------------------------
+                    /* 以下这行仅为rtmp直播时写法示例，直播信号是关的，请对应换成你自己的直播流使用 */
+                    so.addVariable("JcScpServer","rtmp://pili-live-rtmp.ybzx168.com/9dcj1"); //流媒体服务器
+                    so.addVariable("JcScpVideoPath","JDCF14733986781"); //直播流名称
+
+                    so.addVariable("JcScpLiveMode","1");//设置直播模式
+
+                    so.addVariable("JcScpAutoPlay","yes"); //是否自动播放
+                    so.addVariable("JcScpImg","__PUBLIC__/js/player/images/startpic.jpg"); //视频缩略图
+                    //-----------------------------------------
+                    so.addVariable("JcScpSharetitle","极酷阳光播放器(CuSunPlayerV3.5)版使用官方演示实例"); //视频标题
+                    so.write("CuPlayer");
+                </script>
+                <script language=javascript src="__PUBLIC__/js/player/js/action.js" type=text/javascript></script>
+                <!--极酷阳光播放器/代码结束-->
+            </div>
+            <else/>
+            <!--加载七家直播室的流-->
+            <div class="spboxconimg"  id="videocont">
+                <script type="text/javascript">
+                    showGs();
+                </script>
+            </div>
+        </if>
+
+        <!--直播代码 /E-->
+        <div class="spboxltcon">
+            <ul id="tab" class="zbtitle">
+                <li id="tab1" value="1" class="zblive zblive2">边看边聊</li>
+                <li id="tab1" value="2" class="zblive zblive2">节目单</li>
+            </ul>
+            <div id="container">
+                <div class="silbq">
+                    <div class="naife" id="divbox">
+                        <div class="nai_f" >
+                            <p id="fasong"></p>
+                            <p>送给&nbsp;&nbsp;<span id="jieshou"></span></p>
+                        </div>
+                        <div class="lw">
+                            <img src='__PUBLIC__/images/indexz/gift1.gif'  class="pokemon__img" id="giftcode"/>X<span>10</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="content1">
+
+                    <div id="msgbox1" style="z-index: 1;">
+
+                    </div>
+
+                    <div id="msgbox2">
+
+                        <div>
+                            <foreach name="weekayyay" item="vo">
+                                <a href="" style="display: block;background-color: #ccc; margin-bottom: 10px;"> <span>{$vo}</span></a>
+                            </foreach>
+                        </div>
+
+
+                        <!-- 绑定节目单-->
+                        <!--周一节目单-->
+                        <div  >
+                            <volist name="programlist1" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+                        <!--周二节目单-->
+                        <div  >
+                            <volist name="programlist2" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+                        <!--周三节目单-->
+                        <div  >
+                            <volist name="programlist3" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+                        <!--周四节目单-->
+                        <div  >
+                            <volist name="programlist4" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+                        <!--周五节目单-->
+                        <div  >
+                            <volist name="programlist5" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+                        <!--周六节目单-->
+                        <div  >
+                            <volist name="programlist6" id="vo">
+                                <ul>
+                                    <li> <span>{$vo.progtime}</span></li>
+                                    <li> <span>{$vo.progname}</span></li>
+                                    <li> <span>主持人：</span><span>{$vo.anchor}</span></li>
+                                    <li> <span>嘉宾老师：</span><span>{$vo.teacher}</span></li>
+                                </ul>
+                            </volist>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="fhb">
+                    <div class=" hbyuan" style="background-image: url(__PUBLIC__/images/indexz/yuanbg.png)">
+                        <img src="__PUBLIC__/images/10001.jpg" class="user-img" alt="用户头像">
+                        <h2 class="titles" id="fasongrenyuan"></h2>
+                        <div class="a" style="margin-top:20px;"><img src="__PUBLIC__/images/indexz/chai.png" width="40%" id="chai"></div>
+                        <a class="clox">x</a>
+                    </div>
+                </div>
+
+                <div class="fhbs">
+                    <div class=" hbyuan" style="background-image: url(__PUBLIC__/images/indexz/yuanbg.png)">
+                        <img src="__PUBLIC__/images/10001.jpg" class="user-img" alt="用户头像">
+                        <h2 class="titles"></h2>
+                        <p class="txts" style="padding:10px 0; font-size:36px;" id="moneys"></p>
+                        <div class="b" style="color:#fff;">已存入余额</div>
+                        <a class="cloxs">x</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spbox">
+        <div class="spboxbtm">
+            <div  class="spboxbtmtitle">礼</br>物</div>
+            <div  id="d1" class="lwtop">
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift1.png" width="80%" alt="看多,1,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift1.gif" width="100%" alt="看多,1,1"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift6.png" width="80%" alt="鲜花,3,2"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift6.gif" width="100%"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift5.png" width="80%"  alt="点赞,2,3"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift5.gif" width="100%"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift4.png" width="80%"  alt="点赞,2,3"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift4.gif" width="100%"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift3.png" width="80%"  alt="点赞,2,3"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift3.gif" width="100%"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift2.png" width="80%"  alt="点赞,2,3"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift2.gif" width="100%"></div><div class="lwmc">砖石礼花满</div><div class="lwjg">66砖石</div></div></div>
+            </div>
+
+            <div id="d3" style=" ">
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift1.png" width="80%" alt="财气冲天,166,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift1.gif" width="100%" alt="财气冲天,166,1"></div><div class="lwmc">财气冲天</div><div class="lwjg">166钻石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift6.png" width="80%" alt="掌声,1,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift6.gif" width="100%" alt="掌声,1,1"></div><div class="lwmc">掌声</div><div class="lwjg">1钻石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift5.png" width="80%" alt="鲜花,3,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift5.gif" width="100%" alt="鲜花,3,1"></div><div class="lwmc">鲜花</div><div class="lwjg">3钻石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift4.png" width="80%" alt="神算子,66,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift4.gif" width="100%" alt="神算子,66,1"></div><div class="lwmc">神算子</div><div class="lwjg">66钻石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift3.png" width="80%" alt="点赞,2,1"/> <div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift3.gif" width="100%" alt="点赞,2,1"></div><div class="lwmc">点赞</div><div class="lwjg">2钻石</div></div></div>
+                <div class="spboxbtmcon"><img src="__PUBLIC__/images/indexz/gift2.png" width="80%" alt="财神庇佑,180,1"/><div class="lwxx"><div class="lwdt"><img src="__PUBLIC__/images/indexz/gift2.gif" width="100%" alt="财神庇佑,180,1"></div><div class="lwmc">财神庇佑</div><div class="lwjg">180钻石</div></div></div>
+            </div>
+            <div id="d2" class="lwadd">+</div>
+            <div class="zs">
+                <select class="xznum" id="xznum">
+                    <option value ="1">1</option>
+                    <option value ="10">10</option>
+                    <option value ="30">30</option>
+                    <option value="66">66</option>
+                    <option value="188">188</option>
+                    <option value="520">520</option>
+                    <option value="1314">1314</option>
+                </select>
+                <span class="zsbtn" id="sendgift">赠送</span>
+            </div>
+            <div class="cz">
+                <a href="{:U('Person/recharge')}"><img src="__PUBLIC__/images/indexz/cz.png"/><br/>充值</a>
+            </div>
+            <div class="hb">
+                <img id="hbimg" src="__PUBLIC__/images/indexz/hb.png"/><br/>
+                红包
+                <div id="ct4" class="hbcon">
+                    <div class="hbmoney">金额：<input type="text" class="moneyinput"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" id="money"/></div>
+                    <div class="hbnum">个数：<input type="text" class="moneyinput" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" id="count"/></div>
+                    <p class="gbts">（金额和个数只能输入整数）</p>
+                    <div class="hbsure" id="hbsure">塞钱进红包</div>
+                </div>
+
+            </div>
+            <div class="hbclose"><img src="__PUBLIC__/images/indexz/close.png"/></div>
+
+            <div class="lt">
+                <textarea type="text" class="textcon" id="send_input"  name="send_input"  placeholder="快跟ta互动吧"></textarea>
+                <input type="button" value="发送" class="send" onclick="addliaotian()"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 经常视频 -->
+
+
+
+
+
+<!-- 录播视频区 -->
+<div class="viedo-show-block" style="width:1200px;">
+    <div class="videolists-box">
+        <div class="videolists-hd">
+            <h3>热门推荐</h3>
+            <span class="more"> <a href="{:U('LiveHall/LiveList')}" target="_blank">更多</a> </span> </div>
+        <div class="v-list-v2 videolists-bd">
+            <div class="v-col">
+                <ul>
+                    <foreach name="data" item="vo">
+                        <li class="record-video-list"> <img src="{$vo.thumbnail}" class="replacesrc" >
+                            <img class="topright" src="../../../../Public/images/dbright.png"/>
+                            <div class="v-item-txt">
+                                <p class="name">{$vo['speaker']}</p>
+                                <div class="zbinfo">
+                                    <p class="zbsname"><em class="zbsnameleft"></em><a class="zbsnamecon">{$vo['livename']}</a></p>
+                                    <p class="vedio-read-num"> <em class="icon-record-2"></em><a> {$vo['hits']}</a></p>
+                                </div>
+                            </div>
+                            <div class="rem-item">
+                                <p class="title">8.30 </p>
+                                <i class="icon-record"></i> </div>
+                            <div class="tutor-info-wrap"> <a href="{:U('Live/indexz',array('roomid'=>$vo['roomid']))}" class="play-btn-wrap" title="8512-16.8.5" target="_blank">
+                                <div class="play-btn"></div>
+                            </a> </div>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="viedo-show-block" style="width:1200px;">
+    <div class="videolists-box">
+        <div class="videolists-hd">
+            <h3>精彩视频</h3>
+            <span class="more"> <a href="{:U('VideoSchool/headerpage')}" target="_blank">更多</a> </span> </div>
+        <div class="v-list-v2 videolists-bd">
+            <div class="v-col">
+                <ul>
+                    <foreach name="videos" item="vo">
+                        <li class="record-video-list"> <img src="{$vo.thumb}" class="replacesrc" >
+                            <img class="topright" src="../../../../Public/images/dbright.png"/>
+                            <div class="v-item-txt">
+                                <p class="name">{$vo['title']}</p>
+                                <div class="zbinfo">
+                                    <p class="zbsname"><em class="zbsnameleft"></em><a class="zbsnamecon">{$vo['source']}</a></p>
+                                    <p class="vedio-read-num"> <em class="icon-record-2"></em><a> {$vo['clickcount']}</a></p>
+                                </div>
+                            </div>
+                            <div class="rem-item">
+                                <i class="icon-record"></i> </div>
+                            <div class="tutor-info-wrap"> <a href="{:U('VideoSchool/detailvideo',array('nid'=>$vo['nid']))}" class="play-btn-wrap" title="8512-16.8.5" target="_blank">
+                                <div class="play-btn"></div>
+                            </a> </div>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer" />
+
+
+
+
+
+<script src="__PUBLIC__/js/indexz/rotate3di.js"></script>
+
+
+<!--获取红包-->
+<script type="text/javascript">
+    function getredpacket(result){
+        $(".fhb").hide();
+        getredpackets(result,fnickname);
+
+    }
+</script>
+
+
+
+
+<!--发送红包js-->
+<script type="text/javascript">
+
+    var hbsure=document.getElementById("hbsure");//获取红包发送按钮
+    hbsure.onclick=function(){
+
+        var money=document.getElementById("money").value;
+        var count=document.getElementById("count").value;
+        sendredpacket(money,1,count,fnickname);
+
+        document.getElementById("money").value="";
+        document.getElementById("count").value="";
+
+    }
+
+</script>
+
+
+
+<!--显示红包-->
+<script type="text/javascript">
+
+    function showred(fnickname,result){
+
+        $(".fhb").fadeIn(1000);
+        var fasongrenyuan=document.getElementById("fasongrenyuan");
+        fasongrenyuan.innerHTML=fnickname;
+
+        var chai=document.getElementById("chai");
+        chai.onclick=function(){
+
+            $(".a").rotate3Di(360,1000);
+            setTimeout('$(".fhb").hide()',1000);
+            $(".fhbs").css("z-index","10001");
+
+
+            ws.send('{"type":"getredpacket","redpacketid":"'+result+'"}');
+        }
+
+    }
+
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+    function　deletemsg(msgid){
+
+        var shenhemsgid=msgid;
+        ws.send('{"type":"delMsg","msgid":"'+shenhemsgid+'"}');
+    }
+</script>
+
+<!--发送审核消息-->
+<script type="text/javascript">
+    function shenhemsg(msgid){
+
+        var shenhemsgid=msgid;
+        ws.send('{"type":"shenhe","msgid":"'+shenhemsgid+'"}');
+    }
+
+</script>
+<!--发送礼物注释-->
+<script type="text/javascript">
+
+    var giftprice;//礼物价格
+    var giftname;//礼物图片
+    var giftid;//礼物ID
+    var count;//个数
+    //第一行礼物
+    var gift_box1=document.getElementById("d1");
+    var img1=gift_box1.getElementsByTagName("img");
+
+    for(var i=0;i<img1.length;i++){
+        img1[i].onclick=function(){
+
+            var giftbox=this.getAttribute("alt");
+            strs=giftbox.split(",");
+            giftprice=strs[1];
+
+            giftname=strs[0];
+            giftid=strs[2];
+
+        }
+    }
+
+    //第二行礼物
+    var gift_box2=document.getElementById("d3");
+    var imgs=gift_box2.getElementsByTagName("img");
+
+    for(var i=0;i<imgs.length;i++){
+
+        imgs[i].onclick=function(){
+
+
+            var giftbox=this.getAttribute("alt");
+            strs=giftbox.split(",");
+            giftprice=strs[1];
+
+            giftname=strs[0];
+            giftid=strs[2];
+
+
+        }
+
+    }
+
+
+    var tuserid = "{$users.userid}";
+    var tnickname = "{$users.nickname}";
+    var sendgift=document.getElementById("sendgift");
+    sendgift.onclick=function(){
+
+        var xznum=document.getElementById("xznum").value;
+        //ws.send('{"type":"chat","content":"234","webadress":"2","webcastid":"1"}');3
+        gift(xznum,tuserid,1,webcastids,giftid,giftprice,giftname,tnickname,fnickname);
+    }
+
+</script>
+<!--添加礼物特效-->
+<script type='text/javascript'>
+    /*   (function($){
+     $(window).load(function() {
+     */var imageurl;
+    function gifttx(count, gradeid, giftname, fusernickname, tonickname) {
+
+
+        if (count == 10) {
+            //礼物特效,count==10的特效
+            var fasong = document.getElementById("fasong");
+            fasong.innerHTML = fusernickname;
+            var jieshou = document.getElementById("jieshou");
+            jieshou.innerHTML = tonickname;
+
+
+            switch(giftname){
+                case '财气冲天':imageurl="__PUBLIC__/images/indexz/gift1.gif";break;
+                case '掌声':imageurl="__PUBLIC__/images/indexz/gift6.gif";break;
+                case '鲜花':imageurl="__PUBLIC__/images/indexz/gift5.gif";break;
+                case '神算子':imageurl="__PUBLIC__/images/indexz/gift4.gif";break;
+                case '点赞':imageurl="__PUBLIC__/images/indexz/gift3.gif";break;
+                case '财神庇佑':imageurl="__PUBLIC__/images/indexz/gift2.gif";break;
+
+            }
+
+            $("#giftcode").attr("src",imageurl);
+            //设置图片特效
+            /* document.getElementById("giftcode").src=imageurl;*/
+            /* $("#giftcode").attr('"src","'+imageurl+'"');*/
+
+            /*document.getElementById("giftcode").src=imageurl;*/
+            //  var giftimgrul=__PUBLIC__/images/indexz/gift1.gif;
+            //  $("#giftcode").html("")  ;
+
+
+            if ($('.naife').offset().left > 0) {
+                $(".naife").removeAttr("style");
+            }
+            $(".naife").stop(true).animate({opacity: "1", left: "-=200"}, "slow");
+            setTimeout(function () {
+                $(".naife").stop(true).animate({opacity: "0", left: "+=200"}, 300);
+            }, 2000);
+
+            return false;
+
+        }
+
+
+    }
+    /*       });
+     })(jQuery);*/
+</script>
+
+
+<!--查看红包-->
+<script type="text/javascript">
+
+    function hongbaodetail(money){
+
+        setTimeout('$(".fhbs").show()',1000);
+
+        var moneys=document.getElementById("moneys");
+
+        moneys.innerHTML=money;
+    }
+</script>
+<script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="__PUBLIC__/js/indexz/jquery.mousewheel.js"></script>
+<script src="__PUBLIC__/js/indexz/jquery.mCustomScrollbar.js"></script>
+<script type='text/javascript'>
+    /*(function($){
+     $(window).load(function(){
+
+
+     $("#content1").mCustomScrollbar();
+     $("#content1").mCustomScrollbar("update");
+     $("#content1").mCustomScrollbar("scrollTo","bottom");
+
+
+     });
+     })(jQuery);*/
+
+
+
+    function con(){
+        $("#content1").mCustomScrollbar();
+        $("#content1").mCustomScrollbar("update");
+        $("#content1").mCustomScrollbar("scrollTo","bottom");
+
+        $("#msgbox1").mCustomScrollbar();
+        $("#msgbox1").mCustomScrollbar("update");
+        $("#msgbox1").mCustomScrollbar("scrollTo","bottom");
+    }
+</script>
+<!--绑定webcstid-->
+<script type="text/javascript">
+
+    function  bangdingwebcastid(webcastid){
+        webcastids=webcastid;
+    }
+</script>
+
+
+
+<script>
+
+    $(document).ready(function(){
+        $("#tab>li").click(function(){
+            $(this).addClass('zblive').siblings().removeClass('zblive');
+            $("div[style]").removeAttr("style");
+            $("#msgbox"+this.value).attr("style","z-index: 1;");
+
+        });
+
+
+
+
+
+
+
+
+        $("#d2").click(function(){
+            if($("#d1").is(":hidden")){
+                $("#d1").show();
+                $("#d2").text("-");
+            }else{
+                $("#d1").hide();
+                $("#d2").text("+");
+            }
+        });
+
+        $("#hbimg").click(function(){
+            $(".hbcon").fadeIn(500);
+
+            $(".hbclose").fadeIn(500);
+        });
+
+        $(".hbsure").click(function(){
+            var kong=$(".moneyinput").val();
+            var kongs=$(".moneyinputs").val();
+
+            $(".hbcon").fadeOut(500);
+            $(".hbclose").fadeOut(500);
+            $(".fhb").fadeIn(1000);
+            $(".fhb").css("z-index","10001");
+
+        });
+
+
+        $(".hbclose").click(function(){
+            $(".hbcon").fadeOut(500);
+            $(".hbclose").fadeOut(500);
+        });
+
+        $(".clox").click(function(){
+            $(".fhb").hide();
+        })
+
+
+        $(".cloxs").click(function(){
+
+            $(".fhbs").hide();
+        })
+
+//放在礼物上的样式
+        $(".spboxbtmcon").click(function(){
+            $(".spboxbtmcon").removeClass("spboxbtmconactive");
+            $(this).addClass("spboxbtmconactive");
+        });
+
+        /*   $(".a").click(function(){
+         $(".a").rotate3Di(360,1000);
+         setTimeout('$(".fhb").hide()',1000);
+         setTimeout('$(".fhbs").show()',1000);
+         })*/
+
+
+        $(".spboxbtmcon").hover(function() {
+            $(this).find(".lwxx").animate({opacity: "show", top: "-75"}, "slow");
+        }, function() {
+            $(this).find(".lwxx").animate({opacity: "hide", top: "-85"}, "fast");
+        });
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

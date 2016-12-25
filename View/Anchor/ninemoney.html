@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+
+        <th>创建时间</th>
+        <th>发送用户ID</th>
+        <th>发送用户名</th>
+        <th>发送用户昵称</th>
+        <th>直播视频ID</th>
+        <th>礼物价格</th>
+        <th>礼物名称</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="lists" item="vo">
+        <tr>
+            <td>
+                {$vo.createtime|strtotime|date="Y-m-d", ###}
+            </td>
+            <td>{$vo.frmuserid}</td>
+            <td>{$vo.username}</td>
+            <td>{$vo.nickname}</td>
+            <td>{$vo.webcastid}</td>
+            <td>{$vo.giftprice}</td>
+            <td>{$vo.giftname}</td>
+        </tr>
+    </foreach>
+    </tbody>
+</table>
+
+<span>直播视频号：{$vo.webcastid}</span>
+<span>收获钻石数：{$ninemoney}</span>
+</body>
+</html>

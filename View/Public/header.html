@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>财经头条 - 九度财经直播_专注财经深度直播</title>
+    <meta name="description" content="财经头条频道致力于为用户提供全方位的贵金属、外汇、期货、大宗商品、股票、原油等财经新闻、分析、评论及可信赖的信息源、事件报道、财经分析等服务。">
+    <meta name="keywords" content="贵金属,九度财经,期货,财经资讯,大宗商品,财经行情,现货,外汇,黄金,股票,涨停板,原油,投资,黄金,白银,财经,财经直播,财经头条,头条网,紫金银,财经媒体,金融媒体,财经网">
+    <link rel="shortcut icon" href="__PUBLIC__/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/appweb.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css">
+
+    <script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="__PUBLIC__/js/jquery.tabso_yeso.js"></script>
+    <script src="__PUBLIC__/js/jquery.flexslider-min.js"></script>
+    <script src="__PUBLIC__/js/main.js"></script>
+
+    <script type="text/javascript">
+        var reg=/^1[3|5|7|8|9][0-9]{9}$/;
+        $(function(){
+            if($("#userid").val()!=null&&$("#userid").val()!=""){
+                $("#login_Start").hide();
+                $("#login_End").show();
+                $("#clickid").val(1);
+            }else{
+                $("#login_Start").show();
+                $("#login_End").hide();
+                $("#clickid").val(2);
+            }
+
+            $("#loginGo").click(function(){
+                if($("#signin-username").val()==null||$("#signin-username").val()==""){
+                    alert("用户名不能为空！");
+                    return false;
+                }if($("#signin-password").val()==null||$("#signin-password").val()==""){
+                    alert("密码不能为空！");
+                    return false;
+                }
+
+                $.ajax({
+                    url:"{:U('Account/login')}",
+                    type:"post",
+                    async:true,
+                    data:{"signin-password":$("#signin-password").val(),"signin-username":$("#signin-username").val()},
+                    success:function(data){
+                        if(data.result==1){
+                            // alert("登录成功！");
+                            if(data.nickname!=""&&data.nickname!=null){
+                                $("#username").html(data.nickname);
+                            }else{
+                                $("#username").html(data.username);
+                            }
+                            $("#userid").val(data.userid);
+                            $("#loginRes").hide();
+                            $("#login_Start").hide();
+                            $("#login_End").show();
+                            $("#clickid").val(1);
+                        }
+                        if(data.result==-1){
+                            alert("账号或密码不正确！");
+                        }
+                    },
+                    error:function(){
+                        alert("当前系统繁忙，请稍后再试！");
+                    }
+                });
+
+            });
+
+
+            $("#zhuce").click(function(){
+                if($("#signup-username").val()==null||$("#signup-username").val()==""){
+                    alert("用户名不能为空！");
+                    return false;
+                }
+                if($("#signup-mobile").val()==null||$("#signup-mobile").val()==""){
+                    alert("手机号不能为空！");
+                    return false;
+                }
+                if(!reg.test($("#signup-mobile").val())){
+                    alert("手机号码不正确");
+                    return false;
+                }
+                if($("#signup-captcha").val()==null||$("#signup-captcha").val()==""){
+                    alert("验证码不能为空！");
+                    return false;
+                }
+                if($("#signup-smscode").val()==null||$("#signup-smscode").val()==""){
+                    alert("校验码不能为空！");
+                    return false;
+                }
+                if($("#signup-password").val()==null||$("#signup-password").val()==""){
+                    alert("密码不能为空！");
+                    return false;
+                }
+
+                if($("#accept-terms").is(":checked")){
+                    register();
+                }else{
+                    alert("请阅读并同意 用户协议！");
+                    return false;
+                }
+
+            });
+        });
+
+        //发送验证码
+        function getPhoneCode(){
+            if($("#signup-mobile").val()==null||$("#signup-mobile").val()==""){
+                alert("手机号不能为空！");
+                return false;
+            }
+            if(!reg.test($("#signup-mobile").val())){
+                alert("手机号码不正确");
+                return false;
+            }
+            $.ajax({
+                url:"{:U('Account/send_sms')}",
+                type:"post",
+                data:{"phone":$("#signup-mobile").val()},
+                success:function(data){
+                    alert(data);
+                },
+                error:function(data){
+                    alert("当前系统繁忙，请稍后再试！")
+                }
+            });
+        }
+        // 登录
+
+        //退出登录
+        function exitBtn(){
+            $.ajax({
+                url:"{:U('Account/exitUser')}",
+                type:"post",
+                async:false,
+                success:function(data){
+                    location.reload();
+                    alert("退出成功");
+                    $("#login_Start").show();
+                    $("#login_End").hide();
+                    $("#userid").val("");
+                    $("#clickid").val(2);
+                    location.href="{:U('Index/index')}";
+                },
+                error:function(){
+                    alert("当前系统繁忙，请稍后再试！");
+                }
+            });
+        }
+
+        //注册用户
+        function register(){
+            $.ajax({
+                url:"{:U('Account/register')}",
+                type:"post",
+                data:{"signup-username":$("#signup-username").val(),"signup-mobile":$("#signup-mobile").val(),
+                    "signup-password":$("#signup-password").val(),"signup-captcha":$('#signup-captcha').val(),"signup-smscode":$('#signup-smscode').val()},
+                success:function(data){
+                    if(data==1){
+                        alert("注册成功！");
+                        location.href="{:U(Index/index)}";
+                    }
+                    if(data==-1){
+                        alert("此用户已存在！");
+                    }
+                    if(data==-2){
+                        alert("注册失败！");
+                    }
+                    if(data==-3){
+                        alert("手机验证码错误");
+                    }
+                    if(data==-4){
+                        alert("验证码错误");
+                    }
+                },
+                error:function(data){
+                    alert("当前系统繁忙，请稍后再试！")
+                }
+            });
+        }
+
+    </script>
+<body>
+<div class="header">
+    <input type="hidden" id="clickid" />
+    <div class="head_box">
+        <div class="head clearfix">
+            <div class="logo"><img src="__PUBLIC__/images/logo.png"></div>
+
+            <div class="dh">
+                <a href="{:U('Index/index')}" target="_blank" class="headcur">首页</a>
+                    <a href="{:U('LiveHall/LiveList')}" target="_blank"><i class="icon-head"></i>直播大厅</a>
+                    <a href="{:U('VideoSchool/headerpage')}" target="_blank">视学堂</a>
+                    <a href="{:U('News/index')}"  target="_blank">财经头条</a>
+                    <a href="{:U('Data/data')}" target="_blank">9度数据</a>
+            </div>
+            <div class="searchs">
+                <form action="{:U('Home/Search/index')}" method="post">
+                    <input type="text" class="inp-text" name="search" id="q" placeholder="搜房间/主播/分类">
+                    <input type="submit" value="" class="button">
+                </form>
+            </div>
+
+            <div class="head_right">
+                <if condition="empty($userinfo) eq true">
+                    <div class="head_right_b main_nav">
+                        <ul class="o-unlogin" id="login_Start">
+                            <li class="unlogin"><i class="icofont u-ico"></i>
+                                <a class="u-login cd-signin" href="http://account.9dcj.com/login">登录</a></li>
+                            <li class="unreg"><i class="i">|</i>
+                                <a class="u-reg cd-signup" href="http://account.9dcj.com/register">注册</a></li>
+                        </ul>
+                    </div>
+                    <else />
+                    <div class="head_right_b">
+                        <input type="hidden" id="userid" value="{$userinfo}" />
+                        <ul class="o-unlogin" id="login_End" style="display:none;">
+
+                            <li class="unlogin"><i class="icofont u-ico"></i>
+                                <a class="u-login cd-signin" href="http://www.9dcj.com/person_zhu" id="username">{$userinfo}</a></li>
+                            <li class="unreg"><i class="i">|</i>
+                                <a class="u-reg cd-signup" href="http://www.9dcj.com/loginout" style="cursor: pointer;">退出</a></li>
+                        </ul>
+                    </div>
+                </if>
+
+            </div>
+
+            <!-- shou -->
+            <!-- <form action="http://9dcj.9dushuju.com/index.php" method="get">
+<input type="hidden" name="m" value="search"/>
+<input type="hidden" name="typeid" value="1" id="typeid"/>
+<input type="text" class="text" name="q" id="q"/>
+<input type="submit" value="搜 索" class="button" />
+</form> -->
+
+            <!-- shou -->
+
+        </div>
+    </div>
+    <div style="height:72px; width:100%;"></div>
+</div>
+
+<!--<div class="cd-user-modal" id="loginRes">-->
+    <!--<div class="cd-user-modal-container" id="varuser">-->
+        <!--<ul class="cd-switcher">-->
+            <!--<li><a href="#0">登录</a></li>-->
+            <!--<li><a href="#0">注册</a></li>-->
+        <!--</ul>-->
+
+        <!--<div id="cd-login"> &lt;!&ndash; 登录 &ndash;&gt;-->
+            <!--&lt;!&ndash; <div class="third-list clearfix">-->
+                <!--<a href="" class="third-icon third-icon-qq" target="_blank" title="QQ帐号登录"></a>-->
+                <!--<a href="" class="third-icon third-icon-wx" target="_blank" title="微信帐号登录"></a>-->
+                <!--<a href="" class="third-icon third-icon-wb third-icon-last" target="_blank" title="微博帐号登录"></a>-->
+            <!--</div>-->
+            <!--<p class="third-text">第三方帐号直接登录</p> &ndash;&gt;-->
+            <!--<p class="loginbox-or-line"></p>-->
+            <!--<div class="cd-form">-->
+                <!--<form class="cd-form" id="login">-->
+                    <!--<p class="loginbox-form-title">帐号登录</p>-->
+                    <!--<p class="fieldset">-->
+                        <!--<label class="image-replace cd-username" for="signin-username">用户名</label>-->
+                        <!--<input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="输入用户名">-->
+                    <!--</p>-->
+
+                    <!--<p class="fieldset">-->
+                        <!--<label class="image-replace cd-password" for="signin-password">密码</label>-->
+                        <!--<input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="输入密码">-->
+                    <!--</p>-->
+
+                    <!--<p class="fieldset">-->
+                        <!--<input type="checkbox" id="remember-me" checked="checked">-->
+                        <!--<label for="remember-me">记住登录状态</label>-->
+                        <!--<a class="anchor_line forget-pwd" href="{:U('Home/Account/forgetpwd')}" target="_blank">忘记密码?</a>-->
+                    <!--</p>-->
+
+                    <!--<p class="fieldset">-->
+                        <!--<input class="full-width2" type="button" value="登 录" id="loginGo">-->
+                    <!--</p>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div id="cd-signup"> &lt;!&ndash; 注册 &ndash;&gt;-->
+            <!--<form class="cd-form" id="signin">-->
+
+                <!--<p class="fieldset">-->
+                    <!--<label class="image-replace cd-username" for="signup-username">输入昵称</label>-->
+                    <!--<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="输入昵称">-->
+                <!--</p>-->
+                <!--<p class="fieldset">-->
+                    <!--<label class="image-replace cd-mobile" for="signup-mobile">输入手机号</label>-->
+                    <!--<input class="full-width has-padding has-border" id="signup-mobile" type="text" placeholder="输入手机号">-->
+                <!--</p>-->
+                <!--<p class="fieldset">-->
+                    <!--<label class="image-replace cd-captcha" for="signup-captcha">输入验证码</label>-->
+                    <!--<input class="full-width2 has-padding has-border" id="signup-captcha" type="text" placeholder="输入验证码">-->
+                    <!--<img id="checkpic" onClick="changing();" class="quc-captcha-img quc-captcha-change" alt="验证码" title="点击更换" tabindex="99" src="http://www.9dcj.com/ajax/code.php">-->
+
+                <!--</p>-->
+                <!--<p class="fieldset">-->
+                    <!--<label class="image-replace cd-smscode" for="signup-smscode">输入校验码</label>-->
+                    <!--<input class="full-width2 has-padding has-border" id="signup-smscode" type="text" placeholder="输入校验码">-->
+                    <!--<i id="checkcode"  class="quc-button quc-button-blue quc-get-sms-token" style="cursor: pointer;" onClick="getPhoneCode()">免费获取校验码</i>-->
+                <!--</p>-->
+
+                <!--<p class="fieldset">-->
+                    <!--<label class="image-replace cd-password" for="signup-password">输入密码</label>-->
+                    <!--<input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="输入密码">-->
+                <!--</p>-->
+
+                <!--<p class="fieldset">-->
+                    <!--<input type="checkbox" id="accept-terms" checked="checked">-->
+                    <!--<label for="accept-terms">我已阅读并同意 <a href="{:U('Home/Aboutus/useragreement')}" target="_blank" style="color: #1B66C7">用户协议</a></label>-->
+                <!--</p>-->
+
+                <!--<p class="fieldset">-->
+                    <!--<input id="zhuce" class="full-width2" type="button" value="注册">-->
+                <!--</p>-->
+
+            <!--</form>-->
+            <!--&lt;!&ndash; <p class="loginbox-or-line"></p>&ndash;&gt;-->
+            <!--<div class="third-list clearfix">-->
+                <!--<a href="" class="third-icon third-icon-qq" target="_blank" title="QQ帐号登录"></a>-->
+                <!--<a href="" class="third-icon third-icon-wx" target="_blank" title="微信帐号登录"></a>-->
+                <!--<a href="" class="third-icon third-icon-wb third-icon-last" target="_blank" title="微博帐号登录"></a>-->
+            <!--</div>-->
+            <!--<p class="third-text pb">第三方帐号直接登录</p>-->
+        <!--</div>-->
+
+        <!--<a href="javascript:void(0)" class="cd-close-form">关闭</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function(){
+        $(".dh a").each(function(){
+            $this = $(this);
+            if($this[0].href==String(window.location)){
+//   alert($this[0].href);
+                $this.addClass("headcur");
+            }else{
+                $this.removeClass("headcur");
+            }
+        });
+    });
+</script>

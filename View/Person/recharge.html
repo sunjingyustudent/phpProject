@@ -1,0 +1,61 @@
+<include file="./Tpl/default/Public/header.html" />
+
+<!--左边导航部分-->
+
+<include file="Public:personal" />
+    <div id="wrap" class="clearfix">
+            <div class="u_mainbody">
+                <div class="consume_nr">
+                    <div class="shark_tit earnings_top clearfix">
+                        <p class="consume_tit"><i class="consume_tit_icon"></i>充值</p>
+                    </div>
+                    <input type="hidden" value="{$ordernum}" name="ordernum" id="ordernum" />
+                    <form action="{:U('AliPay/sendAliPayMessage')}">
+                        <ul class="price-list clearfix" id="payMoney">
+                            <li class="on"><em></em><!--<input type="radio" name="diamonds" value="10" checked="checked" />--><p class="diamond">36钻石</p><p class="money">6元</p><input type="hidden" value="6" /></li>
+                            <li><em></em><!--<input type="radio" name="diamonds" value="30" />--><p class="diamond">180钻石</p><p class="money">30元</p><input type="hidden" value="30" /></li>
+                            <li><em></em><!--<input type="radio" name="diamonds" value="98" />--><p class="diamond">588钻石</p><p class="money">98元</p><input type="hidden" value="98" /></li>
+
+                        </ul>
+                        <div class="pay-total">
+                            实付金额： <strong><span class="price" id="money">6</span>元</strong><span  class="stars">(<span id="diam">36钻石</span>)</span>
+                        </div>
+                        <input class="btn-pay" type="button" value="确认充值" />
+                    </form>
+                    <p class="page"></p>
+                </div>
+            </div>
+</div>
+
+
+    </div>
+</div>
+    </div>
+
+<script type="text/javascript">
+    $(function(){
+        $("input[type=button]").click(function(){
+            var money=$("#money").html();
+            var dismonds=$("#diam").html();
+            $.ajax({
+                url:"{:U('AliPay/sendAliPayMessage')}",
+                type:"post",
+                async:true,
+                global:false,
+                data:{"WIDsubject":"九度直播钻石充值","WIDtotal_fee":money},
+                success:function(data){
+                    $("body").html(data);
+                },
+                error:function(){
+                    alert("当前系统异常，请稍后再试！")
+                }
+            });
+        });
+
+        $("#payMoney").children("li").click(function(){
+            $(this).siblings().removeClass("on").end().addClass("on");
+            $("#money").text($(this).find("input[type=hidden]").val());
+            $("#diam").html($(this).find("p.diamond").html());
+        });
+    });
+</script>

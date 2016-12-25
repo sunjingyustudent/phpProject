@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>个人中心  9度直播-看财经大咖上9度直播</title>
+    <meta name="keywords" content="9度,9度直播,9度财经,财经视频直播,财经直播室,财经投资直播,财经直播网,财经直播间,股票直播,现货直播,期货直播,外汇直播">
+    <meta name="description" content="9度直播提供财经名师大咖实时直播服务，全新财经视频直播大厅模式，专注股票行情、投资理财、现货投资、股指期货、黄金外汇财经名师主持直播媒体。看财经大咖，上9度直播。">
+    <link rel="shortcut icon" href="http://www.9dcj.com/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/appweb.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/base.css">
+
+    <script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="__PUBLIC__/js/jquery.tabso_yeso.js"></script>
+    <script src="__PUBLIC__/js/jquery.flexslider-min.js"></script>
+    <script src="__PUBLIC__/js/main.js"></script>
+
+    <script src="__PUBLIC__/js/share.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/js/share_style0_16.css">
+
+    <link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/common.css?v=v48760" />
+    <link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/user_css.css?v=v48760" />
+    <link rel="stylesheet" type="text/css" href="https://staticlive.douyucdn.cn/common/douyu/style/login.css?v=v48760" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/user_css.css">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            setTimeout(function(){
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?e99aee90ec1b2106afe7ec3b199020a7";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            },0);
+        })();
+    </script>
+    <style type="text/css">
+        .c4 { width:200px; }
+        .c8 { width:740px; }
+    </style>
+    <script>var allow_iframe =1;</script>
+</head>
+
+
+<body>
+
+<!--header-end-->
+<div id="wrap" class="clearfix">
+    <div class="live_wrap clearfix">
+        <div class="u_header">
+            <h1 class="fl">个人中心</h1>
+            <a href="http://www.9dcj.com" class="glyphicon01 glyphicon01_back fr"  target="_blank">返回首页</a>
+        </div>
+        <div class="u_main clearfix">
+
+            <div class="u_nav">
+                <ul>
+                    <li class="current"><a href="{:U('Person/Index')}"><i class="u_nav_icon1"></i>我的资料</a></li>
+                    <li><a href="{:U('Subscribe/subscribe')}"><i class="u_nav_icon3"></i>我的订阅</a></li>
+                    <li><a href="{:U('RecordsOfConsumption/index')}" ><i class="u_nav_icon4"></i>消费记录</a></li>
+                    <!--<li><a href="{:U('SendGifts/gift')}" ><i class="u_nav_icon4"></i>积分记录</a></li>-->
+                    <li><a href="{:U('Person/information')}" ><i class="u_nav_icon2"></i>系统消息</a></li>
+                    <li><a href="{:U('Person/zhubo')}" ><i class="u_nav_icon5"></i>主播认证</a></li>
+                    <!-- <li><a href="{:U('Member/Anchor')}"><i class="u_nav_icon5"></i>房间收益</a></li> -->
+                <if condition="$list['usertype'] eq 1">
+                <else />
+                    <li class="js_u_nav">
+                        <a href="javascript:;"   ><i class="u_nav_icon6"></i>主播相关 <b></b> </a>
+                        <dl >
+                            <dd><a href="{:U('Advert/index')}" >广告栏位</a></dd>
+                            <dd><a href="{:U('Person/videourl')}">播放地址</a></dd>
+                            <!--<dd><a href="{:U('Anchor/index')}" >房间管理</a></dd>-->
+                           <!-- <dd><a href="{:U('Member/Anchor')}" >直播收益</a></dd>-->
+                            <!-- <dd><a href="{:U('Anchor/index')}" >直播记录</a></dd>
+                            <dd><a href="{:U('Anchor/index')}" >直播数据统计</a></dd>
+                            <dd><a  href="{:U('Anchor/index')}" >直播设置</a></dd>-->
+                        </dl>
+                    </li>
+                </if>
+                </ul>
+            </div>
+            <script>
+            
+            </script>
+             <script type="text/javascript">
+                $(function(){
+                    $(".u_nav a").click(function(){
+                        if(!$(this).siblings('dl').is(":animated")){
+
+                            if( !$(this).find('b').attr('class') ){
+                                $(this).find('b').addClass('cur');
+                            }else{
+                                $(this).find('b').removeClass('cur');
+                            }
+                            $(this).siblings('dl').slideToggle();
+                        }
+                    });
+                })
+
+                // 导航背景颜色
+                // $(function(){
+                //     $('.u_nav ul li').mouseover(function(){
+                //         $(this).attr('class').addClass('current');
+
+                //     })
+                //     $(".u_nav ul li").mouseout(function(){
+                //       $(this).css("background-color","#fff");
+                //     });
+                // })
+            </script>
+			<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+$(".u_nav ul li a").each(function(){
+$this = $(this);
+if($this[0].href==String(window.location)){
+//   alert($this[0].href);
+$this.parent().addClass("current").siblings().removeClass("current");
+}
+});
+});
+</script>
+ 		

@@ -1,0 +1,66 @@
+<include file="./Tpl/default/Public/header.html" />
+    <!--左边导航部分-->
+    
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody" style="overflow: inherit;">
+
+
+        <div class="user_myprofile">
+            <ul class="togglebtn clearfix" id="js_tab_ul">
+
+                <li><a href="{:U('Person:index')}"  id="js_info" >基本资料<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:changeIcon')}"  id="js_avatar" class="current">修改头像<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:updatepwd')}" id="js_pwd">修改密码<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/nickname')}" id="js_mod_username">修改昵称<div class="arrow01"></div></a></li>
+                <li style="display:none" id="identbut"><a id="js_ident" href="/member/cp/changeIdent" >实名认证<div class="arrow01"></div></a></li>
+                <li>
+                    <a href="{:U('Person/cpbindphone')}" id="js_phone">绑定手机<div class="arrow01"></div></a>
+                    <a style="display:none" href="/member/cp/changePhone" id="js_phone_alert">修改手机<div class="arrow01"></div></a>
+                </li>
+
+                <li id="emailbut" ><a href="{:U('Person:updateperson')}" id="js_mod_info">完善资料<div class="arrow01"></div></a></li>
+				<li ><a href="{:U('Person/changeemail')}" id="js_mod_email" class="emil">修改邮箱<div class="arrow01"></div></a></li>
+            </ul>
+
+
+
+
+
+            <div class="myprofile_main basics clearfix data_cont" id="js_info_div">
+<div>
+					<div class="tx02">
+                        <!--显示图片 加载默认图片-->
+                        <if condition="empty($list[headimage]) eq true">
+                            <img src="__PUBLIC__/images/touxiang.png" width="200" height="200"/>
+                            <else />
+                            <img src="{$list.headimage}" width="200" height="200"/>
+                        </if>
+                    </div>
+					<div class="selectimg">
+						<p>请选择一个新照片进行上传编辑头像保存后，你可以需要刷新一下本页面（按F5键），才能查看最新的头像效果</p>
+						<div class="selectimg_cont">
+                            <form action="{:U('Person/changeheadImg')}" method="post" enctype="multipart/form-data">
+                                <table class="picimg">
+                                    <tr>
+                                        <td>请选择图片</td></tr>
+                                        <tr><td><input type="file" name="upload" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="submit" name="ok" id="ok" value="提交" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+					</div>
+				</div>
+   
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />

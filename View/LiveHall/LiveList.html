@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>9度财经——直播大厅</title>
+</head>
+
+<body>
+
+<include file="Public:header" />
+<block name="content">
+<div class="main_boc">
+
+
+
+    <script>
+        $.getJSON("http://www.9dcj.com/ajax/datahit.php?num=1&jsoncallback=?",
+                function(json){
+                    console.log(json);
+                    console.log(json[0].views);
+                    $(".hui30").html(""+json[0].views);
+                });
+    </script>
+
+    <div style="background: #f3f3f3!important;">
+        <div class="contentbody indexcc">
+            <div class="daohang dhfixed">
+                <a href="http://zhibo.9dcj.com/"  target="_blank">热门推荐</a>
+
+
+                <a href="http://www.9dcj.com/list-48-1.html"   target="_blank">股市频道</a>
+
+                <a href="http://www.9dcj.com/list-49-1.html"   target="_blank">期货频道</a>
+
+                <a href="http://www.9dcj.com/list-50-1.html"   target="_blank">贵金属频道</a>
+
+            </div>
+            <div class="list-con clear">
+                <div class="livehot ">
+                    <div class="livehottag"></div>
+                    <h2>最新直播</h2>
+                    <ul class="list-con-ul clearfix">
+
+                        <foreach name="hotLive" item="item">
+                        <li data="{$item.liveid}" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                    <if condition="$item['liveurl']">
+                                    <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    </if>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">{$item[roomtitle]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm">
+                                            <div class="conrightwordjj"><a href="{:U('Synopsis/index',array('liveid'=>$item['roomid']))}"target="_blank">简介</a></div>
+                                            <!--<p> {$item.status}</p>-->
+                                            <div class="conrightwordin">
+                                                <if condition="$item.status eq '1'">
+                                                        <if condition="$item['liveurl']">
+                                                        <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                        <else /> 
+                                                        <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank">点击进入</a>
+                                                        </if>
+                                                    <else/>
+                                                        <a>审核中</a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </foreach>
+
+                        <foreach name="hotLive1" item="item">
+                        <li data="{$item.roomid}" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                    <if condition="$item['liveurl']">
+                                    <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    </if>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">{$item[roomtitle]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm">
+                                            <div class="conrightwordjj"><a href="{:U('Synopsis/index',array('liveid'=>$item['roomid']))}"target="_blank">简介</a></div>
+                                            <!--<p> {$item.status}</p>-->
+                                            <div class="conrightwordin">
+                                                <if condition="$item.status eq '1'">
+                                                        <if condition="$item['liveurl']">
+                                                        <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                        <else /> 
+                                                        <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank">点击进入</a>
+                                                        </if>
+                                                    <else/>
+                                                        <a>审核中</a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </foreach>
+
+                        <li data="0" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                    <a onClick="sq()" class="sq1"><img class="conrightimg" src="http://www.9dcj.com/uploadfile/2016/0826/20160826012242450.jpg" width="185" height="122" alt="虚位以待-9度直播"></a>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">机构直播申请</div>
+                                        <div class="conrightwordtop"><span class="hui30">9度</span></div>
+                                        <div class="conrightwordtop"><span class="hui30">期待您的入驻</span></div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm zbwid">
+                                            <div class="conrightwordjj"><!--<a href="javascript:insertInfo()">--><a  onclick="sq()" class="sq1">点击申请</a></div>
+                                            <!--<div class="conrightwordin"><a href="javascript:insertInfo()"><a  onclick="sq()" class="sq1">         </a></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+						<li data="0" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                    <a onClick="sq1()" class="sq2"><img class="conrightimg" src="http://www.9dcj.com/uploadfile/2016/0826/20160826012242450.jpg" width="185" height="122" alt="虚位以待-9度直播"></a>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">个人直播申请</div>
+                                        <div class="conrightwordtop"><span class="hui30">9度</span></div>
+                                        <div class="conrightwordtop"><span class="hui30">期待您的入驻</span></div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm zbwid">
+                                            <!--<div class="conrightwordjj"><a onclick="sq1()" class="sq2">直播申请</a></div>-->
+                                            <div class="conrightwordin"><a onClick="sq1()" class="sq2">点击申请</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div>
+                    <div class="contitle">股市直播</div>
+                    <ul class="list-con-ul clearfix">
+
+                        <foreach name="stock_market" item="item">
+                        <li data="{$item.roomid}" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                                                        <if condition="$item['liveurl']">
+                                    <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    </if>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">{$item[roomtitle]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm">
+                                            <div class="conrightwordjj"><a href="{:U('Synopsis/index',array('liveid'=>$item['roomid']))}" target="_blank">简介</a></div>
+                                            <div class="conrightwordin">
+                                                <if condition="$item.status eq '1'">
+                                                    <if condition="$item['liveurl']">
+                                                        <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                        <else /> 
+                                                        <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank">点击进入</a>
+                                                        </if>
+                                                    <else/>
+                                                    <a>审核中</a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </foreach>
+
+                    </ul>
+                    <div class="contitle" data="78" onClick="change_pan(this)">期货直播</div>
+                    <ul class="list-con-ul clearfix">
+
+                        <foreach name="futures" item="item">
+
+                            <li data="{$item.roomid}" onClick="change_pan(this)">
+                                <div class="list-div">
+                                    <div class="list-item tran clearfix">
+                                                                            <if condition="$item['liveurl']">
+                                    <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    </if>
+                                        <div class="conrightword">
+                                            <div class="conrightwordtop">{$item[roomtitle]}</div>
+                                            <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                            <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                            <div class="conrightwordclick"></div>
+                                            <div class="conrightwordbtm">
+                                                <div class="conrightwordjj"><a href="{:U('Synopsis/index',array('liveid'=>$item['roomid']))}" target="_blank">简介</a></div>
+                                                <div class="conrightwordin">
+                                                    <if condition="$item.status eq '1'">
+                                                        <if condition="$item['liveurl']">
+                                                        <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                        <else /> 
+                                                        <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank">点击进入</a>
+                                                        </if>
+                                                        <else/>
+                                                        <a>审核中</a>
+                                                    </if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </foreach>
+
+
+                    </ul>
+                    <div class="contitle">贵金属直播</div>
+                    <ul class="list-con-ul clearfix">
+
+                        <foreach name="precious_metal" item="item">
+
+                        <li data="{$item.liveid}" onClick="change_pan(this)">
+                            <div class="list-div">
+                                <div class="list-item tran clearfix">
+                                                                        <if condition="$item['liveurl']">
+                                    <a href="{$item.liveurl}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank"><img class="conrightimg" src="{$item.headimage}" width="185" height="122" alt="{$item.roomtitle}"></a>
+                                    </if>
+                                    <div class="conrightword">
+                                        <div class="conrightwordtop">{$item[livename]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">主讲：</span>{$item[speaker]}</div>
+                                        <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$item[hits]}</div>
+                                        <div class="conrightwordclick"></div>
+                                        <div class="conrightwordbtm">
+                                            <div class="conrightwordjj"><a href="{:U('Synopsis/index',array('liveid'=>$item['liveid']))}" target="_blank">简介</a></div>
+                                            <div class="conrightwordin">
+                                                <if condition="$item.status eq '1'">
+                                                    <if condition="$item['liveurl']">
+                                                        <a href="{$item.liveurl}" target="_blank">点击进入</a>
+                                                        <else /> 
+                                                        <a href="{:U('Live/indexz',array('roomid'=>$item['roomid']))}" target="_blank">点击进入</a>
+                                                        </if>
+                                                    <else/>
+                                                    <a>审核中</a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </foreach>
+                    </ul>
+                </div>
+
+                <div class="gfhd mt">
+                    <div class="jctj_top clearfix">
+                        <div class="jctj_top_left">
+                            <i class="aa"></i>
+                            <h3>免责声明</h3>
+                        </div>
+
+                    </div>
+                    <div class="gfhd-1">
+                        <p class="mzsm">直播室播主所发表言论均代表其个人对市场所持观点，网友应充分考虑市场的高风险性，因此操作风险自担。9度直播提供此互动平台不代表认可其观点。 9度直播所有播主不提供代客理财或qq咨询等非法业务。有私下进行收费咨询或推销其他产品服务，属于非法个人行为与9度无关，请各位网友务必不要上当受骗！如发现上述违规行为可向9度客服举报。</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</block>
+
+<include file="Public:footer" />
+
+<script>
+    function changing(){
+        document.getElementById('checkpic').src="http://www.9dcj.com/ajax/code.php?"+Math.random();
+    } ;
+    $(document).ready(function(){
+        // if($.cookie('mycookie')){
+        //     $("#login_a").html("用户名:"+$.cookie('mycookie'));
+        // }
+
+
+
+
+        $("#checkcode").click(function(){
+            $('#signup-username').val();
+            $('#signup-mobile').val();
+            $('#signup-captcha').val();
+
+            $.post("/ajax/zhuce.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                }
+            },'json');
+        });
+
+        $("#zhuce").click(function(){
+            $('#phone').val();
+            $('#quc_captcha').val();
+            $.post("/ajax/zhuces.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val(),smscode:$('#signup-smscode').val(),password:$('#signup-password').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                }
+            },'json');
+        });
+
+        $("#loginsubmits").click(function(){
+            $.post("/ajax/login.php",{phone:$('#signin-usernames').val(),password:$('#signin-passwords').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+
+                }else{
+                    alert(data.message);
+                    $('.cd-close-form').click();
+                    // if($.cookie('mycookie')){
+                    //     $("#login_a").html("用户名:"+$.cookie('mycookie'));
+                    // }
+                    // $('#phone').val("");
+                    //$('#quc_captcha').val("");
+                }
+            },'json');
+        });
+
+
+
+
+    });
+
+</script>
+
+<div style="display:none">
+    <script src="https://s4.cnzz.com/z_stat.php?id=1260105846&web_id=1260105846" language="JavaScript"></script></div>
+<script>
+    //做一个ajax方法来请求data.php不断的获取数据
+    // $("#onre1").click(function(){
+    // jsonajax(1);
+    // });
+    function change_pan(obj)
+    {
+        var id=$(obj).attr("data");
+        jsonajax(id);
+
+    }
+
+    function jsonajax($num2){
+        $.getJSON("http://www.9dcj.com/ajax/datas.php?num="+$num2+"&jsoncallback=?",
+                function(json){
+                    console.log(json);
+                });
+    };
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+        $(document).scroll(function(){
+            var top=$(document).scrollTop();
+            if(top>410){
+                $(".daohang").addClass("dhfixed");
+            }else{
+                $(".daohang").removeClass("dhfixed");
+            }
+        })
+    });
+
+
+</script>
+<script type="text/javascript">
+    function returnWeb(){
+        $("#recVideo").css("display","none");
+    }
+
+    function insertInfo(){
+        $("#recVideo").css("display","block");
+        var recVideo=document.getElementById("recVideo");
+        recVideo.style.cssText="position:relative;top:-1700px;z-index:999;";
+    }
+ 	function userWeb(){
+        $("#userVideo").css("display","none");
+    }
+
+    function userInfo(){
+        $("#userVideo").css("display","block");
+        var userVideo=document.getElementById("userVideo");
+        userVideo.style.cssText="position:relative;top:-1700px;z-index:999;";
+    }
+
+</script>
+<script>
+function sq(){
+    
+    $.ajax({
+            url:"{:U('LiveHall/organization')}",
+            type:"post",
+            success:function(data){
+                if (data == '-1') {
+                    alert('请先登录');
+                }else if(data=='-2'){
+                    alert('您已经申请过个人直播不能进行机构主播申请');
+                    // return false;
+                }else if(data=="-3"){
+                    alert("您已提交申请,到个人中心查看审核结果");
+                } else {
+                    location.href="{:U('LiveHall/organization')}"
+                }
+            },
+            error:function(data){
+                alert("当前系统繁忙，请稍后再试！")
+            }
+        });
+}
+function sq1(){
+    
+    $.ajax({
+            url:"{:U('LiveHall/person')}",
+            type:"post",
+            success:function(data){
+                if (data == '-1') {
+                    alert('请先登录');
+                }else if(data=='-2'){
+                    alert('您已提交申请,到个人中心查看审核结果');
+                    // return false;
+                }else if(data=="-3"){
+                    alert("您已经申请过机构直播不能进行个人主播申请");
+                } else {
+                    location.href="{:U('LiveHall/person')}"
+                }
+            },
+            error:function(data){
+                alert("当前系统繁忙，请稍后再试！")
+            }
+        });
+}
+
+</script>
+
+<!--弹出申请层 申请-->
+<div id="recVideo" style="display: none;" class="recVideo">
+<div class="mask_layer"></div>
+	<div class="layer">
+    <form  action="{:U('LiveHall/apply')}" method="post">
+    <table >
+        <tr>
+            <td colspan="2" class="layer-title">申请直播</td>
+        </tr>
+        <tr>
+            <td>直播室名称</td>
+            <td><input type="text" id="videoName" name="livename" /></td>
+        </tr>
+        <tr>
+            <td>直播室网站</td>
+            <td><input type="text" id="videoWeb" name="liveurl" /></td>
+        </tr>
+        <tr>
+            <td>交易品种</td>
+            <td><input type="text" id="dealType" name="transaction" /></td>
+        </tr>
+        <tr>
+            <td>联系人姓名</td>
+            <td><input type="text" id="userName" name="contacter" /></td>
+        </tr>
+        <tr>
+            <td>联系人电话</td>
+            <td><input type="text" id="userPhone" name="tel" /></td>
+        </tr>
+        <tr>
+            <td>描述</td>
+            <td><input type="text" id="userPhone" name="description" class="input-dsc" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" value="提交" class="input-btn">
+                <input type="button" value="返回" onClick="returnWeb()" class="input-btn"/>
+            </td>
+        </tr>
+    </table>
+    </form>
+	<a class="close" onClick="returnWeb()"></a>
+</div>
+</div>
+<div id="userVideo" style="display: none;" class="userVideo">
+<div class="mask_layer"></div>
+	<div class="layer">
+    <div class="welc"><p>欢迎您的加入，请先注册或登录，进入个人中心后,点击主播认证，根据页面提示的信息完成认证即可！</p></div>
+	<a class="close" onClick="userWeb()"></a>
+</div>
+</div>
+</body>
+</html>

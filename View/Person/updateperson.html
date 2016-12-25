@@ -1,0 +1,99 @@
+<include file="./Tpl/default/Public/header.html" />
+
+    <!--左边导航部分-->
+    
+        <include file="Public:personal" />
+    
+    <!--右侧部分-->
+    <div class="u_mainbody" style="overflow: inherit;">
+
+
+        <div class="user_myprofile">
+            <ul class="togglebtn clearfix" id="js_tab_ul">
+
+                <li><a href="{:U('Person:index')}"  id="js_info">基本资料<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:changeIcon')}"  id="js_avatar">修改头像<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person:updatepwd')}" id="js_pwd">修改密码<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/nickname')}" id="js_mod_username">修改昵称<div class="arrow01"></div></a></li>
+                <li><a href="{:U('Person/cpbindphone')}" id="js_phone">绑定手机<div class="arrow01"></div></a></li>
+                <li id="emailbut" ><a href="{:U('Person:updateperson')}" id="js_mod_info"  class="current">完善资料<div class="arrow01"></div></a></li>
+				<li ><a href="{:U('Person/changeemail')}" id="js_mod_email" class="emil">修改邮箱<div class="arrow01"></div></a></li>
+            </ul>
+
+
+
+            <div class="myprofile_main basics clearfix data_cont" id="js_info_div">
+			
+<form action="{:U('Person/updatepersonpost')}" method="post" class="myprofile">
+<div class="input_prepend">
+    <table>
+        <tr>
+            <td>昵称：</td>
+            <td><input type="text" name="nickname" value="{$list.nickname}" class="form_control"/></td>
+        </tr>
+        <tr>
+            <td>生日：</td>
+            <td><input type="text" name="birthday" value="{$list.birthday}" class="form_control"/><span style="line-height: 30px; padding-left: 10px;">格式：1990-11-02</span></td>
+        </tr>
+        <tr>
+            <td>性别：</td>
+            <td>
+                <if condition="$list['gender'] eq 1">
+                <input type="radio" value="1" name="gender" checked="checked">男
+                <input type="radio" value="2" name="gender">女
+                <input type="radio" value="3" name="gender">保密
+                    <elseif condition="$list['gender'] eq 2" />
+                    <input type="radio" value="1" name="gender">男
+                    <input type="radio" value="2" name="gender" checked="checked">女
+                    <input type="radio" value="3" name="gender">保密
+                    <else />
+                    <input type="radio" value="1" name="gender" >男
+                    <input type="radio" value="2" name="gender">女
+                    <input type="radio" value="3" name="gender" checked="checked">保密
+                </if>
+            </td>
+        </tr>
+        <tr>
+            <td>QQ：</td>
+            <td><input type="text" name="qq" value="{$list.qq}" class="form_control"/></td>
+        </tr>
+        <tr>
+            <td>邮箱：</td>
+            <td><input type="text" name="email" value="{$list.email}" class="form_control"/></td>
+        </tr>
+        <tr>
+            <td>微信：</td>
+            <td><input type="text" name="weixin" value="{$list.weixin}" class="form_control"/></td>
+        </tr>
+        <tr>
+            <td>工作：</td>
+            <td><input type="text" name="job" value="{$list.job}" class="form_control"/></td>
+        </tr>
+        <tr>
+            <td>等级：</td>
+            <td>{$list.gradeid}</td>
+        </tr>
+        <tr>
+            <td>经验值：</td>
+            <td>{$list.expervalue}</td>
+        </tr>
+        <tr>
+            <td>钻石数：</td>
+            <td>{$list.ninemoney}</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" class="update"/><a  href="{:U('Person/index')}" class="updateUname clearfix"><i ></i>返回</a></td>
+        </tr>
+    </table>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+</body>
+</html>

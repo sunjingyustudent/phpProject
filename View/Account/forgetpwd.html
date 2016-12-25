@@ -1,0 +1,70 @@
+<include file="Public:header" />
+ <div class="cd-form pwdbox">
+                <form action="{:U('Account/forgetpwd')}" class="form" method="post">
+                <div class="con-wrap">
+                    <p class="loginbox-form-title">找回密码</p>
+                    <p class="fieldset">
+                        <label class="image-replace cd-username" for="signin-username">用户名</label>
+                        <input class="full-width has-padding has-border" id="signin-username" type="text" name="name" placeholder="输入用户名">
+                    </p>
+
+                    <p class="fieldset">
+                    <label class="image-replace cd-mobile" for="signup-mobile" >输入手机号</label>
+                    <input class="full-width has-padding has-border" id="mobile" type="text" name="phone" placeholder="输入手机号">
+                </p>
+
+                    <p class="fieldset">
+                        <label class="image-replace cd-password" for="signin-password" >验证码</label>
+                        <input class="full-width has-padding has-border yzwidth" id="signin-password" type="text" name="signup-smscode" placeholder="输入短信验证码">
+                        <input type="button" id="btn" value="免费获取验证码" onclick="getPhoneCode()" /> 
+                    </p>
+
+                    <p class="fieldset text-left">
+                        <input class="full-width3" type="submit" value="下一步" id="loginGo">
+                    </p>
+                  </div>
+                </form>
+            </div>
+            <script type="text/javascript"> 
+
+  //发送验证码
+    function getPhoneCode(){
+        if($("#mobile").val()==null||$("#mobile").val()==""){
+            alert("手机号不能为空！");
+            return false;
+        }
+        if(!reg.test($("#mobile").val())){
+            alert("手机号码不正确");
+            return false;
+        }
+        $.ajax({
+            url:"{:U('Account/send_sms')}",
+            type:"post",
+            data:{"phone":$("#mobile").val()},
+            success:function(data){
+            	settime(this);
+                alert(data);
+            },
+            error:function(data){
+                alert("当前系统繁忙，请稍后再试！")
+            }
+        });
+    }
+//     var countdown=60; 
+// function settime(obj) { 
+//     if (countdown == 0) { 
+//         obj.removeAttribute("disabled");    
+//         obj.value="免费获取验证码"; 
+//         countdown = 60; 
+//         return;
+//     } else { 
+//         // obj.setAttribute("disabled", true); 
+//         obj.value="重新发送(" + countdown + ")"; 
+//         countdown--; 
+//     } 
+// setTimeout(function() { 
+//     settime(obj) }
+//     ,1000) 
+// }
+</script>
+<include file="Public:footer" />

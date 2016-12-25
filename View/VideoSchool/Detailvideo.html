@@ -1,0 +1,101 @@
+<include file="./Tpl/default/Public/header.html" />
+<div class="main_boc">
+<script src="__PUBLIC__/js/uaredirect.js" type="text/javascript"></script>
+<!--<script type="text/javascript">uaredirect("http://wap.9dcj.com/content-23-1816-1.html");</script>-->
+<div class="video">
+	<div class="crumbs"><a href="http://www.9dcj.com">首页</a><span> &gt; </span><a href="http://shixue.9dcj.com">视学堂</a> >正文</div>
+	<div class="play">
+		<div class="play-open">
+			<div class="play-left" >{$videoinfo.vurl}</div>
+			<div class="play-right">
+				<div class="play-titles"><h3 class="selected">相关视频</h3></div>
+				<div class="play-right-list">
+					<ul class="video-right-list-wrap">
+					
+						<foreach name="correlation_video" item="hh">
+							<li>
+							<a href="http://www.9dcj.com/video/{$hh['nid']}" target="_blank" class="video-right-list-img"><img src="{$hh.thumb}" alt=""><span class="video-right-list-time">{$hh.createtime}</span></a>
+							<div class="video-right-list-info">                                
+							<a href="http://www.9dcj.com/video/{$hh['nid']}" class="video-right-list-title">{$hh.title}</a>
+							<span class="video-right-list-num"><i></i>{$hh.clickcount}</span>
+							<!-- <span class="video-right-list-comment"><i></i>168</span> -->							</div>
+						</li>
+					    </foreach>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="data_main clearfix">
+		<h3 class="play-title">{$videoinfo.title}<span style="margin-left:30px;font-size:12px;"><img src="__PUBLIC__/images/9ducj/clock.png" style="margin-right:5px;">{$videoinfo.createtime}</span></h3>
+		<div class="play-video-right">
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</div>
+		</div>
+		<div class="play-jj">
+			<i class="triangle"></i>
+			<p>{$videoinfo.description} </p>
+		</div>
+	</div>
+</div>
+<div class="play_box clearfix">
+	<div class="play_left">
+    	<div class="play_left_head">视频推荐<!--<a>更多<i>></i></a>--></div>
+        <div class="play_left_main">
+        	<ul class="play-video-list-warp clearfix">
+
+
+					<volist name="recommend_video" id="vo">
+	            	<li>
+                	<a href="http://www.9dcj.com/video/{$vo['nid']}" target="_blank">
+                        <div class="top">
+                            <img src="{$vo.thumb}">
+                            <div class="sq clearfix">
+                            	<div class="sq_a"><i></i>{$vo.clickcount}</div>
+                                <div class="sq_b">{$vo.createtime}</div>
+                            </div>
+                        </div>
+                        <div class="bottom">{$vo.title}</div>
+                    </a>
+                </li>
+            </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="play_right">
+    	<div class="play_right_head">视频排行榜</div>
+        <div class="play_right_main">
+        	<ul>
+			
+			
+						
+				<foreach name="ranking_video" item="vo" key="k" >
+            	<li>
+                	<a href="http://www.9dcj.com/video/{$vo['nid']}" target="_blank">
+                    	<div class="ranking clearfix">
+                        	<div class="ranking_a">
+                            	<img src="{$vo.thumb}">
+                            	<if condition="$k lt 3">
+                            	<span  class="hot">{$k+1}</span>
+                            	</if>
+                            </div>
+                            <div class="ranking_b">
+                            	<em>{$vo.title}</em>
+                                <span class="clearfix">
+                                	<div class="video-meta-user"><i></i>                </div>
+                                    <div class="video-meta-playtotal fltl"><i></i>{$vo.clickcount}</div>
+                                    <!-- <div class="video-meta-talktotal fltl"><i></i>80</div> -->
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                </foreach>                
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<include file="./Tpl/default/Public/footer.html" />
+</body>
+</html>

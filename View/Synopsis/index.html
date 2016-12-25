@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>现货直播大厅 - 9度直播-看财经大咖上9度直播</title>
+    <meta name="baidu-site-verification" content="2HkTXlAt7g" />
+    <link rel="shortcut icon" href="http://www.9dcj.com/favicon.ico">
+    <load href="__PUBLIC__/Css/indexBase.css"/>
+    <load href="__PUBLIC__/Css/appWeb.css"/>
+    <load href="__PUBLIC__/Css/Common.css"/>
+
+    <load href="__PUBLIC__/js/jquery.min.js" />
+    <load href="__PUBLIC__/js/jquery-1.7.2.min.js" />
+    <script src="http://www.mght99.com/mgxms/jquery.cookie.js"></script>
+    <script src="http://www.9dcj.com/statics/js/9ducj/jquery.SuperSlide.2.1.js"></script>
+    <script src="http://www.9dcj.com/statics/js/9ducj/jquery.tabso_yeso.js"></script>
+    <script src="http://www.9dcj.com/statics/js/9ducj/jquery.flexslider-min.js"></script>
+    <script src="http://www.9dcj.com/statics/js/9ducj/main.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+
+<body>
+
+<include file="Public:header" />
+
+
+
+<div class="main_boc">
+    <div class="wraps">
+        <div class="contentbody">
+            <div class="detail-con">
+                <div class="detail-ti clear"><img class="navpic" src="{$title['headimage']}" style="width:500px;height:330px;">
+                    <div class="detail-intro" style="width:610px;">
+                        <div class="list-item tran">
+                            <h3>{$title.roomtitle}</h3>
+                            <div class="list-mid"></div>
+                            <div class="conrightwordtop"><span class="hui30">粉丝量：</span>{$title.hits}</div>
+                            <p class="detail-cc clear">{$title.roomdescription}</p>
+                            <div class="btnbox" style="right:480px;">
+                                <div class="btn"> <a target="_blank" href="{$title['liveurl']}">
+                                    进入直播间
+                                </a> </div>
+                            </div>
+                            <div class="detail-tips" style="right:120px;">注：本站所有视频及直播节目均为第三方链接，与本站无关，本站不制作或存储任何交易视频。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cmtcon">
+                    <div class="comment">
+                        <!--<div id="SOHUCS" sid="content_80--1" ></div>
+         <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+         <script type="text/javascript">
+         window.changyan.api.config({
+         appid: 'cysyX2oou',
+         conf: 'prod_50e0452bc11320b87ca600a959258f17'
+         });
+         </script>-->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <script language="JavaScript" src="http://www.9dcj.com/api.php?op=count&id=&modelid=1"></script>
+</div>
+<div class="footer">
+    <div class="outlink-bg">
+        <div class="outlink">
+            <p> <a href="http://www.9dcj.com/html/mzsm/" target="_blank">免责声明</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://www.9dcj.com/html/map/" target="_blank">网站地图</a></p>
+            <p>Copyright©9度 上海灏月传媒科技有限公司 All Rights Reserved 版权所有 沪ICP备15014993号</p>
+            <p>市场有风险，投资需谨慎 </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changing(){
+        document.getElementById('checkpic').src="http://www.9dcj.com/ajax/code.php?"+Math.random();
+    } ;
+    $(document).ready(function(){
+        if($.cookie('mycookie')){
+            $("#login_a").html("用户名:"+$.cookie('mycookie'));
+        }
+
+
+
+
+        $("#checkcode").click(function(){
+            $('#signup-username').val();
+            $('#signup-mobile').val();
+            $('#signup-captcha').val();
+
+            $.post("/ajax/zhuce.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                }
+            },'json');
+        });
+
+        $("#zhuce").click(function(){
+            $('#phone').val();
+            $('#quc_captcha').val();
+            $.post("/ajax/zhuces.php",{nickname:$('#signup-username').val(),phone:$('#signup-mobile').val(),piccode:$('#signup-captcha').val(),smscode:$('#signup-smscode').val(),password:$('#signup-password').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                    if($.cookie('mycookie')){
+                        $("#login_a").html("用户名:"+$.cookie('mycookie'));
+                    }
+                }
+            },'json');
+        });
+
+        $("#loginsubmits").click(function(){
+            $.post("/ajax/login.php",{phone:$('#signin-usernames').val(),password:$('#signin-passwords').val()},function(data){
+                if(data.result==0){
+                    alert(data.message);
+
+                }else{
+                    alert(data.message);
+                    $('.cd-close-form').click();
+                    if($.cookie('mycookie')){
+                        $("#login_a").html("用户名:"+$.cookie('mycookie'));
+                    }
+                    // $('#phone').val("");
+                    //$('#quc_captcha').val("");
+                }
+            },'json');
+        });
+
+
+
+
+    });
+
+</script><div style="display:none">
+    <script src="https://s4.cnzz.com/z_stat.php?id=1260105846&web_id=1260105846" language="JavaScript"></script></div>
+
+</body>
+</html>

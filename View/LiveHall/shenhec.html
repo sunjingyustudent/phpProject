@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/renzheng/css/style.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/renzheng/css/base.css">
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/zepto.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/iscroll-zoom.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/renzheng/js/script.js"></script>
+</head>
+<body>
+<div class="main clearfix">
+	<div class="main-left">
+		<div class="main-left-tit">
+			个人申请<span>|</span><em>机构申请</em>
+		</div>
+		<div class="main-left-cen">
+			<div class="main-left-cen-a">
+				<span>填写申请资料</span>
+				<em><img src="__PUBLIC__/renzheng/images/bg.png"></em>
+				<span>官方审核</span>
+				<em><img src="__PUBLIC__/renzheng/images/bg.png"></em>
+				<b>完成</b>
+			</div>
+			<div class="main-left-cen-b">
+				<div class="box clearfix">
+				<div class="piv"><img src="__PUBLIC__/renzheng/images/suc.jpg"></div>
+				<div class="shr">
+					<h3>恭喜您，申请已提交成功，请耐心等待审核。</h3>
+					<p>我们会在3个工作日内完成审核，审核结果会在第一时间通知您。</p>
+					<div class="bttn"><button class="subs"><a href="{:U('Index/index')}">返回首页</a></button></div>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="main-right">
+		<h1>免责声明</h1>
+		<div class="main-right-new">
+			<ul>
+				<li>1、直播室播主所发言论均代表七个人对市场所持观点，网友应充分考虑市场的高风险性，因此操作风险自担。</li>
+				<li>2、9度直播提供此互动平台不代表认可其观点。</li>
+				<li>3、9度直播所有播主不提供待客理财或QQ咨询等非法业务。</li>
+				<li>4、有私下进行收费咨询或推销其他产品服务，属于非法个人行为与9度无关，请各位网友务必不要上当受骗！如发现上述违规行为可向9度客服举报。</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script src="__PUBLIC__/renzheng/js/jquery.validate.js"></script>
+<script>
+$(function(){
+    //jquery.validate
+	$("#jsForm").validate({
+		submitHandler: function() {
+			//验证通过后 的js代码写在这里
+		}
+	})
+		
+})
+
+
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+$.validator.setDefaults({
+	errorElement:'span'
+});
+
+//配置通用的默认提示语
+$.extend($.validator.messages, {
+	required: '必填',
+    equalTo: "请再次输入相同的值"
+});
+
+//邮箱 
+jQuery.validator.addMethod("mail", function (value, element) {
+	var mail = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
+	return this.optional(element) || (mail.test(value));
+}, "邮箱格式不对");
+
+//电话验证规则
+jQuery.validator.addMethod("phone", function (value, element) {
+    var phone = /^0\d{2,3}-\d{7,8}$/;
+    return this.optional(element) || (phone.test(value));
+}, "电话格式如：0371-68787027");
+
+//区号验证规则  
+jQuery.validator.addMethod("ac", function (value, element) {
+    var ac = /^0\d{2,3}$/;
+    return this.optional(element) || (ac.test(value));
+}, "区号如：010或0371");
+
+//无区号电话验证规则  
+jQuery.validator.addMethod("noactel", function (value, element) {
+    var noactel = /^\d{7,8}$/;
+    return this.optional(element) || (noactel.test(value));
+}, "电话格式如：68787027");
+
+//手机验证规则  
+jQuery.validator.addMethod("mobile", function (value, element) {
+    var mobile = /^1[3|4|5|7|8]\d{9}$/;
+	return this.optional(element) || (mobile.test(value));
+}, "手机格式不对");
+
+//邮箱或手机验证规则  
+jQuery.validator.addMethod("mm", function (value, element) {
+    var mm = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
+	return this.optional(element) || (mm.test(value));
+}, "格式不对");
+
+//电话或手机验证规则  
+jQuery.validator.addMethod("tm", function (value, element) {
+    var tm=/(^1[3|4|5|7|8]\d{9}$)|(^\d{3,4}-\d{7,8}$)|(^\d{7,8}$)|(^\d{3,4}-\d{7,8}-\d{1,4}$)|(^\d{7,8}-\d{1,4}$)/;
+    return this.optional(element) || (tm.test(value));
+}, "格式不对");
+
+//年龄
+jQuery.validator.addMethod("age", function(value, element) {   
+	var age = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+	return this.optional(element) || (age.test(value));
+}, "不能超过120岁"); 
+///// 20-60   /^([2-5]\d)|60$/
+
+//传真
+jQuery.validator.addMethod("fax",function(value,element){
+    var fax = /^(\d{3,4})?[-]?\d{7,8}$/;
+    return this.optional(element) || (fax.test(value));
+},"传真格式如：0371-68787027");
+
+//验证当前值和目标val的值相等 相等返回为 false
+jQuery.validator.addMethod("equalTo2",function(value, element){
+    var returnVal = true;
+    var id = $(element).attr("data-rule-equalto2");
+    var targetVal = $(id).val();
+    if(value === targetVal){
+        returnVal = false;
+    }
+    return returnVal;
+},"不能和原始密码相同");
+
+//身份证
+jQuery.validator.addMethod("idCard", function (value, element) {
+    var isIDCard1=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;//(15位)
+    var isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;//(18位)
+
+    return this.optional(element) || (isIDCard1.test(value)) || (isIDCard2.test(value));
+}, "格式不对");
+
+
+</script>
+</body>
+</html>

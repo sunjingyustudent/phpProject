@@ -1,0 +1,392 @@
+<include file="./Tpl/default/Public/header.html" />
+<div class="main_boc">
+
+    <div class="indexban">
+        <div class="zbbanner">
+            <div class="zbbannerleft">
+                <ul>
+                    <li><a target="_blank" href="" id="liveid"><iframe id="iframe" frameborder="0" marginheight="0" marginwidth="0" scrolling="No" src="" width="1025" height="596"></iframe><div class="zbj" style="opacity: 0;">进入直播间</div></a></li>
+
+                </ul>
+            </div>
+            <div class="zbbannerright ban_bottom">
+                <ul class="clearfix clearfixtwo">
+                    <li>
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/06.jpg" data-src="http://jrj.jrj918.com/9dtv/" data-url="http://jrj.jrj918.com/1">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/04.jpg" data-src="http://live.gpzbs.com/9dtv/" data-url="http://live.gpzbs.com/1">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/05.jpg" data-src="http://bagu888.com/9dtv/" data-url="http://www.bagu888.com/1">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/03.jpg" data-src="http://zhibo.hsjr168.com/9dtv/" data-url="http://zhibo.hsjr168.com/7001">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/02.jpg" data-src="http://yzdf99.com/9dtv/" data-url="http://www.yzdf99.com/7001">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/07.jpg" data-src="http://lingjuli99.com/9dtv/" data-url="http://www.lingjuli99.com/7001">
+
+                        <img class="sideimg" src="__PUBLIC__/images/9ducj/sy/01.jpg" data-src="http://mght99.com/9dtv/" data-url="http://www.mght99.com/7001">
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function(){
+            $(".zbbannerright ul li").each(function(){
+                $(".sideimg").on('click',function(){
+                    $('iframe').attr('src', $(this).data('src'));
+                    $('#liveid').attr('href',$(this).data('url'));
+                    $(this).addClass("cur").siblings().removeClass("cur")
+                });
+            });
+            $(".zbbannerleft ul li a").hover(function(){
+                $(".zbj").css("opacity","1")
+            },function(){
+                $(".zbj").css("opacity","0")
+            })
+        });
+    </script>
+
+
+    <div class="indexbanbtn">
+        <div class="indexbanbtnleft">
+
+            <div class="indexlive">正在直播</div>
+            <div class="indexbanbtnleftgjs">
+                <div   class="indexmenucon">
+                    <em class="indexmenuconimg"></em><span class="indextitleword"><a href="http://zhibo.9dcj.com " target="_blank" style="color: #f80;"> 股市频道</a></span>
+                </div>
+
+                <div   class="indexmenuconbtn">
+                    <div class="banbtnimg_bottom">
+                        <ul class="clearfix clearfixtwo" >
+
+                            <foreach name="goldrooms" item="goldroom">
+                            <li data="{$goldroom[roomid]}" onClick="change_pan(this)">
+                                <if condition="$goldroom['liveurl']">
+                                    <a href="{$goldroom['liveurl']}" target="_blank">
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$goldroom[roomid]))}" target="_blank">
+                                    </if>
+                                    <div class="banbtm_bottom_a">
+                                    <if condition="$goldroom['liveurl']">
+                                    <a href="{$goldroom['liveurl']}" target="_blank">
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$goldroom[roomid]))}" target="_blank">
+                                    </if>
+                                        <img class="jctj_bottomimg" src="{$goldroom.headimage}" alt="{$goldroom.roomtitle}"></a>
+                                        <p class="uesr clearfix"><span class="name-txt">{$goldroom[roomtitle]}</span><span class="user-num">{$goldroom[hits]}</span></p>
+                                        <div class="sps"><img  class="jctj_bottomstart" src="__PUBLIC__/images/9ducj/sy/2.png"></div>
+                                    </div>
+                                </a>
+
+                            </li>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="indexbanbtnleftgqh">
+                <div   class="indexmenuconqh">
+                    <em class="indexmenuconimg"></em><span class="indextitleword"><a href="http://zhibo.9dcj.com" target="_blank" style="color: #f80;"> 期货频道</a></span>
+                </div>
+
+                <div   class="indexmenuconbtn">
+                    <div class="banbtnimg_bottom">
+                        <ul class="clearfix clearfixtwo" >
+                            <foreach name="futures" item="future">
+                                <li data="{$future[roomid]}" onClick="change_pan(this)">
+                                    <if condition="$future['liveurl']">
+                                    <a href="{$future['liveurl']}" target="_blank">
+                                    <else />
+                                    <a href="{:U('Live/indexz',array('roomid'=>$future[roomid]))}" target="_blank">
+                                    </if>
+                                        <div class="banbtm_bottom_a">
+                                            <if condition="$future['liveurl']">
+                                            <a href="{$future['liveurl']}" target="_blank">
+                                            <else />
+                                            <a href="{:U('Live/indexz',array('roomid'=>$future[roomid]))}" target="_blank">
+                                            </if> <img class="jctj_bottomimg" src="{$future.headimage}" alt="{$future.roomtitle}"></a>
+                                            <p class="uesr clearfix"><span class="name-txt">{$future[roomtitle]}</span><span class="user-num">{$future[hits]}</span></p>
+                                            <div class="sps"><img  class="jctj_bottomstart" src="__PUBLIC__/images/9ducj/sy/2.png"></div>
+                                        </div>
+                                    </a>
+
+                                </li>
+                            </foreach>
+
+
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="indexbanbtnleftgqh">
+                <div   class="indexmenuconqh">
+                    <em class="indexmenuconimg"></em><span class="indextitleword"><a href="http://zhibo.9dcj.com" target="_blank" style="color: #f80;"> 贵金属频道</a></span>
+                </div>
+
+                <div   class="indexmenuconbtn">
+                    <div class="banbtnimg_bottom">
+                        <ul class="clearfix clearfixtwo" >
+                            <foreach name="metal" item="metal">
+                                <li data="{$metal[roomid]}" onClick="change_pan(this)">
+                                    <if condition="$metal['liveurl']">
+                                            <a href="{$metal['liveurl']}" target="_blank">
+                                            <else />
+                                            <a href="{:U('Live/indexz',array('roomid'=>$metal[roomid]))}" target="_blank">
+                                            </if>
+                                        <div class="banbtm_bottom_a">
+                                            <if condition="$metal['liveurl']">
+                                            <a href="{$metal['liveurl']}" target="_blank">
+                                            <else />
+                                            <a href="{:U('Live/indexz',array('roomid'=>$metal[roomid]))}" target="_blank">
+                                            </if> <img class="jctj_bottomimg" src="{$metal.headimage}" alt="{$metal.roomtitle}"></a>
+                                            <p class="uesr clearfix"><span class="name-txt">{$metal[roomtitle]}</span><span class="user-num">{$metal[hits]}</span></p>
+                                            <div class="sps"><img  class="jctj_bottomstart" src="__PUBLIC__/images/9ducj/sy/2.png"></div>
+                                        </div>
+                                    </a>
+
+                                </li>
+                            </foreach>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="mainbox">
+        <div class="jctj mb50">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i></i>
+                    <h3>精彩视频</h3>
+
+                </div>
+                <div class="jctj_top_right">
+                    <a href="http://www.9dcj.com/sxtvideo/6" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="jctj_bottom">
+                <ul class="clearfix">
+                   <foreach name="videos" item="video">
+                       <li>
+                           <a href="http://www.9dcj.com/video/{$video['nid']}" target="_blank">
+                               <div class="jctj_bottom_a">
+                                   <img src="{$video.thumb}" width="285" height="163">
+                                   <i class="site-icons"></i>
+                                   <div class="list-right-top-b"><b class="icos"><img src="__PUBLIC__/images/9ducj/sy/2.png"></b></div>
+                               </div>
+                               <div class="jctj_bottom_b clearfix">
+                                   <div class="name">{$video.title|subtext=18}</div>
+                                   <div class="llcs"></div>
+                               </div>
+                           </a>
+                       </li>
+                   </foreach>
+
+                </ul>
+            </div>
+        </div>
+        <div class="mshc mb50">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i></i>
+                    <h3>大咖秀</h3>
+
+                </div>
+                <div class="jctj_top_right">
+                    <a href="http://zhibo.9dcj.com" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="Div1">
+
+                <div class="Div1_main">
+                    <div class="tempWrap" style="overflow:hidden; position:relative; width:1220px;">
+                        <ul class="picList" style="width: 3965px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: 0px;">
+                            <foreach name="dakaxiu" item="dakaxiu">
+
+                                <li style="float: left; width: 285px;">
+                                    <a href="http://www.9dcj.com/video/{$dakaxiu['nid']}" target="_blank" class="Div1_main_a1"><img src="{$dakaxiu.thumb}" width="285" height="163">
+                                        <div class="jctj_bottom_b clearfix">
+                                            <div class="name">{$dakaxiu[title]}</div>
+                                            <div class="llcs"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="list_boxs mb50">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i class="aa"></i>
+                    <h3>视学堂</h3>
+                    <!-- <em>
+                        <a href="http://www.9dcj.com/list-66-1.html" target="_blank">精彩视频</a>
+                        <a href="http://www.9dcj.com/list-23-1.html" target="_blank">数据专区</a>
+                        <a href="http://www.9dcj.com/list-24-1.html" target="_blank">实战教学</a>
+                        <a href="http://www.9dcj.com/list-25-1.html" target="_blank">基础教学</a>
+                    </em> -->
+                </div>
+                <div class="jctj_top_right">
+                    <a href="http://shixue.9dcj.com/" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="clearfix" >
+
+
+
+
+                　　
+                　　
+
+                <div class="lists-left" style="margin-top:22px;">
+
+                    <div class="lists-left-top">
+                        <a href="http://www.9dcj.com/video/{$schoolfirst['nid']}" target="_blank">
+                            <img src="{$schoolfirst.thumb}" width="420" height="320">
+                            <i class="site-icons-viedo"></i>
+                            <div class="lists-left-top-a clearfix">
+                                <div class="time"></div>
+                                <div class="more"><span>{$schoolfirst[clickcount]}</span></div>
+                            </div>
+                            <div class="lists-left-top-b">
+                                <div class="wz">
+                                </div>
+                                <div class="bf">
+                                    立即播放
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="lists-left-bottom">
+                        <p><a href="http://www.9dcj.com/video/{$schoolfirst['nid']}" target="_blank">{$schoolfirst[title]}</a></p>
+                        <div class="two clearfix">
+                            <div class="name">{$schoolfirst[description]}</div>
+                            <div class="llcs">{$schoolfirst[clickcount]}</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                　　
+                <div class="lists-right">
+                    <ul class="clearfix sxuet">
+                        <foreach name="school" item="school">
+                        <li>
+                            <a href="http://www.9dcj.com/video/{$school['nid']}" target="_blank">
+                                <div class="lists-right-top">
+                                    <img src="{$school.thumb}" width="240" height="140">
+                                    <i class="icon-viedo-exc"></i>
+                                    <div class="lists-right-top-a clearfix">
+                                        <div class="times"></div>
+                                        <div class="mores"><span></span></div>
+                                    </div>
+
+                                    <div class="lists-right-top-b">
+                                        <div class="wz">
+                                            　　{$school.clickcount}                           </div>
+                                        <div class="bf">
+                                            立即播放
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists-right-bottom">
+                                    <p>{$school.roomtitle}</p>
+                                    <div class="two one clearfix">
+                                        <div class="name">
+                                            {$school.title|subtext=8}
+                                        </div>
+                                        <div class="llcs">{$school[clickcount]}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        </foreach>
+                    </ul>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="gfhd mb50">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i class="aa"></i>
+                    <h3>官方活动</h3>
+                </div>
+                <div class="jctj_top_right">
+                    <a href="http://zhibo.9dcj.com" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="gfhd-1">
+                <ul class="clearfix">
+                    <li><a href="http://zhibo.9dcj.com" target="_blank"><img src="__PUBLIC__/images/9ducj/g1.jpg"></a></li>
+                    <li><a href="http://zhibo.9dcj.com" target="_blank"><img src="__PUBLIC__/images/9ducj/g2.jpg"></a></li>
+                    <li><a href="http://zhibo.9dcj.com" target="_blank"><img src="__PUBLIC__/images/9ducj/g3.jpg"></a></li>
+                    <li class="last"><a href="http://zhibo.9dcj.com" target="_blank"><img src="__PUBLIC__/images/9ducj/g4.jpg"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="gfhd" style="margin-bottom:80px;">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i class="aa"></i>
+                    <h3>免责声明</h3>
+                </div>
+
+            </div>
+            <div class="gfhd-1">
+                <p class="mzsm">直播室播主所发表言论均代表其个人对市场所持观点，网友应充分考虑市场的高风险性，因此操作风险自担。9度财经提供此互动内容不代表认可其观点。 9度财经所有播主不提供代客理财或qq咨询等非法业务。有私下进行收费咨询或推销其他产品服务，属于非法个人行为与9度财经无关，请各位网友务必不要上当受骗！如发现上述违规行为可向9度财经客服举报。</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="./Tpl/default/Public/footer.html" />
+
+<script type="text/javascript">
+    var arr = [["http://jrj.jrj918.com/9dtv/","http://jrj.jrj918.com/1"],["http://live.gpzbs.com/9dtv/","http://live.gpzbs.com/1"],["http://bagu888.com/9dtv/","http://www.bagu888.com/1"],["http://zhibo.hsjr168.com/9dtv/","http://zhibo.hsjr168.com/7001"],["http://yzdf99.com/9dtv/","http://www.yzdf99.com/7001"], ["http://lingjuli99.com/9dtv/","http://www.lingjuli99.com/7001"], ["http://mght99.com/9dtv/","http://www.mght99.com/7001"]];
+
+
+    var slideMainIndex = Math.floor(Math.random() * 7 );
+    var mainObj = arr[slideMainIndex][0];
+    var linkurl = arr[slideMainIndex][1];
+    $('.sideimg').eq(slideMainIndex).addClass('cur');
+    //alert(mainObj);
+    var vid=mainObj;
+    var vurl=linkurl;
+    document.getElementById("iframe").src=vid;
+    document.getElementById("liveid").href=linkurl;
+
+</script>
+<script type="text/javascript">
+    jQuery(".Div1").slide({titCell:".hd ul",mainCell:".Div1_main ul",autoPage:true,effect:"leftLoop",autoPlay:true,vis:4});
+</script>
+
+
+</body>
+</html>

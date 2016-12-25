@@ -1,0 +1,354 @@
+<include file="Public:header" />
+<div class="main_boc">
+<div class="ban">
+    <div class="flexslider">
+        <ul class="slides">
+            <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; transition: opacity 0.6s ease; z-index: 2; background: url(&quot;http://www.9dcj.com/statics/images/9ducj/ban-1.jpg&quot;) 50% 0px no-repeat;" class="flex-active-slide"><a href=""><i class="shadow"></i></a></li>
+            <!--  <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-2.jpg) 50% 0 no-repeat;"></li>
+             <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-1.jpg) 50% 0 no-repeat;"></li>
+             <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-2.jpg) 50% 0 no-repeat;"></li>
+             <li style="background:url(http://www.9dcj.com/statics/images/9ducj/ban-1.jpg) 50% 0 no-repeat;"></li> -->
+        </ul>
+        <ol class="flex-control-nav flex-control-paging"></ol><ul class="flex-direction-nav"><li><a class="flex-prev flex-disabled" href="http://shixue.9dcj.com/#" tabindex="-1"></a></li><li><a class="flex-next flex-disabled" href="http://shixue.9dcj.com/#" tabindex="-1"></a></li></ul></div>
+</div>
+
+    <div class="daohang viplay">
+        <a href="{:U('VideoSchool/WonderfulVideo')}" target="_blank">精彩视频</a>
+        <a href="{:U('VideoSchool/Dataspacial')}" target="_blank">数据专区</a>
+        <a href="{:U('VideoSchool/RealTeach')}" target="_blank">实战教学</a>
+        <a href="{:U('VideoSchool/BaseTeach')}" target="_blank">基础教学</a>
+    </div>
+<div class="listsxt">
+
+
+            <!--精彩视频教学-->
+            <div class="lists_box">
+                <div class="jctj_top clearfix">
+                    <div class="jctj_top_left">
+                        <i></i>
+                        <h3>精彩视频</h3>
+                    </div>
+                    <div class="jctj_top_right">
+                        <a href="{:U('VideoSchool/WonderfulVideo')}" target="_blank">更多</a>
+                    </div>
+                </div>
+
+                <div class="lists clearfix">
+
+
+                    <div class="lists-left">
+                        <a href="{:U('VideoSchool/detailvideo',array('nid'=>$Wonderful1['nid']))}"target="_blank">
+                            <div class="lists-left-top">
+                                <img src="{$Wonderful1.thumb} " width="420" height="320">
+                                <i class="site-icons-viedo"></i>
+                                <div class="lists-left-top-a clearfix">
+                                    <div class="time">{$Wonderful1.createtime}</div>
+                                    <!-- <div class="more"><span>8</span></div> -->
+                                </div>
+                                <div class="lists-left-top-b">
+                                    <div class="wz">
+                                        {$Wonderful1.description}     </div>
+                                    <div class="bf">
+                                        立即播放
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lists-left-bottom">
+                                <p> {$Wonderful1.title}   </p>
+                                <div class="two clearfix">
+                                    <div class="name"> {$Wonderful1.source}   </div>
+                                    <div class="llcs">{$Wonderful1.clickcount}  </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="lists-right">
+                        <ul class="clearfix">
+
+                            <volist name="Wonderful2" id="vo" >
+                            <li>
+                                <a href="{:U('VideoSchool/detailvideo',array('nid'=>$vo['nid']))}" target="_blank">
+                                    <div class="lists-right-top">
+                                        <img src="{$vo.thumb}" width="240" height="140">
+                                        <i class="icon-viedo-exc"></i>
+                                        <div class="lists-right-top-a clearfix">
+                                            <div class="times">{$vo.createtime} </div>
+                                            <!--  <div class="mores"><span>19</span></div> -->
+                                        </div>
+
+                                        <div class="lists-right-top-b">
+                                            <div class="wz">
+                                                　　{$vo.description|msubstr=0,30}                          </div>
+                                            <div class="bf">
+                                                立即播放
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lists-right-bottom">
+                                        <p>{$vo.title|msubstr=0,20}</p>
+                                        <div class="two one clearfix">
+                                            <div class="name">{$vo.source}</div>
+                                            <div class="llcs">{$vo.clickcount}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                            </volist>
+
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                </div>
+
+
+        <!--数据专区-->
+        <div class="lists_box">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i></i>
+                    <h3>数据专区</h3>
+                </div>
+                <div class="jctj_top_right">
+                    <a href="{:U('VideoSchool/Dataspacial')}" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="lists clearfix">
+                <div class="lists-left">
+                    <a href="{:U('VideoSchool/detailvideo',array('nid'=>$Dataspacial1['nid']))}"target="_blank">
+                        <div class="lists-left-top">
+                            <img src="{$Dataspacial1.thumb}" width="420" height="320">
+                            <i class="site-icons-viedo"></i>
+                            <div class="lists-left-top-a clearfix">
+                                <div class="time">{$Dataspacial1.createtime}</div>
+                                <!-- <div class="more"><span>64</span></div> -->
+                            </div>
+                            <div class="lists-left-top-b">
+                                <div class="wz">
+                                    　　{$Dataspacial1.description|msubstr=0,30}                   </div>
+                                <div class="bf">
+                                    立即播放
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lists-left-bottom">
+                            <p>{$Dataspacial1.title}</p>
+                            <div class="two clearfix">
+                                <div class="name">{$Dataspacial1.source}</div>
+                                <div class="llcs">{$Dataspacial1.clickcount}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="lists-right">
+                    <ul class="clearfix">
+                        <volist name="Dataspacial2" id="vo" >
+                        <li>
+                            <a href="{:U('VideoSchool/detailvideo',array('nid'=>$vo['nid']))}" target="_blank">
+                                <div class="lists-right-top">
+                                    <img src="{$vo.thumb}" width="240" height="140">
+                                    <i class="icon-viedo-exc"></i>
+                                    <div class="lists-right-top-a clearfix">
+                                        <div class="times">{$vo.createtime}</div>
+                                        <!--  <div class="mores"><span>34</span></div> -->
+                                    </div>
+
+                                    <div class="lists-right-top-b">
+                                        <div class="wz">
+                                            　　{$vo.description|msubstr=0,30}                            </div>
+                                        <div class="bf">
+                                            立即播放
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists-right-bottom">
+                                    <p>{$vo.title}</p>
+                                    <div class="two one clearfix">
+                                        <div class="name">{$vo.source}</div>
+                                        <div class="llcs">{$vo.clickcount}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+
+
+<!--实战教学-->
+        <div class="lists_box">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i></i>
+                    <h3>实战教学</h3>
+
+                </div>
+                <div class="jctj_top_right">
+                    <a href="{:U('VideoSchool/RealTeach')}" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="lists clearfix">
+
+                <div class="lists-left">
+                    <a href="{:U('VideoSchool/detailvideo',array('nid'=>$RealTeach1['nid']))}" target="_blank">
+                        <div class="lists-left-top">
+                            <img src="{$RealTeach1.thumb}" width="420" height="320">
+                            <i class="site-icons-viedo"></i>
+                            <div class="lists-left-top-a clearfix">
+                                <div class="time">{$RealTeach1.createtime}</div>
+                                <!-- <div class="more"><span>5</span></div> -->
+                            </div>
+                            <div class="lists-left-top-b">
+                                <div class="wz">
+                                    　　{$RealTeach1.description|msubstr=0,30}                    </div>
+                                <div class="bf">
+                                    立即播放
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lists-left-bottom">
+                            <p>{$RealTeach1.title}</p>
+                            <div class="two clearfix">
+                                <div class="name">{$RealTeach1.source}</div>
+                                <div class="llcs">{$RealTeach1.clickcount}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="lists-right">
+                    <ul class="clearfix">
+                        <volist name="RealTeach2" id="vo" >
+
+                        <li>
+                            <a href="{:U('VideoSchool/detailvideo',array('nid'=>$vo['nid']))}" target="_blank">
+                                <div class="lists-right-top">
+                                    <img src="{$vo.thumb}" width="240" height="140">
+                                    <i class="icon-viedo-exc"></i>
+                                    <div class="lists-right-top-a clearfix">
+                                        <div class="times">{$vo.createtime}</div>
+                                        <!--  <div class="mores"><span>1</span></div> -->
+                                    </div>
+
+                                    <div class="lists-right-top-b">
+                                        <div class="wz">{$vo.description|msubstr=0,30}
+                                        </div>
+                                        <div class="bf">
+                                            立即播放
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists-right-bottom">
+                                    <p>{$vo.title}</p>
+                                    <div class="two one clearfix">
+                                        <div class="name">{$vo.source}</div>
+                                        <div class="llcs">{$vo.clickcount}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!--基础教学-->
+        <div class="lists_box">
+            <div class="jctj_top clearfix">
+                <div class="jctj_top_left">
+                    <i></i>
+                    <h3>基础教学</h3>
+
+                </div>
+                <div class="jctj_top_right">
+                    <a href="{:U('VideoSchool/BaseTeach')}" target="_blank">更多</a>
+                </div>
+            </div>
+            <div class="lists clearfix">
+
+
+                <div class="lists-left">
+                    <a href="{:U('VideoSchool/detailvideo',array('nid'=>$BaseTeach1['nid']))}" target="_blank">
+                        <div class="lists-left-top">
+                            <img src="{$BaseTeach1.thumb}" width="420" height="320">
+                            <i class="site-icons-viedo"></i>
+                            <div class="lists-left-top-a clearfix">
+                                <div class="time">{$BaseTeach1.createtime}</div>
+                                <!-- <div class="more"><span>50</span></div> -->
+                            </div>
+                            <div class="lists-left-top-b">
+                                <div class="wz">
+                                    　　{$BaseTeach1.description|msubstr=0,30}                   </div>
+                                <div class="bf">
+                                    立即播放
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lists-left-bottom">
+                            <p>{$BaseTeach1.title}</p>
+                            <div class="two clearfix">
+                                <div class="name">{$BaseTeach1.source}</div>
+                                <div class="llcs">{$BaseTeach1.clickcount}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+
+
+                <div class="lists-right">
+                    <ul class="clearfix">
+                        <volist name="BaseTeach2" id="vo" >
+                        <li>
+                            <a href="{:U('VideoSchool/detailvideo',array('nid'=>$vo['nid']))}" target="_blank">
+                                <div class="lists-right-top">
+                                    <img src="{$vo.thumb}" width="240" height="140">
+                                    <i class="icon-viedo-exc"></i>
+                                    <div class="lists-right-top-a clearfix">
+                                        <div class="times">{$vo.createtime}</div>
+                                        <!--  <div class="mores"><span>30</span></div> -->
+                                    </div>
+
+                                    <div class="lists-right-top-b">
+                                        <div class="wz">
+                                            {$vo.description|msubstr=0,30}                          </div>
+                                        <div class="bf">
+                                            立即播放
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lists-right-bottom">
+                                    <p>{$vo.title}</p>
+                                    <div class="two one clearfix">
+                                        <div class="name">{$vo.source}</div>
+                                        <div class="llcs">{$vo.clickcount}</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+</div>
+</div>
+
+<include file="Public:footer"/>
+</body></html>

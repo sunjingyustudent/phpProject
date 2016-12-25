@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>支付页面</title>
+    <script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+    <style>
+        @charset "utf-8";
+        /* CSS Document */
+        *{margin:0;padding:0;list-style-type:none;}
+        a,img{border:0;}
+        body{font:12px/24px "Microsoft YaHei","微软雅黑",simsun,"宋体",tahoma,arial; background:#f2f2f3;}
+        a{color:#333;text-decoration:none;}
+        html, body, div, p, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, button, textarea, iframe, table, th, td , img, a{ margin: 0; padding: 0;  border:none;}
+        img { border: 0 none; vertical-align: top; }
+        input,select{ margin: 0; padding: 0; vertical-align:middle;/* border:0; background:none;*/}
+        ul, li { list-style-type: none; }
+        h1, h2, h3, h4, h5, h6 { font-size: 14px;font-weight: normal; }
+        body, input, select, button, textarea { font-size: 12px; }
+        button { cursor: pointer; }
+        table{border-collapse: collapse;}
+        i,em,b{font-style: normal; font-weight: normal;}
+        .clearfix:after { content:""; height:0; visibility:hidden; display:block; clear:both; }
+        .clearfix { zoom:1; clear:both;}
+        table {border-collapse: collapse;border-spacing:0;}
+        del, ins {text-decoration:none;}
+        input,select{font:12px/1.6 Arial,"Microsoft YaHei";color:#333;}
+        input,select,img{vertical-align:middle;}
+        input,select{outline:none;}
+        select{height:22px;line-height:18px;padding:2px;}
+        ul,ol,li{list-style:none;}
+        address,cite,dfn,em,var{font-style:normal;}
+        legend{display:none;}
+        td{font-size:14px;line-height:140%;}
+        label{margin:0 0 0 5px;cursor:pointer;}
+        input::-moz-focus-inner,button::-moz-focus-inner{border:0;padding:0;}
+        .left{float:left;}
+        .right{float:right;}
+        .mt10{margin-top:10px;}
+        .mt15{margin-top:15px;}
+        .mt20{margin-top:20px;}
+        a:hover{color:#000;text-decoration:none;}
+        .txthide{text-indent:-999em;overflow:hidden;line-height:0;font-size:0}
+        .clear{clear:both;height:0;overflow:hidden;}
+
+        .shark_tit {
+            height:30px;
+            border-bottom: 1px solid #ececec;
+            background: #f5f5f5;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 30px;
+        }
+        .consume_tit {
+            padding: 0 14px;
+            color: #555;
+            font-size: 16px;
+        }
+        .consume_tit .consume_tit_icon {
+            display: block;
+            float: left;
+            margin: 3px 0;
+            margin-right: 6px;
+            width: 22px;
+            height: 22px;
+            background: url(/Public/images/dyuser_icon1.png) 0 0 no-repeat;
+        }
+        .price-list {
+            border-bottom: 1px solid #EAEAEA;
+            padding-bottom: 20px;
+        }
+        .price-list li {
+            position: relative;
+            float: left;
+            width: 28%;
+            height: 60px;
+            margin:0 2%;
+            padding: 1px;
+            border: 1px solid #D9D9D9;
+            line-height: 26px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .price-list li.on {
+            padding: 0;
+            background: #FFF;
+            border: 2px solid #3b5999;
+            color: #3b5999;
+        }
+        .price-list li.on em {
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 22px;
+            height: 22px;
+            background: url(/Public/images/pay_select1.png) no-repeat;
+        }
+        .pay-total {
+            font-size: 14px;
+            line-height: 30px;
+            padding: 20px 0;
+            text-align:center;
+        }
+        .pay-total strong {
+            margin-right: 8px;
+            color: #3b5999;
+            font-size: 30px;
+            font-weight: 500;
+            line-height: 1;
+        }
+        .pay-total .stars {
+            font-size: 12px;
+        }
+        input.btn-pay {
+            display: block;
+            width: 130px;
+            height: 45px;
+            line-height: 45px;
+            background: #3b5999;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            border: 0;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    <div class="u_mainbody">
+        <div class="consume_nr">
+            <div class="shark_tit earnings_top clearfix">
+                <p class="consume_tit"><i class="consume_tit_icon"></i>充值</p>
+            </div>
+            <input type="hidden" value="{$ordernum}" name="ordernum" id="ordernum" />
+            <!--<form action="{:U('AliPay/sendAliPayMessage')}">-->
+            <form>
+                <ul class="price-list clearfix" id="payMoney">
+                    <li class="on"><em></em><!--<input type="radio" name="diamonds" value="10" checked="checked" />--><p class="diamond">36钻石</p><p class="money">6元</p><input type="hidden" value="6" /></li>
+                    <li><em></em><!--<input type="radio" name="diamonds" value="30" />--><p class="diamond">180钻石</p><p class="money">30元</p><input type="hidden" value="30" /></li>
+                    <li><em></em><!--<input type="radio" name="diamonds" value="98" />--><p class="diamond">588钻石</p><p class="money">98元</p><input type="hidden" value="98" /></li>
+
+                </ul>
+                <div class="pay-total">
+                    实付金额： <strong><span class="price" id="money">6</span>元</strong><span  class="stars">(<span id="diam">36钻石</span>)</span>
+                </div>
+                <input class="btn-pay" type="button"  value="确认充值" />
+            </form>
+            <p class="page"></p>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+
+        $("input[type=button]").click(function(){
+
+            var money=$("#money").html();
+            var dismonds=$("#diam").html();
+            var id = {$userid};
+            $.ajax({
+                url:"{:U('AliPay/sendAliPayMessagePhone')}",
+                type:"post",
+                async:true,
+                global:false,
+                data:{"Userid":id,"WIDsubject":"九度直播钻石充值","WIDtotal_fee":money},
+                success:function(data){
+//                    alert({$userid});
+//                    return;
+                    $("body").html(data);
+                },
+                error:function(){
+                    alert("当前系统异常，请稍后再试！")
+                }
+            });
+        });
+
+        $("#payMoney").children("li").click(function(){
+            $(this).siblings().removeClass("on").end().addClass("on");
+            $("#money").text($(this).find("input[type=hidden]").val());
+            $("#diam").html($(this).find("p.diamond").html());
+        });
+    });
+</script>
+</body>
+</html>
